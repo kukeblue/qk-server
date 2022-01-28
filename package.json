@@ -5,10 +5,10 @@
     "main": "index.ts",
     "scripts": {
         "start": "ts-node src/main.ts",
-        "build": "prisma generate",
+        "build-sql": "prisma generate",
         "dev": "ts-node src/main.ts",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "server": "sudo pm2 start npx ts-node src/main.ts"
+        "server": "sudo pm2 start ts-node src/main.ts --interpreter ./node_modules/.bin/ts-node"
     },
     "keywords": [],
     "author": "",
