@@ -3,8 +3,7 @@ import prisma from "../../prisma";
 const express = require('express')
 const router = express.Router()
 import { body, validationResult } from 'express-validator';
-
-type ResponseStatus = 0 | -1
+import {TResponse} from "../typing";
 
 type TGameAccount = {
     id?: number,
@@ -14,20 +13,14 @@ type TGameAccount = {
     gameServer: string,
 }
 
-type GameAccountResponse = {
-    status: ResponseStatus,
-    data?: TGameAccount,
-    message?: String,
-    list?: TGameAccount[]
-    error?: String | any[],
-}
+type GameAccountResponse = TResponse<TGameAccount>
 
-router.get('/game_accounts', async function (req: Request<{}>, res:Response<GameAccountResponse>) {
+router.post('/get_game_accounts', async function (req: Request<{}>, res:Response<GameAccountResponse>) {
     const gameAccounts:TGameAccount[] = await prisma.gameAccount.findMany()
     const gameAccountResponse:GameAccountResponse = {status: 0, list: gameAccounts}
     res.json(gameAccountResponse)
 })
-router.post('/game_account',
+router.post('/add_game_account',
     body('name').isString(),
     body('password').isString(),
     body('gameServer').isString(),
@@ -54,9 +47,30 @@ router.post('/game_account',
         res.json(ret)
     })
 
-router.delete('/game_account', function (req:Request<{id: number}>, res: Response<GameAccountResponse> ) {
+router.post('/delete_game_account', function (req:Request<{id: number}>, res: Response<GameAccountResponse> ) {
     const gameAccountResponse: GameAccountResponse = {status: 0}
     res.json(gameAccountResponse)
+})
+
+router.post('/get_game_account_page', async function (req:Request<{id: number}>, res: Response<GameAccountResponse> ) {
+    const {pageSize, pageNo, query} = req.body
+    const count = await prisma.gameAccount.count(
+        {
+            where: query,
+        }
+    )
+    const list = await prisma.gameAccount.findMany({
+        skip: (pageNo-1) * pageSize,
+        take: pageSize,
+        where: query,
+    })
+    res.json({
+        status: 0,
+        page: {
+            total: count,
+            list
+        }
+    })
 })
 
 export default router
