@@ -56,10 +56,16 @@ router.post('/add_device',
 router.post('/get_device_page', async function (req:Request<{id: number}>, res: Response<TResponse<TDevice>> ) {
     const {pageSize, pageNo, query} = req.body
     const count = await prisma.device.count({where: query})
-    const list = await prisma.device.findMany({
+    const list:TDevice[] = await prisma.device.findMany({
         skip: (pageNo-1) * pageSize,
         take: pageSize,
         where: query,
+    })
+    list.forEach(item=>{
+        const robot = hamibotService.robots.find(robot=>robot._id == item.robotId)
+        if(robot) {
+            item.online = robot.online
+        }
     })
     res.json({
         status: 0,

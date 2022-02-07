@@ -29,3 +29,13 @@ model Device {
   robotId String
   status  String
 }
+
+model Task {
+  @@map("task")
+  id         Int     @id @default(autoincrement())
+  name       String
+  startTime  DateTime
+  endTime    DateTime
+  status String
+  note  String
+}

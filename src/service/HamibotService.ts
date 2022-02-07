@@ -1,4 +1,5 @@
 import {hamibotAxios} from "../request";
+// @ts-ignore
 import schedule from "node-schedule";
 
 export interface IFetchRobotsResponse {
@@ -40,10 +41,10 @@ class HamibotService {
      async init() {
          await this.getRobots()
          await this.getScripts()
-         // schedule.scheduleJob('0 30 7 * * *', () => {
-         //     this.getRobots()
-         //     this.getScripts()
-         // });
+         schedule.scheduleJob('0 */5 * * * ?', () => {
+             this.getRobots()
+             this.getScripts()
+         });
     }
 
     async getScripts() {
