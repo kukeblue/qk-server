@@ -39,11 +39,11 @@ class HamibotService {
     }
 
      async init() {
-         await this.getRobots()
-         await this.getScripts()
+         // await this.getRobots()
+         // await this.getScripts()
          schedule.scheduleJob('0 */5 * * * ?', () => {
-             this.getRobots()
-             this.getScripts()
+             // this.getRobots()
+             // this.getScripts()
          });
     }
 

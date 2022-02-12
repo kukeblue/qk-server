@@ -3,15 +3,9 @@ import prisma from "../../prisma";
 const express = require('express')
 const router = express.Router()
 import { body, validationResult } from 'express-validator';
-import {TResponse} from "../typing";
+import {TGameAccount, TResponse} from "../typing";
 
-type TGameAccount = {
-    id?: number,
-    name: string,
-    username: string,
-    password: string,
-    gameServer: string,
-}
+
 
 type GameAccountResponse = TResponse<TGameAccount>
 
@@ -70,6 +64,15 @@ router.post('/get_game_account_page', async function (req:Request<{id: number}>,
             total: count,
             list
         }
+    })
+})
+
+router.post('/get_game_account_options', async function (req:Request<{id: number}>, res: Response<GameAccountResponse> ) {
+    const list = await prisma.gameAccount.findMany({
+    })
+    res.json({
+        status: 0,
+        list
     })
 })
 

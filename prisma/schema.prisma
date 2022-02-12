@@ -11,6 +11,7 @@ model GameAccount {
   @@map("game_account")
   id         Int     @id @default(autoincrement())
   name       String
+  nickName   String
   username   String
   password   String
   gameServer String
@@ -23,8 +24,9 @@ model GameAccount {
 model Device {
   @@map("device")
   id         Int     @id @default(autoincrement())
+  imei       String
   name       String
-  brand   String
+  brand      String
   robotName   String
   robotId String
   status  String
@@ -33,9 +35,30 @@ model Device {
 model Task {
   @@map("task")
   id         Int     @id @default(autoincrement())
+  date       String
   name       String
-  startTime  DateTime
-  endTime    DateTime
+  taskNo     String
+  deviceId   Int
+  accountId  Int
+  startTime  Int
+  updateTime Int
+  endTime    Int
   status String
   note  String
+  income Int
+  realIncome Int
+}
+
+model TaskLog {
+  @@map("task_log")
+  id         Int     @id @default(autoincrement())
+  imei       String
+  nickName       String
+  taskNo     String
+  deviceId   Int
+  accountId  Int
+  taskName String
+  note  String
+  type String
+  time Int
 }

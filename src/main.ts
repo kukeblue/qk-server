@@ -4,21 +4,21 @@ const bodyParser = require('body-parser')
 const app = express()
 import gameAccountRouter from "./routers/gameAccountRouter";
 import deviceRouter from "./routers/deviceRouter";
-import taskRouter from "./routers/task";
-
+import taskRouter from "./routers/taskRouter/index";
+import taskLogRouter from "./routers/taskLogRouter/index";
 
 
 app.use(bodyParser.urlencoded({ extended: false }))
-// parse application/json
 app.use(bodyParser.json())
 
-app.use('/api/gameAccount_router', gameAccountRouter)
+app.use('/api/game_account', gameAccountRouter)
 app.use('/api/device', deviceRouter)
 app.use('/api/task', taskRouter)
+app.use('/api/task_log', taskLogRouter)
 
 
 
-app.listen(3000, () => {
-    console.log(`Example app listening at http://localhost:${3000}`)
+app.listen(3001, '0.0.0.0', () => {
+    console.log(`Example app listening at http://localhost:${3001}`)
 })
 

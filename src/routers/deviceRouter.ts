@@ -1,28 +1,20 @@
 import {Request, Response} from "express";
 import prisma from "../../prisma";
-import {TResponse} from "../typing";
+import {TResponse, TDevice} from "../typing";
 import hamibotService from "../service/HamibotService";
 import {body, validationResult} from "express-validator";
 const express = require('express')
 const router = express.Router()
 
 
-type TDevice = {
-    id: number,
-    name: string,
-    brand: string,
-    robotName: string,
-    robotId: string,
-    online: Boolean,
-    status: '空闲' | '任务中' | ''
-}
 
-router.post('/get_devices', async function (req: Request<{}>, res:Response<TResponse<any>>) {
-    const ret = {
-        status: 0,
-        list: hamibotService.robots,
-    }
-    res.json(ret)
+
+router.post('/get_devices', async function (req: Request<{}>, res:Response<any>) {
+    // const ret = {
+    //     status: 0,
+    //     list: hamibotService.robots,
+    // }
+    res.json({a:1})
 })
 
 router.post('/add_device',
@@ -30,6 +22,7 @@ router.post('/add_device',
     body('brand').isString(),
     body('robotName').isString(),
     body('robotId').isString(),
+    body('imei').isString(),
     async function (req:Request<any, any, TDevice>, res: Response<TResponse<TDevice>> ) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -73,6 +66,15 @@ router.post('/get_device_page', async function (req:Request<{id: number}>, res: 
             total: count,
             list
         }
+    })
+})
+
+router.post('/get_device_list', async function (req:Request<{id: number}>, res: Response<TResponse<TDevice>> ) {
+    const list:TDevice[] = await prisma.device.findMany({
+    })
+    res.json({
+        status: 0,
+        list,
     })
 })
 
