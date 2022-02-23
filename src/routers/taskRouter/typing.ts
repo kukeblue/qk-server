@@ -1,5 +1,11 @@
 import {TTaskStatus} from "../../typing";
 
+export type TStopTaskRequest = {
+    id: number,
+    deviceId: number,
+    accountId: number
+}
+
 export type TStartTaskRequest = {
     id: number,
     deviceId: number,
@@ -20,4 +26,8 @@ export type TGetStartTaskResponse = {
     deviceId: number,
     accountId: number,
 }
-
+export type TCreateTaskQuery = {
+    name: string,
+    deviceId: number,
+    accountId: number,
+}

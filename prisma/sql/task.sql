@@ -10,6 +10,7 @@ CREATE TABLE `task` (
     `endTime` int(10),
     `status` varchar(50) NOT NULL DEFAULT '',
     `income` int(10),
+    `taskCount` int(5),
     `realIncome` int(10),
     `note` TEXT,
     PRIMARY KEY (`id`)

@@ -1,17 +1,67 @@
 import {Request, Response} from "express";
 import prisma from "../../../prisma";
-import {TResponse, TTask, TTaskStatus} from "../../typing";
-import hamibotService from "../../service/HamibotService";
+import {TaskLogType, TResponse, TTask, TTaskStatus} from "../../typing";
+import hamibotService, {taskScriptMap} from "../../service/HamibotService";
 import {body, validationResult} from "express-validator";
 // @ts-ignore
 import moment from "moment"
-import {TGetStartTaskRequest, TGetStartTaskResponse, TStartTaskRequest} from "./typing";
+import {
+    TCreateTaskQuery,
+    TGetStartTaskRequest,
+    TGetStartTaskResponse,
+    TStartTaskRequest,
+    TStopTaskRequest
+} from "./typing";
 import {taskDao} from "../../dao/taskDao";
 import {deviceDao} from "../../dao/deviceDao";
 import config, {tips} from "../../config";
 import {gameAccountDao} from "../../dao/gameAccountDao";
+import touchService from "../../service/TouchService";
+import {taskLogDao} from "../../dao/taskLogDao";
 const express = require('express')
 const router = express.Router()
+
+// router.ws('/', function(ws, req) {
+//     ws.on('message', function(msg) {
+//         ws.send(msg);
+//     });
+// });
+
+router.post('/stop_task',
+    async function (req:Request<any, any, TStopTaskRequest>, res: Response<TResponse<TTask>> ) {
+        const data = req.body
+        let task:TTask = await taskDao.getTaskById(data.id)
+        const device = await deviceDao.getDeviceById(data.deviceId)
+        await deviceDao.updateDeviceById(device.id, {status: '空闲'})
+        task = await taskDao.updateTaskById(data.id, {
+            status: '停止'
+        })
+        const result = await touchService.stopScript(device.ip!, device.touchId!)
+        if(result) {
+            const gameAccount = await gameAccountDao.getGameAccountById(task.accountId)
+            await taskLogDao.createTaskLog({
+                imei: device.imei,
+                nickName: gameAccount.nickName,
+                taskNo: task.taskNo,
+                deviceId: task.deviceId,
+                accountId: task.accountId,
+                taskName: task.name,
+                note:  "后台中止",
+                type: "warn",
+                time: Number.parseInt((new Date().getTime() / 1000).toFixed(0)),
+            })
+            res.json({
+                status: 0,
+                data: task
+            })
+        }else {
+            res.json({
+                status: 1004,
+                data: task,
+                message: tips['1004']
+            })
+        }
+    })
 
 router.post('/get_start_task',
     async function (req:Request<any, any, TGetStartTaskRequest>, res: Response<TResponse<TGetStartTaskResponse>> ) {
@@ -19,11 +69,18 @@ router.post('/get_start_task',
         const device = await deviceDao.getDeviceByQuery({
             imei: data.imei
         })
+        const date = moment().format('YYYY-MM-DD')
         const task = await taskDao.getTaskByQuery({
-            name: data.taskName,
             deviceId: device.id,
-            status: '启动中'
+            status: '启动中',
+            date,
         })
+        if(!task) {
+            return res.json({
+                status: 1001,
+                message:config.tips['1001']
+            })
+        }
         const account = await gameAccountDao.getGameAccountById(task.accountId)
         if(task) {
             res.json({
@@ -48,113 +105,76 @@ router.post('/get_start_task',
 router.post('/start_task',
     async function (req:Request<any, any, TStartTaskRequest>, res: Response<TResponse<TTask>> ) {
         const data = req.body
-        const task = await taskDao.updateTaskById(data.id, {
+        let task:TTask = await taskDao.getTaskById(data.id)
+        const device = await deviceDao.getDeviceById(data.deviceId)
+        await taskDao.updateTaskById(data.id, {
             status: '启动中'
         })
-        await deviceDao.updateDeviceById(data.deviceId, {
-            status: '任务中'
-        })
-        res.json({
-            status: 0,
-            data: task
-        })
-    })
-
-router.post('/get_ready_task',
-    async function (req:Request, res: Response ) {
-        const data = req.body
-        const imei = data.imei
-        const taskName = data.taskName
-        if(imei) {
-            const device = await prisma.device.findFirst({
-                where: {
-                    imei,
-                },
-            })
-            const task = await prisma.task.findFirst({
-                where: {
-                    name: taskName,
-                    deviceId: device.id,
-                    status: "初始化"
-                },
-            })
-            if(!task) {
-                res.json({
-                    status: -1
-                })
-                return
-            }
-            const account = await prisma.gameAccount.findFirst({
-                where: {
-                    id: task.accountId,
-                },
-            })
+        const result = await touchService.runScript(device.ip!, device.touchId!)
+        if(result) {
+            gameAccountDao.updateGameAccount(task.accountId, {online: '在线'})
+            deviceDao.updateDeviceById(device.id, {status: '任务中'})
             res.json({
                 status: 0,
-                data: {
-                    nickName: account.nickName,
-                    taskNo: task.taskNo
-                }
+                data: task
             })
-
         }else {
             res.json({
-                status: -1
+                status: 1003,
+                data: task,
+                message: tips['1003']
             })
         }
     })
 
 router.post('/create_task',
-    async function (req:Request<any, any, TTask>, res: Response<TResponse<TTask>> ) {
-        const data = req.body
-        data.taskNo = moment().format('YYYYMMDD') + data.deviceId + data.accountId
-        data.status = "初始化"
-        data.startTime = 0
-        data.endTime = 0
-        data.updateTime = 0
-        data.note = ''
-        const task = await prisma.task.create({
-            data,
-        })
-        const ret:TResponse<TTask> = {data: task, status: 0}
-        res.json(ret)
-    })
-
-router.post('/add_task',
-    async function (req:Request<any, any, TTask>, res: Response<TResponse<TTask>> ) {
-        const {id, ...data} = req.body
-        let task = null
-        if(id) {
-            task = await prisma.task.update({
-                where: {
-                    id,
-                },
+    async function (req:Request<any, any, TCreateTaskQuery>, res: Response<TResponse<TTask>> ) {
+        const body = req.body
+        const date = moment().format('YYYY-MM-DD')
+        const date2 = moment().format('YYYYMMDD')
+        const data:TTask = {
+            date,
+            name: body.name,
+            startTime: 0,
+            updateTime: 0,
+            endTime: 0,
+            status: '初始化',  // 初始化 启动中 进行中 报障 暂停  完成
+            note: '',
+            taskNo: `${date2}${body.deviceId}${body.accountId}`,
+            deviceId: body.deviceId,
+            accountId: body.accountId,
+            income: 0,
+            realIncome: 0
+        }
+        const task = await taskDao.createTask(data)
+        if(task) {
+            return res.json({
                 data,
+                status: 0
             })
         }else {
-            task = await prisma.task.create({
-                data,
+            res.json({
+                status: 1002,
+                message: tips["1002"]
             })
         }
-        const ret:TResponse<TTask> = {data: task, status: 0}
-        res.json(ret)
     })
 
-router.post('/get_task_page', async function (req:Request<{id: number}>, res: Response<TResponse<TTask>> ) {
+router.post('/get_task_page', async function (req:Request<{}>, res: Response<TResponse<TTask>> ) {
     const {pageSize, pageNo, query} = req.body
-    const count = await prisma.task.count({where: query})
-    const list:TTask[] = await prisma.task.findMany({
-        skip: (pageNo-1) * pageSize,
-        take: pageSize,
-        where: query,
-    })
+    const page = await taskDao.getTaskPage(pageNo, pageSize, query)
     res.json({
         status: 0,
-        page: {
-            total: count,
-            list
-        }
+        page
     })
 })
+
+router.post('/delete_task_by_id', async function (req:Request<{id: number}>, res: Response<TResponse<TTask>> ) {
+    const page = await taskDao.deleteTaskById(req.body.id)
+    res.json({
+        status: 0,
+    })
+})
+
 
 export default router

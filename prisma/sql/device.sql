@@ -6,5 +6,7 @@ CREATE TABLE `device` (
   `robotName` varchar(10) NOT NULL DEFAULT '',
   `robotId` varchar(50) NOT NULL DEFAULT '',
   `status` varchar(10) NOT NULL DEFAULT '',
+  `ip` varchar(10) NOT NULL DEFAULT '',
+  `touchId` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=gbk

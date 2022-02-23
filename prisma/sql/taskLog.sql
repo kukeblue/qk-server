@@ -8,6 +8,7 @@ CREATE TABLE `task_log` (
     `taskName` varchar(50) NOT NULL DEFAULT '',
     `type` varchar(10) NOT NULL DEFAULT '',
     `note` varchar(50) NOT NULL DEFAULT '',
+    `taskCount` int(5) DEFAULT 0,
     `time` int(10),
      PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=gbk

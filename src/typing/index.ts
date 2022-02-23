@@ -8,18 +8,19 @@ type TPagination<T> = {
 export type TResponse<T> = {
     status: number,
     data?: T,
-    message?: String,
+    message?: string,
     list?: T[]
-    error?: String | any[],
+    error?: string | any[],
     page?: TPagination<T>
 }
 
 // ****************************** 任务相关 ******************************
 
-export type TTaskStatus = '初始化' | '启动中' | '进行中' | '报障' | '暂停' | '完成' | ''
+export type TTaskStatus = '初始化' | '启动中' | '进行中' | '报障' | '暂停' | '完成' | '停止'
 
 export type TTask = {
-    id: number,
+    id?: number,
+    date: string,
     name: string,
     startTime: number,
     updateTime: number,
@@ -30,6 +31,7 @@ export type TTask = {
     deviceId: number,
     accountId: number,
     income: number,
+    taskCount?: number
     realIncome: number
 }
 
@@ -44,11 +46,13 @@ export type TDevice = {
     robotId: string,
     online: Boolean,
     imei: string,
+    ip?: string,
+    touchId?:string,
     status: '空闲' | '任务中' | ''
 }
 
 // *********************** 账号相关 ******************************
-
+export type TGameAccountOnline = '在线' | '离线'
 export type TGameAccount = {
     id?: number,
     name: string,
@@ -56,21 +60,23 @@ export type TGameAccount = {
     username: string,
     password: string,
     gameServer: string,
+    online: TGameAccountOnline
 }
 
 // *********************** 日志相关 ******************************
 
-export type TaskLogType = "launch" | "info" | "warn" | "error"
+export type TaskLogType = "launch" | "info" | "warn" | "error" | "finish"
 
 export type TTaskLog = {
-    id: number
-    imei: String
-    nickName: String
-    taskNo: String
+    id?: number
+    imei: string
+    nickName: string
+    taskNo: string
     deviceId: number
     accountId: number
-    taskName: String
-    note:  String
+    taskName: string
+    taskCount?: number
+    note:  string
     type: TaskLogType
     time: number
 }

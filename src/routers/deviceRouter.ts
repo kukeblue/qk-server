@@ -3,26 +3,28 @@ import prisma from "../../prisma";
 import {TResponse, TDevice} from "../typing";
 import hamibotService from "../service/HamibotService";
 import {body, validationResult} from "express-validator";
+import {deviceDao} from "../dao/deviceDao";
 const express = require('express')
 const router = express.Router()
 
-
-
-
 router.post('/get_devices', async function (req: Request<{}>, res:Response<any>) {
-    // const ret = {
-    //     status: 0,
-    //     list: hamibotService.robots,
-    // }
     res.json({a:1})
 })
 
-router.post('/add_device',
+router.post('/delete_device', async function (req: Request<{id: string}>, res:Response<any>) {
+    await deviceDao.deleteById(req.body.id)
+    return res.json({status:0})
+})
+
+router.post('/save_device',
     body('name').isString(),
     body('brand').isString(),
     body('robotName').isString(),
     body('robotId').isString(),
     body('imei').isString(),
+    body('ip').isString(),
+    body('touchId').isString(),
+    body('status').isString(),
     async function (req:Request<any, any, TDevice>, res: Response<TResponse<TDevice>> ) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -54,12 +56,12 @@ router.post('/get_device_page', async function (req:Request<{id: number}>, res: 
         take: pageSize,
         where: query,
     })
-    list.forEach(item=>{
-        const robot = hamibotService.robots.find(robot=>robot._id == item.robotId)
-        if(robot) {
-            item.online = robot.online
-        }
-    })
+    // list.forEach(item=>{
+    //     const robot = hamibotService.robots.find(robot=>robot._id == item.robotId)
+    //     if(robot) {
+    //         item.online = robot.online
+    //     }
+    // })
     res.json({
         status: 0,
         page: {

@@ -1,13 +1,13 @@
 import {TaskLogType} from "../../typing";
 
 export type TAddTaskLogRequest = {
-    imei: String
-    nickName: String
-    taskNo: String
+    imei: string
+    nickName: string
+    taskNo: string
     deviceId: number
     accountId: number
-    taskName: String
-    note:  String
+    taskName: string
+    note:  string
     type: TaskLogType
     time: number
 }

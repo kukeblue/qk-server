@@ -1,5 +1,5 @@
 import prisma from "../../prisma";
-import {TTask, TDevice, TTaskStatus, TGameAccount} from "../typing";
+import {TTask, TDevice, TTaskStatus, TGameAccount, TGameAccountOnline} from "../typing";
 
 export const gameAccountDao = {
     getGameAccountById: function (id:number): TGameAccount {
@@ -7,6 +7,16 @@ export const gameAccountDao = {
             where: {
                 id
             },
+        })
+    },
+    updateGameAccount: function (id:number, data: {
+        online: TGameAccountOnline
+    }): TGameAccount {
+        return prisma.gameAccount.update({
+            where: {
+                id
+            },
+            data,
         })
     },
 }

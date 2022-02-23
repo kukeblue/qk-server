@@ -14,18 +14,22 @@ export interface IFetchScriptsResponse {
 
 export interface IScript {
     _id: string,
-    slug: string,
+    slug?: string,
     name: string,
-    version: string
+    version?: string
 }
 
 export interface IRobot {
     _id: string,
-    online: boolean,
-    tags: string[],
-    name: "零号机",
-    brand: string,
-    model: string
+    online?: boolean,
+    tags?: string[],
+    name: string,
+    brand?: string,
+    model?: string
+}
+
+export const taskScriptMap = {
+    "主线打图": "61fb94d251b2481a8a07f444"
 }
 
 class HamibotService {

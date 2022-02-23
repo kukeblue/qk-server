@@ -15,10 +15,7 @@ model GameAccount {
   username   String
   password   String
   gameServer String
-  // content   String?
-  // published Boolean @default(false)
-  // author    User?   @relation(fields: [authorId], references: [id])
-  // authorId  Int?
+  online String
 }
 
 model Device {
@@ -30,6 +27,8 @@ model Device {
   robotName   String
   robotId String
   status  String
+  ip      String
+  touchId String
 }
 
 model Task {
@@ -45,6 +44,7 @@ model Task {
   endTime    Int
   status String
   note  String
+  taskCount Int @default(0)
   income Int
   realIncome Int
 }
@@ -61,4 +61,5 @@ model TaskLog {
   note  String
   type String
   time Int
+  taskCount Int
 }
