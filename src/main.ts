@@ -19,9 +19,9 @@ app.use('/api/task', taskRouter)
 app.use('/api/task_log', taskLogRouter)
 
 
-app.listen(3001, '0.0.0.0', async () => {
+app.listen(3000, '0.0.0.0', async () => {
     initTouchService()
     initTimer()
-    console.log(`Example app listening at http://localhost:${3001}`)
+    console.log(`Example app listening at http://localhost:${3000}`)
 })
 

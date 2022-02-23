@@ -1,5 +1,5 @@
 import axios, {Axios} from "axios";
-axios.defaults.timeout = 30000;
+axios.defaults.timeout = 10000;
 
 export const hamibotAxios: Axios = axios.create({
     timeout: 1000,
