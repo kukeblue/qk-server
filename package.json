@@ -8,7 +8,8 @@
         "build-sql": "prisma generate",
         "dev": "ts-node src/main.ts",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "server": "sudo pm2 start ts-node src/main.ts --interpreter ./node_modules/.bin/ts-node"
+        "server": "sudo pm2 start ts-node src/main.ts --interpreter ./node_modules/.bin/ts-node",
+        "deploy": "sh deploy.sh"
     },
     "keywords": [],
     "author": "",

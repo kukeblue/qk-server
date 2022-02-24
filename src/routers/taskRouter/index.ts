@@ -18,6 +18,7 @@ import config, {tips} from "../../config";
 import {gameAccountDao} from "../../dao/gameAccountDao";
 import touchService from "../../service/TouchService";
 import {taskLogDao} from "../../dao/taskLogDao";
+import {asyncTaskCount} from "../../timer";
 const express = require('express')
 const router = express.Router()
 
@@ -125,6 +126,14 @@ router.post('/start_task',
                 message: tips['1003']
             })
         }
+    })
+
+router.get('/calculate_income',
+    async function (req:Request, res: Response ) {
+        await asyncTaskCount()
+        res.json({
+            status: 0,
+        })
     })
 
 router.post('/create_task',

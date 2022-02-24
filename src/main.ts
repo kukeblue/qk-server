@@ -9,6 +9,7 @@ import deviceRouter from "./routers/deviceRouter";
 import taskRouter from "./routers/taskRouter/index";
 import taskLogRouter from "./routers/taskLogRouter/index";
 import {asyncTaskCount, initTimer} from "./timer";
+import {Request, Response} from "express";
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
