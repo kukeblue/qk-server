@@ -19,6 +19,7 @@ import {gameAccountDao} from "../../dao/gameAccountDao";
 import touchService from "../../service/TouchService";
 import {taskLogDao} from "../../dao/taskLogDao";
 import {asyncTaskCount} from "../../timer";
+import {asyncHandler} from "../../utils/errerHandle";
 const express = require('express')
 const router = express.Router()
 
@@ -29,7 +30,7 @@ const router = express.Router()
 // });
 
 router.post('/stop_task',
-    async function (req:Request<any, any, TStopTaskRequest>, res: Response<TResponse<TTask>> ) {
+    asyncHandler(async function (req:Request<any, any, TStopTaskRequest>, res: Response<TResponse<TTask>> ) {
         const data = req.body
         let task:TTask = await taskDao.getTaskById(data.id)
         const device = await deviceDao.getDeviceById(data.deviceId)
@@ -62,10 +63,10 @@ router.post('/stop_task',
                 message: tips['1004']
             })
         }
-    })
+    }))
 
 router.post('/get_start_task',
-    async function (req:Request<any, any, TGetStartTaskRequest>, res: Response<TResponse<TGetStartTaskResponse>> ) {
+    asyncHandler(async function (req:Request<any, any, TGetStartTaskRequest>, res: Response<TResponse<TGetStartTaskResponse>> ) {
         const data = req.body
         const device = await deviceDao.getDeviceByQuery({
             imei: data.imei
@@ -101,7 +102,7 @@ router.post('/get_start_task',
                 message:config.tips['1001']
             })
         }
-    })
+    }))
 
 router.post('/start_task',
     async function (req:Request<any, any, TStartTaskRequest>, res: Response<TResponse<TTask>> ) {

@@ -63,3 +63,13 @@ model TaskLog {
   time Int
   taskCount Int
 }
+
+model Report {
+  @@map("report")
+  id         Int     @id @default(autoincrement())
+  time       Int
+  date       String
+  type       String
+  income     Int
+  expend     Int
+}

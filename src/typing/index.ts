@@ -80,3 +80,16 @@ export type TTaskLog = {
     type: TaskLogType
     time: number
 }
+
+// *********************** 报表相关 ******************************
+
+export type TReportType = "day" | "month" | "year"
+
+export type TReport = {
+    id?: number
+    type: TReportType
+    time: number
+    date: string
+    income?: number
+    expend?: number
+}
