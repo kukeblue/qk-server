@@ -13,7 +13,7 @@ export const reportDao = {
         if(count === 0) {
             return await prisma.report.create({data: report})
         }else {
-            const {date, id, ...data} = report
+            const {date, id, expend, ...data} = report
             return await prisma.report.updateMany({
                 where: {
                     date: report.date
