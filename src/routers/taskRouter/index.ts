@@ -39,30 +39,22 @@ router.post('/stop_task',
             status: '停止'
         })
         const result = await touchService.stopScript(device.ip!, device.touchId!)
-        if(result) {
-            const gameAccount = await gameAccountDao.getGameAccountById(task.accountId)
-            await taskLogDao.createTaskLog({
-                imei: device.imei,
-                nickName: gameAccount.nickName,
-                taskNo: task.taskNo,
-                deviceId: task.deviceId,
-                accountId: task.accountId,
-                taskName: task.name,
-                note:  "后台中止",
-                type: "warn",
-                time: Number.parseInt((new Date().getTime() / 1000).toFixed(0)),
-            })
-            res.json({
-                status: 0,
-                data: task
-            })
-        }else {
-            res.json({
-                status: 1004,
-                data: task,
-                message: tips['1004']
-            })
-        }
+        const gameAccount = await gameAccountDao.getGameAccountById(task.accountId)
+        await taskLogDao.createTaskLog({
+            imei: device.imei,
+            nickName: gameAccount.nickName,
+            taskNo: task.taskNo,
+            deviceId: task.deviceId,
+            accountId: task.accountId,
+            taskName: task.name,
+            note:  "后台中止",
+            type: "warn",
+            time: Number.parseInt((new Date().getTime() / 1000).toFixed(0)),
+        })
+        res.json({
+            status: 0,
+            data: task
+        })
     }))
 
 router.post('/get_start_task',
@@ -109,22 +101,21 @@ router.post('/start_task',
         const data = req.body
         let task:TTask = await taskDao.getTaskById(data.id)
         const device = await deviceDao.getDeviceById(data.deviceId)
-        await taskDao.updateTaskById(data.id, {
-            status: '启动中'
-        })
-        const result = await touchService.runScript(device.ip!, device.touchId!)
-        if(result) {
-            gameAccountDao.updateGameAccount(task.accountId, {online: '在线'})
-            deviceDao.updateDeviceById(device.id, {status: '任务中'})
+        if(device.status === '空闲') {
+            await taskDao.updateTaskById(data.id, {
+                status: '启动中'
+            })
+            const result = await touchService.runScript(device.ip!, device.touchId!)
+            await gameAccountDao.updateGameAccount(task.accountId, {online: '在线'})
+            await deviceDao.updateDeviceById(device.id, {status: '任务中'})
             res.json({
                 status: 0,
                 data: task
             })
         }else {
             res.json({
-                status: 1003,
-                data: task,
-                message: tips['1003']
+                status: -1,
+                message: '机器正在运行其他任务'
             })
         }
     })
