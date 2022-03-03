@@ -7,7 +7,7 @@ import {strict} from "assert";
 const request = require("request");
 
 export const touchAxios: Axios = axios.create({
-    timeout: 10000,
+    timeout: 3000
 });
 
 type TAuth  = {
@@ -40,7 +40,7 @@ const auths = [
 
 const getTouchAuths = function () {
     auths.forEach(item=>{
-       getTouchAuth(item)
+        getTouchAuth(item)
     })
 }
 
@@ -70,13 +70,17 @@ const runScript = async function (ip: string, key: string) {
     if(!auth) {
         throw new Error("no runScript auth")
     }
-    const res = await touchAxios.get<string>(`http://${ip}:50005/runLua`, {
-        headers: {
-            'auth': auth.auth,
+    try{
+        const res = await touchAxios.get<string>(`http://${ip}:50005/runLua`, {
+            headers: {
+                'auth': auth.auth,
+            }
+        })
+        if(res.data == 'ok') {
+            return true
         }
-    })
-    if(res.data == 'ok') {
-        return true
+    }catch (e) {
+        console.log('error: 远程脚本运行失败')
     }
 }
 
@@ -85,13 +89,17 @@ const stopScript = async function (ip: string, key: string) {
     if(!auth) {
         throw new Error("no runScript auth")
     }
-    const res = await touchAxios.get<string>(`http://${ip}:50005/stopLua`, {
-        headers: {
-            'auth': auth.auth,
+    try{
+        const res = await touchAxios.get<string>(`http://${ip}:50005/stopLua`, {
+            headers: {
+                'auth': auth.auth,
+            }
+        })
+        if(res.data == 'ok') {
+            return true
         }
-    })
-    if(res.data == 'ok') {
-        return true
+    }catch (e) {
+        console.log('error: 远程脚本停止失败')
     }
 }
 

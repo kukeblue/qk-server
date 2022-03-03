@@ -38,7 +38,7 @@ router.post('/stop_task',
         task = await taskDao.updateTaskById(data.id, {
             status: '停止'
         })
-        const result = await touchService.stopScript(device.ip!, device.touchId!)
+        touchService.stopScript(device.ip!, device.touchId!)
         const gameAccount = await gameAccountDao.getGameAccountById(task.accountId)
         await taskLogDao.createTaskLog({
             imei: device.imei,
@@ -98,26 +98,26 @@ router.post('/get_start_task',
 
 router.post('/start_task',
     async function (req:Request<any, any, TStartTaskRequest>, res: Response<TResponse<TTask>> ) {
-        const data = req.body
-        let task:TTask = await taskDao.getTaskById(data.id)
-        const device = await deviceDao.getDeviceById(data.deviceId)
-        if(device.status === '空闲') {
-            await taskDao.updateTaskById(data.id, {
-                status: '启动中'
-            })
-            const result = await touchService.runScript(device.ip!, device.touchId!)
-            await gameAccountDao.updateGameAccount(task.accountId, {online: '在线'})
-            await deviceDao.updateDeviceById(device.id, {status: '任务中'})
-            res.json({
-                status: 0,
-                data: task
-            })
-        }else {
-            res.json({
-                status: -1,
-                message: '机器正在运行其他任务'
-            })
-        }
+            const data = req.body
+            let task:TTask = await taskDao.getTaskById(data.id)
+            const device = await deviceDao.getDeviceById(data.deviceId)
+            if(device.status === '空闲') {
+                await taskDao.updateTaskById(data.id, {
+                    status: '启动中'
+                })
+                touchService.runScript(device.ip!, device.touchId!)
+                await gameAccountDao.updateGameAccount(task.accountId, {online: '在线'})
+                await deviceDao.updateDeviceById(device.id, {status: '任务中'})
+                res.json({
+                    status: 0,
+                    data: task
+                })
+            }else {
+                res.json({
+                    status: -1,
+                    message: '机器正在运行其他任务'
+                })
+            }
     })
 
 router.get('/calculate_income',
