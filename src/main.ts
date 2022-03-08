@@ -35,4 +35,5 @@ app.listen(3000, '0.0.0.0', async () => {
     initTimer()
     console.log(`Example app listening at http://localhost:${3000}`)
 })
+// await prisma.$disconnect()
 
