@@ -13,5 +13,6 @@ CREATE TABLE `task` (
     `taskCount` int(5),
     `realIncome` int(10),
     `note` TEXT,
+    `userId` bigint(18),
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=gbk

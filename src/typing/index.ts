@@ -40,6 +40,7 @@ export type TTask = {
 
 export type TDevice = {
     id: number,
+    deviceType?: string,
     name: string,
     brand: string,
     robotName: string,
@@ -93,3 +94,24 @@ export type TReport = {
     income?: number
     expend?: number
 }
+
+// *********************** 用户相关 ******************************
+
+export type TUser = {
+    id?: number
+    username: string
+    password: string
+}
+
+// *********************** 图片配置 ******************************
+
+export type TConfigImage = {
+    id?: number
+    name: string
+    path: string
+    taskId: number
+    deviceId: number
+    url: string
+    userId: number
+}
+

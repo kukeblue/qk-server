@@ -1,15 +1,11 @@
 import {Request, Response} from "express";
 import prisma from "../../prisma";
-import {TResponse, TDevice} from "../typing";
+import {TResponse, TDevice, TUser} from "../typing";
 import hamibotService from "../service/HamibotService";
 import {body, validationResult} from "express-validator";
 import {deviceDao} from "../dao/deviceDao";
 const express = require('express')
 const router = express.Router()
-
-router.post('/get_devices', async function (req: Request<{}>, res:Response<any>) {
-    res.json({a:1})
-})
 
 router.post('/delete_device', async function (req: Request<{id: string}>, res:Response<any>) {
     await deviceDao.deleteById(req.body.id)
@@ -18,6 +14,7 @@ router.post('/delete_device', async function (req: Request<{id: string}>, res:Re
 
 router.post('/save_device',
     body('name').isString(),
+    body('deviceType').isString(),
     body('brand').isString(),
     body('robotName').isString(),
     body('robotId').isString(),
@@ -25,7 +22,7 @@ router.post('/save_device',
     body('ip').isString(),
     body('touchId').isString(),
     body('status').isString(),
-    async function (req:Request<any, any, TDevice>, res: Response<TResponse<TDevice>> ) {
+    async function (req:Request<any, any, TDevice> & {loginUser: TUser}, res: Response<TResponse<TDevice>> ) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({status: -1, error: errors.array()});
@@ -40,16 +37,19 @@ router.post('/save_device',
                 data,
             })
         }else {
-            device = await prisma.device.create({
-                data,
-            })
+            const newDevice = {
+                ...data,
+                userId: req.loginUser.id
+            }
+            device = await prisma.device.create({data: newDevice})
         }
         const ret:TResponse<TDevice> = {data: device, status: 0}
         res.json(ret)
     })
 
-router.post('/get_device_page', async function (req:Request<{id: number}>, res: Response<TResponse<TDevice>> ) {
+router.post('/get_device_page', async function (req:Request<{id: number}> & {loginUser: TUser}, res: Response<TResponse<TDevice>> ) {
     const {pageSize, pageNo, query} = req.body
+    query.userId = req.loginUser.id
     const count = await prisma.device.count({where: query})
     const list:TDevice[] = await prisma.device.findMany({
         skip: (pageNo-1) * pageSize,

@@ -6,5 +6,6 @@ CREATE TABLE `game_account` (
   `password` varchar(50) NOT NULL DEFAULT '',
   `gameServer` varchar(10) NOT NULL DEFAULT '',
   `online` varchar(10) NOT NULL DEFAULT '',
+  `userId` bigint(18),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=gbk

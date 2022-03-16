@@ -5,5 +5,6 @@ CREATE TABLE `report` (
     `time` int(10),
     `income` int(10),
     `expend` int(5),
+    `userId` bigint(18),
      PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=gbk

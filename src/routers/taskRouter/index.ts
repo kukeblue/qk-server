@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import prisma from "../../../prisma";
-import {TaskLogType, TResponse, TTask, TTaskStatus} from "../../typing";
+import {TaskLogType, TResponse, TTask, TTaskStatus, TUser} from "../../typing";
 import hamibotService, {taskScriptMap} from "../../service/HamibotService";
 import {body, validationResult} from "express-validator";
 // @ts-ignore
@@ -22,12 +22,6 @@ import {asyncTaskCount} from "../../timer";
 import {asyncHandler} from "../../utils/errerHandle";
 const express = require('express')
 const router = express.Router()
-
-// router.ws('/', function(ws, req) {
-//     ws.on('message', function(msg) {
-//         ws.send(msg);
-//     });
-// });
 
 router.post('/stop_task',
     asyncHandler(async function (req:Request<any, any, TStopTaskRequest>, res: Response<TResponse<TTask>> ) {
@@ -58,8 +52,9 @@ router.post('/stop_task',
     }))
 
 router.post('/get_start_task',
-    asyncHandler(async function (req:Request<any, any, TGetStartTaskRequest>, res: Response<TResponse<TGetStartTaskResponse>> ) {
+    asyncHandler(async function (req:Request<any, any, TGetStartTaskRequest> & {loginUser: TUser}, res: Response<TResponse<TGetStartTaskResponse>> ) {
         const data = req.body
+        const user: TUser = req.loginUser
         const device = await deviceDao.getDeviceByQuery({
             imei: data.imei
         })

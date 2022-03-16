@@ -16,6 +16,7 @@ model GameAccount {
   password   String
   gameServer String
   online String
+  userId Int
 }
 
 model Device {
@@ -29,6 +30,8 @@ model Device {
   status  String
   ip      String
   touchId String
+  userId Int
+  deviceType String
 }
 
 model Task {
@@ -47,6 +50,7 @@ model Task {
   taskCount Int @default(0)
   income Int
   realIncome Int
+  userId Int
 }
 
 model TaskLog {
@@ -62,6 +66,7 @@ model TaskLog {
   type String
   time Int
   taskCount Int
+  userId Int
 }
 
 model Report {
@@ -72,4 +77,23 @@ model Report {
   type       String
   income     Int
   expend     Int
+  userId Int
+}
+
+model User {
+  @@map("user")
+  id         Int     @id @default(autoincrement())
+  username   String
+  password   String
+}
+
+model ConfigImage {
+  @@map("config_image")
+  id         Int     @id @default(autoincrement())
+  name String
+  path  String
+  taskId Int
+  deviceId Int
+  url String
+  userId Int
 }
