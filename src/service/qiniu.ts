@@ -1,7 +1,7 @@
 const qiniu = require('qiniu')
 
 let bucket = 'kuke-static' //  七牛云存储空间名
-let putPolicy = new qiniu.rs.PutPolicy({ scope: bucket }) //  指定七牛云存储空间
+let putPolicy = new qiniu.rs.PutPolicy({ scope: bucket, expires: 72000 }) //  指定七牛云存储空间
 let accessKey = 'dxtgSJJ6qWW-NdM6ZyrStvxDT3P4X7We-r9FOKg_';
 let secretKey = 'YKi1Ojq5fDf-vj7cVwPKz__LC4FjwEONI-Xbkqu-';
 let mac = new qiniu.auth.digest.Mac(accessKey, secretKey) //  鉴权对象
@@ -11,18 +11,6 @@ let qn: {
     upToken?: Function,
     upImg?: Function
 } = {}
-
-/**
- * 客户端上传
- */
-qn.upToken = (bucket: string) => {
-    putPolicy = new qiniu.rs.PutPolicy({ scope: bucket })
-    let tk = {
-        'token': uploadToken,
-        'url': 'http://domain.com/'
-    }
-    return tk
-}
 
 /**
  * 服务端上传

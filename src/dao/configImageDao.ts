@@ -22,6 +22,13 @@ export const configImageDao = {
             list
         }
     },
+    deleteImageById: async function (id: number) {
+        return await prisma.configImage.delete({
+            where: {
+                id
+            }
+        })
+    },
 }
 
 
