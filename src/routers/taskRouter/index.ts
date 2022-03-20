@@ -6,7 +6,7 @@ import {body, validationResult} from "express-validator";
 // @ts-ignore
 import moment from "moment"
 import {
-    TCreateTaskQuery,
+    TCreateTaskQuery, TEditTaskRequest,
     TGetStartTaskRequest,
     TGetStartTaskResponse,
     TStartTaskRequest,
@@ -124,11 +124,12 @@ router.get('/calculate_income',
     })
 
 router.post('/create_task',
-    async function (req:Request<any, any, TCreateTaskQuery>, res: Response<TResponse<TTask>> ) {
+    async function (req:Request<any, any, TCreateTaskQuery> & {loginUser: TUser}, res: Response<TResponse<TTask>> ) {
         const body = req.body
         const date = moment().format('YYYY-MM-DD')
         const date2 = moment().format('YYYYMMDD')
         const data:TTask = {
+            userId: req.loginUser.id!,
             date,
             name: body.name,
             startTime: 0,
@@ -140,7 +141,8 @@ router.post('/create_task',
             deviceId: body.deviceId,
             accountId: body.accountId,
             income: 0,
-            realIncome: 0
+            realIncome: 0,
+            taskCount: 0,
         }
         const task = await taskDao.createTask(data)
         if(task) {
@@ -172,8 +174,9 @@ router.post('/delete_task_by_id', async function (req:Request<{id: number}>, res
     })
 })
 
-router.post('/delete_task_by_id', async function (req:Request<{id: number}>, res: Response<TResponse<TTask>> ) {
-    const page = await taskDao.deleteTaskById(req.body.id)
+router.post('/edit_task', async function (req:Request<TEditTaskRequest>, res: Response<TResponse<Boolean>> ) {
+    const {id, ...data}  = req.body
+    await taskDao.updateTaskById(id, data)
     res.json({
         status: 0,
     })

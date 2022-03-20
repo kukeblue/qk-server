@@ -31,3 +31,11 @@ export type TCreateTaskQuery = {
     deviceId: number,
     accountId: number,
 }
+
+
+export type TEditTaskRequest = {
+    id: number
+    status?: TTaskStatus,
+    taskCount?: number,
+    income?: number
+}

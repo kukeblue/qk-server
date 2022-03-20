@@ -26,7 +26,6 @@ const asyncOneDay = async function (date: string) {
                     if(taskLog.taskName == '主线打图') {
                         income = Number.parseInt(String(taskLog.taskCount ? taskLog.taskCount / 10 : 0))
                     }
-
                     await taskDao.updateTaskById(task.id!, {
                         taskCount: taskLog.taskCount || 0,
                         income,

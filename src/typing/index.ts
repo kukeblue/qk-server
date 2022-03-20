@@ -31,8 +31,9 @@ export type TTask = {
     deviceId: number,
     accountId: number,
     income: number,
-    taskCount?: number
-    realIncome: number
+    taskCount?: number,
+    realIncome: number,
+    userId: number,
 }
 
 
