@@ -172,5 +172,11 @@ router.post('/delete_task_by_id', async function (req:Request<{id: number}>, res
     })
 })
 
+router.post('/delete_task_by_id', async function (req:Request<{id: number}>, res: Response<TResponse<TTask>> ) {
+    const page = await taskDao.deleteTaskById(req.body.id)
+    res.json({
+        status: 0,
+    })
+})
 
 export default router
