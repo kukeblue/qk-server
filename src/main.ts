@@ -12,6 +12,8 @@ import reportRouter from "./routers/reportRouter/index";
 import userRouter from "./routers/userRouter/index";
 import configRouter from "./routers/configRouter/index";
 import uploadRouter from "./routers/uploadRouter";
+import clientRouter from "./routers/clientRouter";
+
 
 
 const jwt = require('jsonwebtoken');
@@ -27,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 // token验证中间件
 app.use(function(req: Request & {loginUser: TUser},res:Response,next:NextFunction){
-    if(req.url.includes('api') && !req.url.includes('login')) {
+    if(req.url.includes('api') && !req.url.includes('login') && !req.url.includes('client')) {
         const user = jwt.verify(req.headers.token, jwtSecretKey);
         if(user) {
             req.loginUser = user
@@ -43,6 +45,7 @@ app.use(function(req: Request & {loginUser: TUser},res:Response,next:NextFunctio
     }
 })
 app.use('/api/game_account', gameAccountRouter)
+app.use('/api/client', clientRouter)
 app.use('/api/device', deviceRouter)
 app.use('/api/task', taskRouter)
 app.use('/api/task_log', taskLogRouter)
@@ -50,6 +53,8 @@ app.use('/api/report', reportRouter)
 app.use('/api/user', userRouter)
 app.use('/api/config', configRouter)
 app.use('/api/upload', uploadRouter)
+app.use('/api/client', clientRouter)
+
 
 
 

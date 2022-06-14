@@ -39,9 +39,9 @@ const auths = [
 ]
 
 const getTouchAuths = function () {
-    auths.forEach(item=>{
-        getTouchAuth(item)
-    })
+    // auths.forEach(item=>{
+    //     getTouchAuth(item)
+    // })
 }
 
 const getTouchAuth = function (auth: TAuth) {

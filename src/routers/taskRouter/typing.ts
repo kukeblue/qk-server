@@ -10,6 +10,8 @@ export type TStartTaskRequest = {
     id: number,
     deviceId: number,
     accountId: number
+    name: string,
+    status?: TTaskStatus,
 }
 
 export type TGetStartTaskRequest = {
