@@ -26,6 +26,7 @@ router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogR
                 })
             }
             if(type == 'info' && note == '开始挖图') {
+                console.log('开始挖图', taskLog.taskNo, taskLog.deviceId)
                 await taskDao.updateTaskByTaskNo(taskLog.taskNo, {
                     status: '进行中'
                 })
@@ -51,13 +52,21 @@ export type TClinetStartTaskRequest = {
 router.post('/get_one_task',
     asyncHandler(async function (req:Request<any, any, TClinetStartTaskRequest>, res: Response<TResponse<TGetStartTaskResponse>> ) {
         const data = req.body
+        if(!data.status) {
+            res.json({
+                status: 1001,
+                message:config.tips['1001']
+            })
+        }
         const date = moment().format('YYYY-MM-DD')
+        console.log('查询' ,data.deviceId || '全部', data.status)
         const task = await taskDao.getTaskByQuery({
             deviceId: data.deviceId,
             status: data.status,
             date,
             name:data.name,
         })
+        console.log(data.name)
         if(!task) {
             return res.json({
                 status: 1001,
