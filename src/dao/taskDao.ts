@@ -87,6 +87,13 @@ export const taskDao = {
                 id
             }
         })
+    },
+    getTaskByTaskNo: async function (taskNo: number) {
+        return await prisma.task.findFirst({
+            where: {
+                taskNo
+            }
+        })
     }
 }
 

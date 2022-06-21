@@ -3,14 +3,19 @@ import prisma from "../../prisma";
 const express = require('express')
 const router = express.Router()
 import { body, validationResult } from 'express-validator';
-import {TGameAccount, TResponse} from "../typing";
+import {TGameAccount, TResponse, TUser} from "../typing";
 
 
 
 type GameAccountResponse = TResponse<TGameAccount>
 
-router.post('/get_game_accounts', async function (req: Request<{}>, res:Response<GameAccountResponse>) {
-    const gameAccounts:TGameAccount[] = await prisma.gameAccount.findMany()
+router.post('/get_game_accounts', async function (req: Request<{}>  & {loginUser: TUser}, res:Response<GameAccountResponse>) {
+    const gameAccounts:TGameAccount[] = await prisma.gameAccount.findMany({
+        where: {
+            userId: req.loginUser.id
+
+        }
+    })
     const gameAccountResponse:GameAccountResponse = {status: 0, list: gameAccounts}
     res.json(gameAccountResponse)
 })
@@ -46,8 +51,9 @@ router.post('/delete_game_account', function (req:Request<{id: number}>, res: Re
     res.json(gameAccountResponse)
 })
 
-router.post('/get_game_account_page', async function (req:Request<{id: number}>, res: Response<GameAccountResponse> ) {
+router.post('/get_game_account_page', async function (req:Request<{id: number}> & {loginUser: TUser}, res: Response<GameAccountResponse> ) {
     const {pageSize, pageNo, query} = req.body
+    query.userId = req.loginUser.id
     const count = await prisma.gameAccount.count(
         {
             where: query,

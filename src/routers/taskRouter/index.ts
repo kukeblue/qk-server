@@ -158,8 +158,9 @@ router.post('/create_task',
         }
     })
 
-router.post('/get_task_page', async function (req:Request<{}>, res: Response<TResponse<TTask>> ) {
+router.post('/get_task_page', async function (req:Request<{}> & {loginUser: TUser}, res: Response<TResponse<TTask>> ) {
     const {pageSize, pageNo, query} = req.body
+    query.userId = req.loginUser.id
     const page = await taskDao.getTaskPage(pageNo, pageSize, query)
     res.json({
         status: 0,

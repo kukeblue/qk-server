@@ -15,7 +15,9 @@ const router = express.Router()
 
 
 router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogRequest}>, res:Response<TResponse<TTaskLog>>) {
-    const taskLog: TTaskLog = await taskLogDao.createTaskLog({userId: 0, ...req.body})
+    const taskNo = req.body.taskNo
+    const task = await taskDao.getTaskByTaskNo(taskNo)
+    const taskLog: TTaskLog = await taskLogDao.createTaskLog({userId: task.userId, ...req.body})
     if(taskLog) {
         if(taskLog.taskName == "主线挖图") {
             const type = taskLog.type
@@ -44,14 +46,29 @@ router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogR
 })
 
 export type TClinetStartTaskRequest = {
-    deviceId: number,
+    deviceId?: number,
     name: string,
     status?: TTaskStatus,
+    imei?: string,
+    userId?: number
 }
 
 router.post('/get_one_task',
     asyncHandler(async function (req:Request<any, any, TClinetStartTaskRequest>, res: Response<TResponse<TGetStartTaskResponse>> ) {
-        const data = req.body
+        const {imei, ...data} = req.body
+        console.log('imei', imei)
+        if(imei) {
+            const ret = await deviceDao.getDeviceByQuery({imei: imei})
+            if(ret) {
+                data.userId = ret.userId
+            }else {
+                res.json({
+                    status: 1001,
+                    message:config.tips['1001']
+                })
+                return;
+            }
+        }
         if(!data.status) {
             res.json({
                 status: 1001,

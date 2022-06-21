@@ -71,8 +71,9 @@ router.post('/get_device_page', async function (req:Request<{id: number}> & {log
     })
 })
 
-router.post('/get_device_list', async function (req:Request<{id: number}>, res: Response<TResponse<TDevice>> ) {
+router.post('/get_device_list', async function (req:Request<{id: number}> & {loginUser: TUser}, res: Response<TResponse<TDevice>> ) {
     const list:TDevice[] = await prisma.device.findMany({
+       where: { userId: req.loginUser.id }
     })
     res.json({
         status: 0,

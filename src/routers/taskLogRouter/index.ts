@@ -1,6 +1,6 @@
 import { TAddTaskLogRequest } from './typing'
 import {taskLogDao} from "../../dao/taskLogDao";
-import {TResponse, TTask, TTaskLog} from "../../typing";
+import {TResponse, TTask, TTaskLog, TUser} from "../../typing";
 // @ts-ignore
 import express, {Request, Response} from "express";
 import prisma from "../../../prisma";
@@ -44,9 +44,10 @@ router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogR
         status: -1
     })
 })
-
-router.post('/get_task_log_page', async function (req:Request, res: Response<TResponse<TTaskLog>> ) {
+// @ts-ignore
+router.post('/get_task_log_page', async function (req:Request<{}> & {loginUser: TUser}, res: Response<TResponse<TTaskLog>> ) {
     const {pageSize, pageNo, query} = req.body
+    query.userId = req.loginUser.id
     const pagination = await taskLogDao.getTaskLogPage(pageNo, pageSize, query)
     return res.json({
         status: 0,

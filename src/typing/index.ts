@@ -51,6 +51,7 @@ export type TDevice = {
     ip?: string,
     touchId?:string,
     status: '空闲' | '任务中' | ''
+    userId: number,
 }
 
 // *********************** 账号相关 ******************************
