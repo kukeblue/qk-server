@@ -19,6 +19,13 @@ export const gameAccountDao = {
             data,
         })
     },
+    deleteById: function (id:number) {
+        return prisma.gameAccount.delete({
+            where: {
+                id,
+            },
+        })
+    },
 }
 
 

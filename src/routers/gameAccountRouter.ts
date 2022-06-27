@@ -4,6 +4,7 @@ const express = require('express')
 const router = express.Router()
 import { body, validationResult } from 'express-validator';
 import {TGameAccount, TResponse, TUser} from "../typing";
+import { gameAccountDao } from "../dao/gameAccountDao";
 
 
 
@@ -47,7 +48,8 @@ router.post('/add_game_account',
         res.json(ret)
     })
 
-router.post('/delete_game_account', function (req:Request<{id: number}>, res: Response<GameAccountResponse> ) {
+router.post('/delete_game_account', async function (req:Request<{id: number}>, res: Response<GameAccountResponse> ) {
+    await gameAccountDao.deleteById(req.body.id)
     const gameAccountResponse: GameAccountResponse = {status: 0}
     res.json(gameAccountResponse)
 })
