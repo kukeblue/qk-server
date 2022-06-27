@@ -23,13 +23,14 @@ router.post('/add_game_account',
     body('name').isString(),
     body('password').isString(),
     body('gameServer').isString(),
-    async function (req:Request<any, any, TGameAccount>, res: Response<GameAccountResponse> ) {
+    async function (req:Request<any, any, TGameAccount> & {loginUser: TUser}, res: Response<GameAccountResponse> ) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({status: -1, error: errors.array()});
         }
         const {id, ...data} = req.body
-        let gameAccount = null
+        data.userId = req.loginUser.id
+        let gameAccount
         if(id) {
             gameAccount = await prisma.gameAccount.update({
                 where: {

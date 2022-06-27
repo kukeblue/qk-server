@@ -37,6 +37,14 @@ router.post('/delete_config_image_by_id', async function (req:Request<{id: numbe
     })
 })
 
+router.post('/get_all_config_image', async function (req:Request<{id: number}>, res: Response<TResponse<TTask>> ) {
+    // const page = await configImageDao.deleteImageById(req.body.id)
+    console.log('同步图片到本地')
+    res.json({
+        status: 0,
+    })
+})
+
 
 
 export default router

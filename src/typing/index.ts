@@ -63,7 +63,8 @@ export type TGameAccount = {
     username: string,
     password: string,
     gameServer: string,
-    online: TGameAccountOnline
+    online: TGameAccountOnline,
+    userId?: number
 }
 
 // *********************** 日志相关 ******************************
