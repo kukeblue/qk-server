@@ -76,8 +76,9 @@ router.post('/get_game_account_page', async function (req:Request<{id: number}> 
     })
 })
 
-router.post('/get_game_account_options', async function (req:Request<{id: number}>, res: Response<GameAccountResponse> ) {
+router.post('/get_game_account_options', async function (req:Request<{id: number}> & {loginUser: TUser}, res: Response<GameAccountResponse> ) {
     const list = await prisma.gameAccount.findMany({
+        where: {userId: req.loginUser.id},
     })
     res.json({
         status: 0,
