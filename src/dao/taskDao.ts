@@ -47,6 +47,7 @@ export const taskDao = {
         deviceId?: number,
         status?: TTaskStatus,
         date?: string,
+        userId?: number
     }): TTask {
         return prisma.task.findFirst({
             where: query,
