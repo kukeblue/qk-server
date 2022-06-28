@@ -61,7 +61,7 @@ router.post('/get_one_task',
             const ret = await deviceDao.getDeviceByQuery({imei: imei})
             if(ret) {
                 data.userId = ret.userId
-                data.deviceId = ret.id
+                // data.deviceId = ret.id
             }else {
                 res.json({
                     status: 1001,
