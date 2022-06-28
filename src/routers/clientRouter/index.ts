@@ -78,13 +78,20 @@ router.post('/get_one_task',
         }
         const date = moment().format('YYYY-MM-DD')
         console.log('查询' ,data.deviceId || '全部', data.status)
-        const task = await taskDao.getTaskByQuery({
-            deviceId: data.deviceId,
+        let query = {
             status: data.status,
             date,
             name:data.name,
-            userId: data.userId
-        })
+        }
+        if(data.userId) {
+            // @ts-ignore
+            query.userId = data.userId
+        }
+        if(data.deviceId) {
+            // @ts-ignore
+            query.deviceId = data.deviceId
+        }
+        const task = await taskDao.getTaskByQuery(query)
         console.log(data.name)
         if(!task) {
             return res.json({
