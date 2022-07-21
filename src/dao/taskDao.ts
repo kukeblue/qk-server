@@ -1,8 +1,12 @@
 import prisma from "../../prisma";
 import {TTaskStatus, TTask, TTaskLog} from "../typing";
+import { gameAccountDao } from "./gameAccountDao";
 
 export const taskDao = {
-    createTask: function (task: TTask) {
+    createTask: async function (task: TTask) {
+        const gameAccount = await gameAccountDao.getGameAccountById(task.accountId)
+        task.gameServer = gameAccount.gameServer
+        console.log(JSON.stringify(gameAccount))
         return prisma.task.create({data: task})
     },
     updateTaskById: function (id:number, data: {
@@ -47,7 +51,8 @@ export const taskDao = {
         deviceId?: number,
         status?: TTaskStatus,
         date?: string,
-        userId?: number
+        userId?: number,
+        gameServer?: string
     }): TTask {
         return prisma.task.findFirst({
             where: query,

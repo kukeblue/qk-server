@@ -34,6 +34,7 @@ export type TTask = {
     taskCount?: number,
     realIncome: number,
     userId: number,
+    gameServer: string,
 }
 
 
@@ -64,7 +65,7 @@ export type TGameAccount = {
     password: string,
     gameServer: string,
     online: TGameAccountOnline,
-    userId?: number
+    userId?: number,
 }
 
 // *********************** 日志相关 ******************************

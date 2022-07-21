@@ -143,6 +143,7 @@ router.post('/create_task',
             income: 0,
             realIncome: 0,
             taskCount: 0,
+            gameServer: '',
         }
         const task = await taskDao.createTask(data)
         if(task) {

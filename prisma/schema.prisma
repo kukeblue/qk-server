@@ -51,6 +51,7 @@ model Task {
   income Int
   realIncome Int
   userId Int
+  gameServer String
 }
 
 model TaskLog {

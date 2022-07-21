@@ -14,5 +14,6 @@ CREATE TABLE `task` (
     `realIncome` int(10),
     `note` TEXT,
     `userId` bigint(18),
+    `gameServer` varchar(50) NOT NULL DEFAULT '',
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=gbk

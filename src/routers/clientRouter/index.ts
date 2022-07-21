@@ -50,7 +50,8 @@ export type TClinetStartTaskRequest = {
     name: string,
     status?: TTaskStatus,
     imei?: string,
-    userId?: number
+    userId?: number,
+    gameServer?: string
 }
 
 router.post('/get_one_task',
@@ -61,7 +62,6 @@ router.post('/get_one_task',
             const ret = await deviceDao.getDeviceByQuery({imei: imei})
             if(ret) {
                 data.userId = ret.userId
-                // data.deviceId = ret.id
             }else {
                 res.json({
                     status: 1001,
@@ -83,6 +83,11 @@ router.post('/get_one_task',
             date,
             name:data.name,
         }
+        if(data.gameServer && data.gameServer != '' && data.gameServer != '无') {
+            // @ts-ignore
+            query.gameServer = data.gameServer
+            console.log(data.gameServer)
+        }
         if(data.userId) {
             // @ts-ignore
             query.userId = data.userId
@@ -92,7 +97,6 @@ router.post('/get_one_task',
             query.deviceId = data.deviceId
         }
         const task = await taskDao.getTaskByQuery(query)
-        console.log(data.name)
         if(!task) {
             return res.json({
                 status: 1001,
