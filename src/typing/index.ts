@@ -107,6 +107,25 @@ export type TUser = {
     password: string
 }
 
+export type TGameGroup = {
+    id?: number
+    name: string
+    userId: number
+    gameServer: string
+}
+
+export type TGameRole = {
+    id?: number
+    accoutId: number
+    userId: number
+    gameServer: string
+    name: string
+    gameId: string
+    groupId: number,
+    work: string
+    status: string
+}
+
 // *********************** 图片配置 ******************************
 
 export type TConfigImage = {

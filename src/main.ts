@@ -7,9 +7,11 @@ const expressWs = require('express-ws')(app);
 import gameAccountRouter from "./routers/gameAccountRouter";
 import deviceRouter from "./routers/deviceRouter";
 import taskRouter from "./routers/taskRouter/index";
+import gameGroup from "./routers/gameGroupRouter/index";
 import taskLogRouter from "./routers/taskLogRouter/index";
 import reportRouter from "./routers/reportRouter/index";
 import userRouter from "./routers/userRouter/index";
+import gameRoleRouter from "./routers/gameRoleRouter/index";
 import configRouter from "./routers/configRouter/index";
 import uploadRouter from "./routers/uploadRouter";
 import clientRouter from "./routers/clientRouter";
@@ -48,12 +50,15 @@ app.use('/api/game_account', gameAccountRouter)
 app.use('/api/client', clientRouter)
 app.use('/api/device', deviceRouter)
 app.use('/api/task', taskRouter)
+app.use('/api/gameGroup', gameGroup)
 app.use('/api/task_log', taskLogRouter)
 app.use('/api/report', reportRouter)
 app.use('/api/user', userRouter)
 app.use('/api/config', configRouter)
 app.use('/api/upload', uploadRouter)
 app.use('/api/client', clientRouter)
+app.use('/api/game_role', gameRoleRouter)
+
 
 
 

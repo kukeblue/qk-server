@@ -98,3 +98,26 @@ model ConfigImage {
   url String
   userId Int
 }
+
+model GameGroup {
+  @@map("game_group")
+  id         Int     @id @default(autoincrement())
+  name String
+  userId  Int
+  gameServer String
+  type String
+}
+
+model GameRole {
+  @@map("game_role")
+  id         Int     @id @default(autoincrement())
+  accoutId   Int
+  userId  Int
+  gameServer String
+  work String
+  name String
+  gameId String
+  status String
+  groupId Int
+}
+

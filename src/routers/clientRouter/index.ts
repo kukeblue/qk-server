@@ -11,6 +11,7 @@ import { TGetStartTaskRequest, TGetStartTaskResponse, TStartTaskRequest } from "
 import {asyncHandler} from "../../utils/errerHandle";
 import moment from "moment";
 import config from "../../config";
+import { gameRoleDao } from "../../dao/gameRoleDao";
 const router = express.Router()
 
 
@@ -123,6 +124,27 @@ router.post('/get_one_task',
             })
         }
     }))
+
+    router.post('/update_game_role_status',
+    asyncHandler(async function (req:Request<any, any, {gameId: string, status: string}>, res: Response<any> ) {
+        const {gameId, status} = req.body
+        await gameRoleDao.updateGameRoleStatus(gameId, status)
+        res.json( {status: 0})
+    }))
+
+    router.post('/get_one_free_game_role',
+    asyncHandler(async function (req:Request<any, any, {gameId: string, work: string}>, res: Response<any> ) {
+        const {gameId, work} = req.body
+        const gameRole = await gameRoleDao.getGameRoleByQuery({gameId})
+        const groupId = gameRole.groupId
+        const targetGameRole = await gameRoleDao.getGameRoleByQuery({groupId, work, status: '空闲'})
+        if(targetGameRole) {
+            res.json( {status: 0, data: targetGameRole})
+        }else {
+            res.json( {status: -1})
+        }
+    }))
+
 
 
 export default router
