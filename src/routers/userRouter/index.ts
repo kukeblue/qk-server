@@ -32,10 +32,7 @@ router.post('/login',
             const token = jwt.sign({username: user.username, id: user.id}, jwtSecretKey);
             return res.json({
                 status: 0,
-                data: {
-                    token,
-                    user: user
-                }
+                data: token
             })
         }else {
             res.json({
