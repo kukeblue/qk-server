@@ -8,9 +8,14 @@ import config from "../../config";
 const express = require('express')
 const router = express.Router()
 
-router.post('/add_game_group', async function (req:Request<any, any, TCreateGameGroup>, res:Response<any>) {
+router.post('/add_game_group', async function (req:Request<any, any, TCreateGameGroup> & {loginUser: TUser}, res:Response<any>) {
     const body = req.body
+    if(!body.userId) {
+        // @ts-ignore
+        body.userId = req.loginUser.id
+    }
     const gameGroup = await gameGroupDao.saveGameGroup(body)
+    
     if(gameGroup) {
         return res.json({
             status: 0

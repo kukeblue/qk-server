@@ -169,6 +169,13 @@ router.post('/get_task_page', async function (req:Request<{}> & {loginUser: TUse
     })
 })
 
+router.post('/task_lock',
+    async function (req:Request<{}> & {loginUser: TUser}, res: Response<TResponse<any>> ) {
+        res.json({
+            status: 0,
+        })
+    })
+
 router.post('/delete_task_by_id', async function (req:Request<{id: number}>, res: Response<TResponse<TTask>> ) {
     const page = await taskDao.deleteTaskById(req.body.id)
     res.json({
@@ -183,5 +190,7 @@ router.post('/edit_task', async function (req:Request<TEditTaskRequest>, res: Re
         status: 0,
     })
 })
+
+
 
 export default router
