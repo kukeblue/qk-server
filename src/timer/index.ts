@@ -7,10 +7,10 @@ import {taskDao} from "../dao/taskDao";
 import {reportDao} from "../dao/reportDao";
 
 export function initTimer() {
-    schedule.scheduleJob('0 */5 * * *', async () => {
-        console.log('debug asyncTaskCount')
-        await asyncTaskCount()
-    })
+    // schedule.scheduleJob('0 */5 * * *', async () => {
+    //     console.log('debug asyncTaskCount')
+    //     await asyncTaskCount()
+    // })
 }
 
 const asyncOneDay = async function (date: string) {

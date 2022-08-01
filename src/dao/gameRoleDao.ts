@@ -21,13 +21,16 @@ export const gameRoleDao = {
         if(count === 0) {
             return await prisma.gameRole.create({data: gameRole})
         }else {
-            // const {id, ...updateData} = gameRole
-            // return await prisma.gameRole.updateMany({
-            //     where: {
-            //         id,
-            //     },
-            //    data: updateData,
-            // })
+            const {id, ...updateData} = gameRole
+            if(id) {
+                return await prisma.gameRole.updateMany({
+                    where: {
+                        id,
+                    },
+                   data: updateData,
+                })
+            }
+            
         }
     },
     
