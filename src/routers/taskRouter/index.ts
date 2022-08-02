@@ -203,7 +203,8 @@ router.post('/add_task_watu_log', async function (req: Request<{ReqBody: {accoun
         taskCount: 15,
         note:  '挖图15张',
         type: 'info',
-        time: new Date().getTime()
+        time: Math.floor(new Date().getTime() / 1000),
+        userId: req.loginUser.id,
     })
     if(taskLog) {
         return res.json({

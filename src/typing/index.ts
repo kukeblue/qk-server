@@ -84,6 +84,7 @@ export type TTaskLog = {
     note:  string
     type: TaskLogType
     time: number
+    userId?: number
 }
 
 // *********************** 报表相关 ******************************
