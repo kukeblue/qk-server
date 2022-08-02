@@ -9,6 +9,13 @@ export const gameAccountDao = {
             },
         })
     },
+    getGameAccountByNickname: function (nickName:string): TGameAccount {
+        return prisma.gameAccount.findFirst({
+            where: {
+                nickName
+            },
+        })
+    },
     updateGameAccount: function (id:number, data: {
         online: TGameAccountOnline
     }): TGameAccount {

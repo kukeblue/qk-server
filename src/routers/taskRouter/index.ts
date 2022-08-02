@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import prisma from "../../../prisma";
-import {TaskLogType, TResponse, TTask, TTaskStatus, TUser} from "../../typing";
+import {TaskLogType, TResponse, TTask, TTaskLog, TTaskStatus, TUser} from "../../typing";
 import hamibotService, {taskScriptMap} from "../../service/HamibotService";
 import {body, validationResult} from "express-validator";
 // @ts-ignore
@@ -20,6 +20,7 @@ import touchService from "../../service/TouchService";
 import {taskLogDao} from "../../dao/taskLogDao";
 import {asyncTaskCount} from "../../timer";
 import {asyncHandler} from "../../utils/errerHandle";
+import { TAddTaskLogRequest } from "../taskLogRouter/typing";
 const express = require('express')
 const router = express.Router()
 
@@ -183,12 +184,40 @@ router.post('/delete_task_by_id', async function (req:Request<{id: number}>, res
     })
 })
 
-router.post('/edit_task', async function (req:Request<TEditTaskRequest>, res: Response<TResponse<Boolean>> ) {
+router.post('/edit_task', async function (req:Request<TEditTaskRequest> , res: Response<TResponse<Boolean>> ) {
     const {id, ...data}  = req.body
     await taskDao.updateTaskById(id, data)
     res.json({
         status: 0,
     })
+})
+
+router.post('/add_task_watu_log', async function (req: Request<{ReqBody: {gameId: string}}> & {loginUser: TUser}, res:Response<TResponse<TTaskLog>>) {
+    
+    const account = await gameAccountDao.getGameAccountByNickname(req.body.gameId)
+    
+    const taskLog: TTaskLog = await taskLogDao.createTaskLog({ 
+        imei: req.loginUser.id + '',
+        nickName: req.body.gameId,
+        taskNo: '',
+        deviceId: 0,
+        accountId: account.id!,
+        taskName: '挖图15张',
+        taskCount: 15,
+        note:  '挖图15张',
+        type: 'info',
+        time: new Date().getTime()
+    })
+    if(taskLog) {
+        return res.json({
+            status: 0,
+            data: taskLog,
+        })
+    }else {
+        return res.json({
+            status: -1
+        })
+    }
 })
 
 
