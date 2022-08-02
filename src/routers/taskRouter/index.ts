@@ -198,7 +198,7 @@ router.post('/add_task_watu_log', async function (req: Request<{ReqBody: {accoun
         nickName: '',
         taskNo: '',
         deviceId: 0,
-        accountId: Number.parseInt(req.body.accountId) ,
+        accountId: req.loginUser.id!,
         taskName: '挖图15张',
         taskCount: 15,
         note:  '挖图15张',
