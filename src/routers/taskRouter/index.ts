@@ -192,16 +192,13 @@ router.post('/edit_task', async function (req:Request<TEditTaskRequest> , res: R
     })
 })
 
-router.post('/add_task_watu_log', async function (req: Request<{ReqBody: {gameId: string}}> & {loginUser: TUser}, res:Response<TResponse<TTaskLog>>) {
-    
-    const account = await gameAccountDao.getGameAccountByNickname(req.body.gameId)
-    
+router.post('/add_task_watu_log', async function (req: Request<{ReqBody: {accountId: number}}> & {loginUser: TUser}, res:Response<TResponse<TTaskLog>>) {
     const taskLog: TTaskLog = await taskLogDao.createTaskLog({ 
         imei: req.loginUser.id + '',
-        nickName: req.body.gameId,
+        nickName: '',
         taskNo: '',
         deviceId: 0,
-        accountId: account.id!,
+        accountId: Number.parseInt(req.body.accountId) ,
         taskName: '挖图15张',
         taskCount: 15,
         note:  '挖图15张',
