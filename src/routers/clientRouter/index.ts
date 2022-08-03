@@ -138,7 +138,7 @@ router.post('/get_one_task',
         const gameRole = await gameRoleDao.getGameRoleByQuery({gameId})
         const groupId = gameRole.groupId
         const targetGameRole = await gameRoleDao.getGameRoleByQuery({groupId, work, status: '空闲'})
-        if(work == '挖图') {
+        if(work == '挖图' || work == '接货') {
             await gameRoleDao.updateGameRoleStatus(targetGameRole.gameId, '忙碌')
         }
         if(targetGameRole) {
