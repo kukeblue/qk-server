@@ -32,6 +32,24 @@ router.post('/login',
             const token = jwt.sign({username: user.username, id: user.id}, jwtSecretKey);
             return res.json({
                 status: 0,
+                data: token
+            })
+        }else {
+            res.json({
+                status: 1006,
+                message:config.tips['1006']
+            })
+        }
+})
+
+router.post('/login2',
+    async function (req:Request<any, any, TLoginQuery>, res: Response<TResponse<any>> ) {
+        const body = req.body
+        const user:TUser = await userDao.getUserByQuery({username: body.username})
+        if(user && user.password === body.password) {
+            const token = jwt.sign({username: user.username, id: user.id}, jwtSecretKey);
+            return res.json({
+                status: 0,
                 data: {
                     token,
                     user: user
