@@ -62,10 +62,16 @@ router.post('/get_game_account_page', async function (req:Request<{id: number}> 
             where: query,
         }
     )
+    const {name, ...data} = query
+    if(name) {
+        data.name = {
+            contains: name
+        }
+    }
     const list = await prisma.gameAccount.findMany({
         skip: (pageNo-1) * pageSize,
         take: pageSize,
-        where: query,
+        where: data,
     })
     res.json({
         status: 0,
