@@ -148,6 +148,17 @@ router.post('/get_one_task',
         }
     }))
 
+    router.post('/get_role_status',
+    asyncHandler(async function (req:Request<any, any, {gameId: string}>, res: Response<any> ) {
+        const {gameId} = req.body
+        const gameRole = await gameRoleDao.getGameRoleByQuery({gameId})
+        if(gameRole) {
+            res.json( {status: 0, data: gameRole.status})
+        }else {
+            res.json( {status: -1})
+        }
+    }))
+
 
 
 export default router
