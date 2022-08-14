@@ -172,16 +172,19 @@ router.post('/get_task_page', async function (req:Request<{}> & {loginUser: TUse
 
 router.post('/task_lock',
     async function (req:Request<{}> & {loginUser: TUser}, res: Response<TResponse<any>> ) {
-        console.log(req.loginUser)
-        if(!req.loginUser.vipCardId) {
-            res.json({
-                status: 1,
-            })
-        }else {
-            res.json({
-                status: 0,
-            })
-        }
+        // console.log(req.loginUser)
+        res.json({
+            status: 0,
+        })
+        // if(!req.loginUser.vipCardId) {
+        //     res.json({
+        //         status: 1,
+        //     })
+        // }else {
+        //     res.json({
+        //         status: 0,
+        //     })
+        // }
         
     })
 
