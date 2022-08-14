@@ -17,6 +17,7 @@ model GameAccount {
   gameServer String
   online String
   userId Int
+  level Int
 }
 
 model Device {
@@ -128,5 +129,6 @@ model GameRole {
   gameId String
   status String
   groupId Int
+  level Int
 }
 

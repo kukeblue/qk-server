@@ -66,6 +66,7 @@ export type TGameAccount = {
     gameServer: string,
     online: TGameAccountOnline,
     userId?: number,
+    level: number
 }
 
 // *********************** 日志相关 ******************************
@@ -133,6 +134,7 @@ export type TGameRole = {
     groupId: number,
     work: string
     status: string
+    level?: number
 }
 
 // *********************** 图片配置 ******************************

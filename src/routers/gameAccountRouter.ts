@@ -32,6 +32,7 @@ router.post('/add_game_account',
         const {id, ...data} = req.body
         data.userId = req.loginUser.id
         let gameAccount
+        data.level = Number(data.level)
         if(id) {
             gameAccount = await prisma.gameAccount.update({
                 where: {

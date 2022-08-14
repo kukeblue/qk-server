@@ -6,7 +6,9 @@ CREATE TABLE `game_role` (
     `work`  varchar(50) NOT NULL DEFAULT '',
     `status`  varchar(50) NOT NULL DEFAULT '',
     `name`  varchar(50) NOT NULL DEFAULT '',
+    `level` int(10),
     `gameId`  varchar(50) NOT NULL DEFAULT '',
     `groupId` bigint(18),
     PRIMARY KEY (`id`)
+
 ) ENGINE=InnoDB  DEFAULT CHARSET=gbk

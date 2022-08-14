@@ -34,7 +34,8 @@ router.post('/add_game_roles', async function (req:Request<any, any, RequestAddG
                 gameId: item.nickName,
                 work: work,
                 groupId: groupId,
-                status: '离线'
+                status: '离线',
+                level: item.level,
             }
             gameRoleDao.saveGameRole(gameRole)
         })

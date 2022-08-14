@@ -7,6 +7,7 @@ CREATE TABLE `game_account` (
   `gameServer` varchar(10) NOT NULL DEFAULT '',
   `area` varchar(10) NOT NULL DEFAULT '',
   `online` varchar(10) NOT NULL DEFAULT '',
+  `level` int(10),
   `userId` bigint(18),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=gbk
