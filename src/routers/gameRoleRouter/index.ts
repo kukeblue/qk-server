@@ -6,32 +6,40 @@ import { body, validationResult } from 'express-validator';
 import {TGameAccount, TResponse, TUser, TGameRole} from "../../typing";
 import { gameRoleDao } from "../../dao/gameRoleDao";
 import { RequestAddGameRoles } from "./index.type";
+import { vipCardDao } from "../../dao/vipCardDao";
 
 
 type GameAccountResponse = TResponse<TGameRole>
 
 router.post('/add_game_roles', async function (req:Request<any, any, RequestAddGameRoles> & {loginUser: TUser}, res: Response<any> ) {
     const body = req.body
-    const accounts:TGameAccount[] = body.gameAccounts
-    const user = req.loginUser
-    const work = req.body.work
-    const gameServer = req.body.gameServer
-    const groupId = req.body.groupId
-    const gameRoles:TGameRole[] = []
-    accounts.map(item=>{
-        const gameRole:TGameRole = {
-            accoutId: item.id!,
-            userId: user.id!,
-            gameServer: gameServer,
-            name: item.name,
-            gameId: item.nickName,
-            work: work,
-            groupId: groupId,
-            status: '离线'
-        }
-        gameRoleDao.saveGameRole(gameRole)
-    })
-    res.json( {status: 0})
+    const list = await gameRoleDao.getGameRoleByQueryCount({work: '挖图' ,userId: req.loginUser.id})
+    const count = list.length
+    const vipCard = await vipCardDao.getVipCardByQuery({id: req.loginUser.vipCardId!})
+    if(count == vipCard.level || count > vipCard.level) {
+        res.json( {status: 1, message: '请联系管理员升级会员等级'})
+    }else {
+        const accounts:TGameAccount[] = body.gameAccounts
+        const user = req.loginUser
+        const work = req.body.work
+        const gameServer = req.body.gameServer
+        const groupId = req.body.groupId
+        const gameRoles:TGameRole[] = []
+        accounts.map(item=>{
+            const gameRole:TGameRole = {
+                accoutId: item.id!,
+                userId: user.id!,
+                gameServer: gameServer,
+                name: item.name,
+                gameId: item.nickName,
+                work: work,
+                groupId: groupId,
+                status: '离线'
+            }
+            gameRoleDao.saveGameRole(gameRole)
+        })
+        res.json( {status: 0})
+    }
 })
 
 router.post('/update_game_role', async function (req:Request<any, any, TGameRole> & {loginUser: TUser}, res: Response<any> ) {

@@ -5,6 +5,7 @@ import {body, validationResult} from "express-validator";
 import { gameGroupDao } from "../../dao/gameGroupDao";
 import { TCreateGameGroup } from "./index.type";
 import config from "../../config";
+import { vipCardDao } from "../../dao/vipCardDao";
 const express = require('express')
 const router = express.Router()
 
@@ -15,7 +16,6 @@ router.post('/add_game_group', async function (req:Request<any, any, TCreateGame
         body.userId = req.loginUser.id
     }
     const gameGroup = await gameGroupDao.saveGameGroup(body)
-    
     if(gameGroup) {
         return res.json({
             status: 0

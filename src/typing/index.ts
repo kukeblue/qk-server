@@ -101,11 +101,19 @@ export type TReport = {
 }
 
 // *********************** 用户相关 ******************************
+export type TVipCard = {
+    id?: number     
+    level: number
+    createdTime:number
+    endTime:  number
+}
 
 export type TUser = {
     id?: number
     username: string
     password: string
+    vipCardId?: number
+    vipCard?: TVipCard
 }
 
 export type TGameGroup = {

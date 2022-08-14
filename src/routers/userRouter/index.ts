@@ -3,6 +3,7 @@ import {TaskLogType, TResponse, TTask, TTaskStatus, TUser} from "../../typing";
 import {TCreateUserQuery, TLoginQuery} from "./index.type";
 import {userDao} from "../../dao/userDao.js";
 import config, {jwtSecretKey} from "../../config";
+import { vipCardDao } from "../../dao/vipCardDao";
 const express = require('express')
 const router = express.Router()
 const jwt = require('jsonwebtoken');
@@ -47,7 +48,11 @@ router.post('/login2',
         const body = req.body
         const user:TUser = await userDao.getUserByQuery({username: body.username})
         if(user && user.password === body.password) {
-            const token = jwt.sign({username: user.username, id: user.id}, jwtSecretKey);
+            if(user.vipCardId! > 0) {
+                const vipCard = await vipCardDao.getVipCardByQuery({id: user.vipCardId!})
+                user.vipCard = vipCard
+            }
+            const token = jwt.sign({username: user.username, id: user.id, vipCardId: user.vipCardId }, jwtSecretKey);
             return res.json({
                 status: 0,
                 data: {

@@ -86,6 +86,15 @@ model User {
   id         Int     @id @default(autoincrement())
   username   String
   password   String
+  vipCardId  Int
+}
+
+model VipCard {
+  @@map("vip_card")
+  id         Int     @id @default(autoincrement())
+  level      Int
+  createdTime   Int
+  endTime  Int
 }
 
 model ConfigImage {

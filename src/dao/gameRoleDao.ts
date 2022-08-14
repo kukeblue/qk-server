@@ -46,6 +46,19 @@ export const gameRoleDao = {
             list
         }
     },
+    getGameRoleByQueryCount: function (query: {
+        gameId?: string, 
+        name?: string,
+        userId?: number,
+        gameServer?: string,
+        groupId?: number
+        work?: string,
+        status?: string,
+    }): TGameRole[] {
+        return prisma.gameRole.findMany({
+            where: query,
+        })
+    },
     getGameRoleByQuery: function (query: {
         gameId?: string, 
         name?: string,

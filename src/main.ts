@@ -26,14 +26,26 @@ import {Request, Response, ErrorRequestHandler} from "express";
 import {NextFunction} from "express/ts4.0";
 import {TUser} from "./typing";
 import {jwtSecretKey} from "./config";
+import { vipCardDao } from "./dao/vipCardDao";
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 // token验证中间件
-app.use(function(req: Request & {loginUser: TUser},res:Response,next:NextFunction){
+app.use(async function(req: Request & {loginUser: TUser},res:Response,next:NextFunction){
     if(req.url.includes('api') && !req.url.includes('login') && !req.url.includes('client')) {
         const user = jwt.verify(req.headers.token, jwtSecretKey);
+        let vipCard
+        if(user.vipCardId != 0) {
+            vipCard = await vipCardDao.getVipCardByQuery({id: user.vipCardId!})
+        }
+        if(user.vipCardId == 0 || !vipCard ||  vipCard.endTime < (new Date().getTime() / 1000)) {
+            res.status(401).json({
+                status: -1,
+                message: '会员卡过期'
+            });
+        }
         if(user) {
+
             req.loginUser = user
             next();
         }else {

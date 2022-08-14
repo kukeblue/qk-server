@@ -172,9 +172,17 @@ router.post('/get_task_page', async function (req:Request<{}> & {loginUser: TUse
 
 router.post('/task_lock',
     async function (req:Request<{}> & {loginUser: TUser}, res: Response<TResponse<any>> ) {
-        res.json({
-            status: 0,
-        })
+        console.log(req.loginUser)
+        if(!req.loginUser.vipCardId) {
+            res.json({
+                status: 1,
+            })
+        }else {
+            res.json({
+                status: 0,
+            })
+        }
+        
     })
 
 router.post('/delete_task_by_id', async function (req:Request<{id: number}>, res: Response<TResponse<TTask>> ) {
