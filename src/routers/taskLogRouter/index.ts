@@ -5,6 +5,7 @@ import {TResponse, TTask, TTaskLog, TUser} from "../../typing";
 import express, {Request, Response} from "express";
 import prisma from "../../../prisma";
 import {taskDao} from "../../dao/taskDao";
+import {userDao} from "../../dao/userDao.js";
 import {deviceDao} from "../../dao/deviceDao";
 import {gameAccountDao} from "../../dao/gameAccountDao";
 const router = express.Router()
@@ -14,6 +15,10 @@ router.post('/get_logs', async function (req: Request<{}>, res:Response<any>) {
 })
 
 router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogRequest}>, res:Response<TResponse<TTaskLog>>) {
+    if(req.body.type == 'profit') {
+        const account = await gameAccountDao.getGameAccountByNickname(req.body.nickName)
+        req.body.userId = account.userId
+    }
     const taskLog: TTaskLog = await taskLogDao.createTaskLog(req.body)
     if(taskLog) {
         const type = taskLog.type
