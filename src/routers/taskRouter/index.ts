@@ -203,16 +203,16 @@ router.post('/edit_task', async function (req:Request<TEditTaskRequest> , res: R
     })
 })
 
-router.post('/add_task_watu_log', async function (req: Request<{ReqBody: {accountId: number}}> & {loginUser: TUser}, res:Response<TResponse<TTaskLog>>) {
+router.post('/add_task_watu_log', async function (req: Request<{ReqBody: {accountId: number, count: number}}> & {loginUser: TUser}, res:Response<TResponse<TTaskLog>>) {
     const taskLog: TTaskLog = await taskLogDao.createTaskLog({ 
         imei: req.loginUser.id + '',
         nickName: '',
         taskNo: '',
         deviceId: 0,
         accountId: req.loginUser.id!,
-        taskName: '挖图15张',
-        taskCount: 15,
-        note:  '挖图15张',
+        taskName: '挖图',
+        taskCount: req.body.count,
+        note:  '挖图' + req.body.count + '张',
         type: 'info',
         time: Math.floor(new Date().getTime() / 1000),
         userId: req.loginUser.id,
