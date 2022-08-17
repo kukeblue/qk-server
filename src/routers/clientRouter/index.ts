@@ -16,9 +16,13 @@ const router = express.Router()
 
 
 router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogRequest}>, res:Response<TResponse<TTaskLog>>) {
-    const taskNo = req.body.taskNo
-    const task = await taskDao.getTaskByTaskNo(taskNo)
-    const taskLog: TTaskLog = await taskLogDao.createTaskLog({userId: task.userId, ...req.body})
+    // const taskNo = req.body.taskNo
+    // const task = await taskDao.getTaskByTaskNo(taskNo)
+    if(req.body.type == 'profit') {
+        const account = await gameAccountDao.getGameAccountByNickname(req.body.nickName)
+        req.body.userId = account.userId
+    }
+    const taskLog: TTaskLog = await taskLogDao.createTaskLog({...req.body})
     if(taskLog) {
         if(taskLog.taskName == "主线挖图") {
             const type = taskLog.type

@@ -15,10 +15,7 @@ router.post('/get_logs', async function (req: Request<{}>, res:Response<any>) {
 })
 
 router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogRequest}>, res:Response<TResponse<TTaskLog>>) {
-    if(req.body.type == 'profit') {
-        const account = await gameAccountDao.getGameAccountByNickname(req.body.nickName)
-        req.body.userId = account.userId
-    }
+   
     const taskLog: TTaskLog = await taskLogDao.createTaskLog(req.body)
     if(taskLog) {
         const type = taskLog.type
