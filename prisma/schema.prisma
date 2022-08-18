@@ -116,6 +116,7 @@ model GameGroup {
   userId  Int
   gameServer String
   type String
+  priceConfig String
 }
 
 model GameRole {
