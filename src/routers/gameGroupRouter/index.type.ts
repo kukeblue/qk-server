@@ -3,4 +3,5 @@ export interface TCreateGameGroup {
     userId: number
     gameServer: string,
     type: string,
+    priceConfig?: string
 }

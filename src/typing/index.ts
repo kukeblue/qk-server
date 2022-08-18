@@ -122,7 +122,7 @@ export type TGameGroup = {
     name: string
     userId: number
     gameServer: string
-    priceConfig: string
+    priceConfig?: string
 }
 
 export type TGameRole = {
