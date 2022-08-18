@@ -8,6 +8,19 @@ export const taskLogDao = {
         }
         return prisma.taskLog.create({data: taskLog})
     },
+    getRecentlyWatuCountLog: async function (nickName: string): Promise<TTaskLog> {
+        return await prisma.taskLog.findFirst({
+            where: {
+                nickName,
+                type: 'watuScan',
+            },
+            orderBy: [
+                {
+                    'time': 'desc',
+                },
+            ],
+        })
+    },
     getRecentlyTaskCountLog: async function (taskNo:string): Promise<TTaskLog> {
         return await prisma.taskLog.findFirst({
             where: {

@@ -3,24 +3,25 @@ import {TTask, TDevice, TTaskStatus, TReport, TTaskLog} from "../typing";
 
 export const reportDao = {
     saveReport:  async function (report: TReport) {
-        let count = await prisma.report.count(
-            {
-                where: {
-                    date: report.date
-                }
-            }
-        )
-        if(count === 0) {
-            return await prisma.report.create({data: report})
-        }else {
-            const {date, id, expend, ...data} = report
-            return await prisma.report.updateMany({
-                where: {
-                    date: report.date
-                },
-                data,
-            })
-        }
+        return await prisma.report.create({data: report})
+        // let count = await prisma.report.count(
+        //     {
+        //         where: {
+        //             date: report.date
+        //         }
+        //     }
+        // )
+        // if(count === 0) {
+            
+        // }else {
+        //     const {date, id, expend, ...data} = report
+        //     return await prisma.report.updateMany({
+        //         where: {
+        //             date: report.date
+        //         },
+        //         data,
+        //     })
+        // }
     },
     getReportPage: async function (pageNo:number, pageSize:number, query={}) {
         const count = await prisma.report.count({where: query})

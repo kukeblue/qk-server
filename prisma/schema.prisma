@@ -77,9 +77,14 @@ model Report {
   time       Int
   date       String
   type       String
-  income     Int
-  expend     Int
+  income     Float
+  expend     Float
+  note       String
   userId Int
+  taskCount Int
+  gameId String
+  groupId Int
+  profit Float
 }
 
 model User {

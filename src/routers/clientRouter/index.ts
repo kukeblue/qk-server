@@ -1,10 +1,11 @@
 
-import {TResponse, TTask, TTaskLog, TTaskStatus} from "../../typing";
+import {TReport, TResponse, TTask, TTaskLog, TTaskStatus} from "../../typing";
 // @ts-ignore
 import express, {Request, Response} from "express";
 import { TAddTaskLogRequest } from "../taskLogRouter/typing";
 import { taskLogDao } from "../../dao/taskLogDao";
 import { taskDao } from "../../dao/taskDao";
+import {gameGroupDao} from "../../dao/gameGroupDao"
 import { gameAccountDao } from "../../dao/gameAccountDao";
 import { deviceDao } from "../../dao/deviceDao";
 import { TGetStartTaskRequest, TGetStartTaskResponse, TStartTaskRequest } from "../taskRouter/typing";
@@ -12,15 +13,57 @@ import {asyncHandler} from "../../utils/errerHandle";
 import moment from "moment";
 import config from "../../config";
 import { gameRoleDao } from "../../dao/gameRoleDao";
+import { reportDao } from "../../dao/reportDao";
 const router = express.Router()
 
 
 router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogRequest}>, res:Response<TResponse<TTaskLog>>) {
     // const taskNo = req.body.taskNo
     // const task = await taskDao.getTaskByTaskNo(taskNo)
+    req.body.time = Number.parseInt((new Date().getTime() / 1000).toFixed(0))
+    req.body.taskCount = Number(req.body.taskCount)
     if(req.body.type == 'profit') {
-        const account = await gameAccountDao.getGameAccountByNickname(req.body.nickName)
-        req.body.userId = account.userId
+        const gameRole = await gameRoleDao.getGameRoleByQuery({gameId: req.body.nickName})
+        req.body.userId = gameRole.userId
+        const watuScanLog = await taskLogDao.getRecentlyWatuCountLog(req.body.nickName)
+        const group = await gameGroupDao.getGameGroupByQuery({id: gameRole.groupId})
+        const priceConfigs:any = {}
+        group.priceConfig?.split(',').forEach(item=>{
+           const huo = item.split('=')[0]
+           const price = item.split('=')[1]
+           priceConfigs[huo] = Number(price)
+        })
+        let income = 0
+        req.body.note.split(',').forEach((item:string)=>{
+            if(priceConfigs[item]) {
+                income = priceConfigs[item] + income
+            }else if( group.priceConfig?.includes(item.slice(0,item.length-1))){
+                let level = Number(item.charAt(item.length - 1))
+                let huo = item.slice(0,item.length-1)
+                income = income + priceConfigs[huo] * level
+            }
+        })
+
+        req.body.taskCount = watuScanLog.taskCount
+        const repost: TReport = {
+            type: 'watu_item',
+            time: req.body.time,
+            date: moment().format('YYYY-MM-DD'),
+            income: income,
+            // @ts-ignore
+            expend: (watuScanLog.taskCount || 0 ) * priceConfigs["宝图"],
+            taskCount: watuScanLog.taskCount,
+            gameId: gameRole.gameId,
+            groupId: gameRole.groupId,
+            note: req.body.note,
+            userId: gameRole.userId,
+        }
+        repost.profit = (repost.income || 0) - (repost.expend || 0)
+        await reportDao.saveReport(repost)
+    }
+    if(req.body.type == 'watuScan') {
+        const gameRole = await gameRoleDao.getGameRoleByQuery({gameId: req.body.nickName})
+        req.body.userId = gameRole.userId
     }
     const taskLog: TTaskLog = await taskLogDao.createTaskLog({...req.body})
     if(taskLog) {
@@ -59,75 +102,6 @@ export type TClinetStartTaskRequest = {
     gameServer?: string
 }
 
-router.post('/get_one_task',
-    asyncHandler(async function (req:Request<any, any, TClinetStartTaskRequest>, res: Response<TResponse<TGetStartTaskResponse>> ) {
-        const {imei, ...data} = req.body
-        console.log('imei', imei)
-        if(imei) {
-            const ret = await deviceDao.getDeviceByQuery({imei: imei})
-            if(ret) {
-                data.userId = ret.userId
-            }else {
-                res.json({
-                    status: 1001,
-                    message:config.tips['1001']
-                })
-                return;
-            }
-        }
-        if(!data.status) {
-            res.json({
-                status: 1001,
-                message:config.tips['1001']
-            })
-        }
-        const date = moment().format('YYYY-MM-DD')
-        console.log('查询' ,data.deviceId || '全部', data.status)
-        let query = {
-            status: data.status,
-            date,
-            name:data.name,
-        }
-        if(data.gameServer && data.gameServer != '' && data.gameServer != '无') {
-            // @ts-ignore
-            query.gameServer = data.gameServer
-            console.log(data.gameServer)
-        }
-        if(data.userId) {
-            // @ts-ignore
-            query.userId = data.userId
-        }
-        if(data.deviceId) {
-            // @ts-ignore
-            query.deviceId = data.deviceId
-        }
-        const task = await taskDao.getTaskByQuery(query)
-        if(!task) {
-            return res.json({
-                status: 1001,
-                message:config.tips['1001']
-            })
-        }
-        const account = await gameAccountDao.getGameAccountById(task.accountId)
-        if(task) {
-            res.json({
-                status: 0,
-                data: {
-                    taskName: task.name,
-                    taskNo: task.taskNo,
-                    accountNickName: account.nickName,
-                    status: task.status,
-                    deviceId: task.deviceId,
-                    accountId: task.accountId,
-                },
-            })
-        }else {
-            res.json({
-                status: 1001,
-                message:config.tips['1001']
-            })
-        }
-    }))
 
     router.post('/update_game_role_status',
     asyncHandler(async function (req:Request<any, any, {gameId: string, status: string}>, res: Response<any> ) {

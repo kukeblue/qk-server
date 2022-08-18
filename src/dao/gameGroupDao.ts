@@ -34,10 +34,11 @@ export const gameGroupDao = {
         }
     },
     getGameGroupByQuery: function (query: {
+        id?: number,
         name?: string,
         userId?: number,
         gameServer?: string
-    }): TTask {
+    }): TGameGroup {
         return prisma.gameGroup.findFirst({
             where: query,
         })

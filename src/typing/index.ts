@@ -90,7 +90,7 @@ export type TTaskLog = {
 
 // *********************** 报表相关 ******************************
 
-export type TReportType = "day" | "month" | "year"
+export type TReportType = "watu_item" | "day" | "month" | "year"
 
 export type TReport = {
     id?: number
@@ -99,6 +99,12 @@ export type TReport = {
     date: string
     income?: number
     expend?: number
+    taskCount?: number
+    gameId?: string
+    groupId?: number
+    note?: string
+    userId?: number
+    profit?: number
 }
 
 // *********************** 用户相关 ******************************

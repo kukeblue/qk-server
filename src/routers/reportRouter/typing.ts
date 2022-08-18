@@ -6,4 +6,5 @@ export type TCreateReportRequest = {
     date: string
     income: number
     expend: number
+    note?: string
 }
