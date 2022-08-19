@@ -32,7 +32,7 @@ export const reportDao = {
         }
     }
     , deleteByNote: async function () {
-        return await prisma.task.delete({
+        return await prisma.report.delete({
             where: {
                 note: '合计'
             }
