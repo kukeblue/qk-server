@@ -16,7 +16,7 @@ router.post('/add_game_roles', async function (req:Request<any, any, RequestAddG
     const list = await gameRoleDao.getGameRoleByQueryCount({work: '挖图' ,userId: req.loginUser.id})
     const count = list.length
     const vipCard = await vipCardDao.getVipCardByQuery({id: req.loginUser.vipCardId!})
-    if(count == vipCard.level || count > vipCard.level) {
+    if(req.body.work == '挖图' && (count == vipCard.level || count > vipCard.level)) {
         res.json( {status: 1, message: '请联系管理员升级会员等级'})
     }else {
         const accounts:TGameAccount[] = body.gameAccounts
