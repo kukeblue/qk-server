@@ -14,6 +14,15 @@ export const reportDao = {
             where: query,
         })
     },
+    getReportByQuery: function (query: {
+        date?: string,
+        userId?: number,
+        note?: string
+    }): Promise<TReport> {
+        return prisma.report.findFirst({
+            where: query,
+        })
+    },
     getReportPage: async function (pageNo:number, pageSize:number, query={}) {
         const count = await prisma.report.count({where: query})
         const list:TReport[] = await prisma.report.findMany({
@@ -31,17 +40,10 @@ export const reportDao = {
             list
         }
     }
-    , deleteByNote: async function ({
-        date,
-        note
-    }: {
-        date: string,
-        note: string
-    }) {
-        return await prisma.report.deleteAll({
+    , deleteById: async function (id) {
+        return await prisma.report.delete({
             where: {
-                note,
-                date
+                id
             }
         })
     },
