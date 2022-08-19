@@ -17,7 +17,7 @@ export const gameGroupDao = {
                 where: {
                     id: gameGroup.id,
                 },
-               data: { name: gameGroup.name },
+               data: { name: gameGroup.name,  priceConfig: gameGroup.priceConfig},
             })
         }
     },

@@ -4,12 +4,12 @@ CREATE TABLE `report` (
     `date` varchar(20),
     `time` int(10),
     `taskCount` int(10),
-    `income` float(4,2),
-    `expend` float(4,2),
+    `income` float(6,2),
+    `expend` float(6,2),
     `userId` bigint(18),
     `gameId` varchar(18),
     `groupId` bigint(18),
     `note` varchar(100) DEFAULT '',
-    `profit` float(4,2),
+    `profit` float(6,2),
      PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=gbk
