@@ -10,7 +10,7 @@ export const reportDao = {
         userId?: number,
         type?: string,
     }): Promise<TReport[]> {
-        return prisma.task.findMany({
+        return prisma.report.findMany({
             where: query,
         })
     },
