@@ -5,12 +5,14 @@ import {taskLogDao} from "../dao/taskLogDao";
 import moment from "moment";
 import {taskDao} from "../dao/taskDao";
 import {reportDao} from "../dao/reportDao";
+import {userDao} from "../dao/userDao.js";
+
 
 export function initTimer() {
-    // schedule.scheduleJob('0 */5 * * *', async () => {
-    //     console.log('debug asyncTaskCount')
-    //     await asyncTaskCount()
-    // })
+    schedule.scheduleJob('0 */5 * * *', async () => {
+        console.log('debug asyncTaskCount')
+        await asyncTaskCount()
+    })
 }
 
 const asyncOneDay = async function (date: string) {
@@ -58,8 +60,9 @@ const buildReport = async function (date: string) {
 export const asyncTaskCount = async function () {
     const date = moment().format('YYYY-MM-DD')
     const yesterday = moment().add( -1, 'days').format('YYYY-MM-DD')
-    await asyncOneDay(date)
-    await asyncOneDay(yesterday)
+    // await asyncOneDay(date)
+    // await asyncOneDay(yesterday)
+    // const res = await userDao.getAllUser()
     await reportDao.saveReport({
         type: "day",
         time: Number.parseInt((new Date().getTime() / 1000).toFixed(0)),
@@ -67,6 +70,6 @@ export const asyncTaskCount = async function () {
         income: 10,
         expend: 0
     })
-    buildReport(date)
-    buildReport(yesterday)
+    // buildReport(date)
+    // buildReport(yesterday)
 }

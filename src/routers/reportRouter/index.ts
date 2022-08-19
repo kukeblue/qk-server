@@ -27,4 +27,42 @@ router.post('/get_report_page', async function (req:Request & {loginUser: TUser}
     })
 })
 
+router.post('/build_report_day_summary', async function (req:Request & {loginUser: TUser}, res: Response<TResponse<TReport>> ) {
+    const date = moment().format('YYYY-MM-DD')
+    const today = moment().add( 1, 'days').format('YYYY-MM-DD')
+    const reports = await reportDao.getReportsByQuery({
+        userId: req.loginUser.id,
+        date: date,
+        type: 'watu_item'
+    })
+    let totalIncome = 0
+    let totalTaskCount = 0
+    let totalExpend = 0
+    let totalProfit = 0
+    reports.forEach(item=>{
+        totalIncome = totalIncome +  (item.income || 0)
+        totalExpend = totalExpend + (item.expend || 0)
+        totalTaskCount = totalTaskCount + (item.taskCount || 0)
+        totalProfit = totalProfit + (item.profit || 0)
+    })
+    await reportDao.saveReport({
+        type: 'day',
+        time: Number.parseInt((new Date(today).getTime() / 1000).toFixed(0)) - 1,
+        date,
+        income: totalIncome,
+        expend: totalExpend,
+        taskCount: totalTaskCount,
+        gameId: '0',
+        groupId: -1,
+        note: '合计',
+        userId: req.loginUser.id,
+        profit: totalProfit,
+    })
+    return res.json({
+        status: 0,
+    })
+})
+
+
+
 export default router
