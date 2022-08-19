@@ -45,6 +45,7 @@ router.post('/build_report_day_summary', async function (req:Request & {loginUse
         totalTaskCount = totalTaskCount + (item.taskCount || 0)
         totalProfit = totalProfit + (item.profit || 0)
     })
+    await reportDao.deleteByNote()
     await reportDao.saveReport({
         type: 'day',
         time: Number.parseInt((new Date(today).getTime() / 1000).toFixed(0)) - 1,

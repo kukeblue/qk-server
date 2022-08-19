@@ -31,6 +31,13 @@ export const reportDao = {
             list
         }
     }
+    , deleteByNote: async function () {
+        return await prisma.task.delete({
+            where: {
+                note: '合计'
+            }
+        })
+    },
 }
 
 
