@@ -31,10 +31,17 @@ export const reportDao = {
             list
         }
     }
-    , deleteByNote: async function () {
-        return await prisma.report.delete({
+    , deleteByNote: async function ({
+        date,
+        note
+    }: {
+        date: string,
+        note: string
+    }) {
+        return await prisma.report.deleteAll({
             where: {
-                note: '合计'
+                note,
+                date
             }
         })
     },
