@@ -40,7 +40,7 @@ export const reportDao = {
             list
         }
     }
-    , deleteById: async function (id) {
+    , deleteById: async function (id: number) {
         return await prisma.report.delete({
             where: {
                 id
