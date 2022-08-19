@@ -51,7 +51,7 @@ router.post('/build_report_day_summary', async function (req:Request & {loginUse
         note: '合计'
     })
     if(heji) {
-        await reportDao.deleteById(heji.id)
+        await reportDao.deleteById(heji.id!)
     }
     
     await reportDao.saveReport({
