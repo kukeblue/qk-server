@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {TReport, TResponse, TTask, TTaskLog, TTaskStatus} from "../../typing";
+import {TReport, TResponse, TTask, TTaskLog, TTaskStatus, TUser} from "../../typing";
 // @ts-ignore
 import moment from "moment"
 import {reportDao} from "../../dao/reportDao";
@@ -18,9 +18,9 @@ router.post('/save_report',
         })
     })
 
-router.post('/get_report_page', async function (req:Request, res: Response<TResponse<TReport>> ) {
+router.post('/get_report_page', async function (req:Request & {loginUser: TUser}, res: Response<TResponse<TReport>> ) {
     const {pageSize, pageNo, query} = req.body
-    const pagination = await reportDao.getReportPage(pageNo, pageSize, query)
+    const pagination = await reportDao.getReportPage(pageNo, pageSize, {userId: req.loginUser.id,...query})
     return res.json({
         status: 0,
         page: pagination
