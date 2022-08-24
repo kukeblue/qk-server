@@ -33,6 +33,12 @@ app.use(bodyParser.json())
 // token验证中间件
 app.use(async function(req: Request & {loginUser: TUser},res:Response,next:NextFunction){
     if(req.url.includes('api') && !req.url.includes('login') && !req.url.includes('client')) {
+        if(!req.headers.token) {
+            res.status(401).json({
+                status: -1,
+                message: '没有权限，请登录'
+            });
+        }
         const user = jwt.verify(req.headers.token, jwtSecretKey);
         let vipCard
         if(user.vipCardId != 0) {
