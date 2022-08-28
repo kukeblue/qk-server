@@ -24,11 +24,6 @@ router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogR
     req.body.taskCount = Number(req.body.taskCount)
     if(req.body.type == 'profit') {
         const gameRole = await gameRoleDao.getGameRoleByQuery({gameId: req.body.nickName})
-        if(!gameRole) {
-            return res.json({
-                status: -1
-            })
-        }
         req.body.userId = gameRole.userId
         const watuScanLog = await taskLogDao.getRecentlyWatuCountLog(req.body.nickName)
         const group = await gameGroupDao.getGameGroupByQuery({id: gameRole.groupId})
@@ -120,20 +115,18 @@ export type TClinetStartTaskRequest = {
         const {gameId, work} = req.body
         const gameRole = await gameRoleDao.getGameRoleByQuery({gameId})
         if(!gameRole) {
-            res.json( {status: -1})
-        }else {
-            const groupId = gameRole.groupId
-            const targetGameRole = await gameRoleDao.getGameRoleByQuery({groupId, work, status: '空闲'})
-            if(targetGameRole) {
-                if(work == '挖图' || work == '接货') {
-                    await gameRoleDao.updateGameRoleStatus(targetGameRole.gameId, '忙碌')
-                }
-                res.json( {status: 0, data: targetGameRole, gameId: targetGameRole.gameId})
-            }else {
-                res.json( {status: -1})
-            }
+            return res.json( {status: -1})
         }
-        
+        const groupId = gameRole.groupId
+        const targetGameRole = await gameRoleDao.getGameRoleByQuery({groupId, work, status: '空闲'})
+        if(targetGameRole) {
+            if(work == '挖图' || work == '接货') {
+                await gameRoleDao.updateGameRoleStatus(targetGameRole.gameId, '忙碌')
+            }
+            res.json( {status: 0, data: targetGameRole, gameId: targetGameRole.gameId})
+        }else {
+            res.json( {status: -1})
+        }
     }))
 
     router.post('/get_role_status',
