@@ -39,7 +39,15 @@ app.use(async function(req: Request & {loginUser: TUser},res:Response,next:NextF
                 message: '没有权限，请登录'
             });
         }else {
-            const user = jwt.verify(req.headers.token, jwtSecretKey);
+            let user
+            try {
+                user = jwt.verify(req.headers.token, jwtSecretKey);
+            }catch(err) {
+                res.status(401).json({
+                    status: -1,
+                    message: '没有权限，请登录'
+                });
+            }
             let vipCard
             if(user.vipCardId != 0) {
                 vipCard = await vipCardDao.getVipCardByQuery({id: user.vipCardId!})
