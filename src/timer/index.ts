@@ -63,13 +63,13 @@ export const asyncTaskCount = async function () {
     // await asyncOneDay(date)
     // await asyncOneDay(yesterday)
     // const res = await userDao.getAllUser()
-    await reportDao.saveReport({
-        type: "day",
-        time: Number.parseInt((new Date().getTime() / 1000).toFixed(0)),
-        date: date,
-        income: 10,
-        expend: 0
-    })
+    // await reportDao.saveReport({
+    //     type: "day",
+    //     time: Number.parseInt((new Date().getTime() / 1000).toFixed(0)),
+    //     date: date,
+    //     income: 10,
+    //     expend: 0
+    // })
     // buildReport(date)
     // buildReport(yesterday)
 }

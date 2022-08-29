@@ -43,7 +43,13 @@ app.use(async function(req: Request & {loginUser: TUser},res:Response,next:NextF
             try {
                 user = jwt.verify(req.headers.token, jwtSecretKey);
             }catch(err) {
-                res.status(401).json({
+                return res.status(401).json({
+                    status: -1,
+                    message: '没有权限，请登录'
+                });
+            }
+            if(!user) {
+                return res.status(401).json({
                     status: -1,
                     message: '没有权限，请登录'
                 });

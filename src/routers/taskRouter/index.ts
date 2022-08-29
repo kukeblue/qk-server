@@ -118,7 +118,7 @@ router.post('/start_task',
 
 router.get('/calculate_income',
     async function (req:Request, res: Response ) {
-        await asyncTaskCount()
+        // await asyncTaskCount()
         res.json({
             status: 0,
         })

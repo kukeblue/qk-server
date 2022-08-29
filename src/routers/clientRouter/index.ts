@@ -35,13 +35,15 @@ router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogR
         })
         let income = 0
         req.body.note.split(',').forEach((item:string)=>{
-            if(priceConfigs[item]) {
-                income = priceConfigs[item] + income
-            }else if( group.priceConfig?.includes(item.slice(0,item.length-1))){
-                let level = Number(item.charAt(item.length - 1))
-                let huo = item.slice(0,item.length-1)
-                income = income + priceConfigs[huo] * level
-            }
+            if(item != '未知') {
+                if(priceConfigs[item]) {
+                    income = priceConfigs[item] + income
+                }else if( group.priceConfig?.includes(item.slice(0,item.length-1))){
+                    let level = Number(item.charAt(item.length - 1))
+                    let huo = item.slice(0,item.length-1)
+                    income = income + priceConfigs[huo] * level
+                }
+            } 
         })
 
         req.body.taskCount = watuScanLog.taskCount
@@ -49,7 +51,7 @@ router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogR
             type: 'watu_item',
             time: req.body.time,
             date: moment().format('YYYY-MM-DD'),
-            income: income,
+            income: income || 0,
             // @ts-ignore
             expend: (watuScanLog.taskCount || 0 ) * priceConfigs["宝图"],
             taskCount: watuScanLog.taskCount,
