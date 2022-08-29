@@ -120,7 +120,7 @@ export type TClinetStartTaskRequest = {
         const groupId = gameRole.groupId
         const targetGameRole = await gameRoleDao.getGameRoleByQuery({groupId, work, status: '空闲'})
         if(targetGameRole) {
-            if(work == '挖图' || work == '接货') {
+            if(work == '挖图') {
                 await gameRoleDao.updateGameRoleStatus(targetGameRole.gameId, '忙碌')
             }
             res.json( {status: 0, data: targetGameRole, gameId: targetGameRole.gameId})
