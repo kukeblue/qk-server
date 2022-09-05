@@ -28,7 +28,10 @@ router.post('/get_report_page', async function (req:Request & {loginUser: TUser}
 })
 
 router.post('/build_report_day_summary', async function (req:Request & {loginUser: TUser}, res: Response<TResponse<TReport>> ) {
-    const date = moment().format('YYYY-MM-DD')
+    let {date} = req.body
+    if(!date) {
+        date = moment().format('YYYY-MM-DD')
+    }
     const today = moment().add( 1, 'days').format('YYYY-MM-DD')
     const reports = await reportDao.getReportsByQuery({
         userId: req.loginUser.id,
