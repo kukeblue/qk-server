@@ -9,6 +9,7 @@ CREATE TABLE `game_role` (
     `level` int(10),
     `gameId`  varchar(50) NOT NULL DEFAULT '',
     `groupId` bigint(18),
+    `note` varchar(50) NOT NULL DEFAULT '',
     PRIMARY KEY (`id`)
 
 ) ENGINE=InnoDB  DEFAULT CHARSET=gbk

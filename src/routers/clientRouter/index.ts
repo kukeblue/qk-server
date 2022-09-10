@@ -131,6 +131,22 @@ export type TClinetStartTaskRequest = {
         }
     }))
 
+    router.post('/get_one_by_status',
+    asyncHandler(async function (req:Request<any, any, {gameId: string, work: string, status: string}>, res: Response<any> ) {
+        const {gameId, work, status} = req.body
+        const gameRole = await gameRoleDao.getGameRoleByQuery({gameId})
+        if(!gameRole) {
+            return res.json( {status: -1})
+        }
+        const groupId = gameRole.groupId
+        const targetGameRole = await gameRoleDao.getGameRoleByQuery({groupId, work, status})
+        if(targetGameRole) {
+            res.json( {status: 0, data: targetGameRole, gameId: targetGameRole.gameId})
+        }else {
+            res.json( {status: -1})
+        }
+    }))
+
     router.post('/get_role_status',
     asyncHandler(async function (req:Request<any, any, {gameId: string}>, res: Response<any> ) {
         const {gameId} = req.body
