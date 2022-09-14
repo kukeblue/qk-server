@@ -14,8 +14,59 @@ import moment from "moment";
 import config from "../../config";
 import { gameRoleDao } from "../../dao/gameRoleDao";
 import { reportDao } from "../../dao/reportDao";
+import {TCreateUnloadDirectiveRequest} from "./typing";
+import {unloadDirectiveDao} from "../../dao/unloadDirectiveDao";
+import {TUnloadDirective} from "../../typing";
+
 const router = express.Router()
 
+function getRandomString(length: number) {
+    length = length || 32;
+    //设置随机数范围
+    var $chars = 'qwertyuiopasdfghjklzxcvbnm1234567890';
+    var maxPos = $chars.length;
+    var result = '';
+    for(let i = 0; i < length; i++) {
+        //产生随机数方式
+        result += $chars.charAt(Math.floor(Math.random() * maxPos));
+    }
+    return result;
+}
+
+router.post('/get_unloadDirective_by_code',
+    async function (req:Request<any, any, {code: string}>, res: Response<TResponse<TUnloadDirective>> ) {
+        const query = {
+            code: req.body.code
+        }
+        const unloadDirective = await unloadDirectiveDao.getUnloadDirectiveByQuery(query)
+        if(unloadDirective) {
+            return res.json({
+                data:unloadDirective,
+                status: 0
+            })
+        }else {
+            return res.json({
+                status: -1
+            })
+        }
+    })
+
+router.post('/save_unloadDirective',
+    async function (req:Request<any, any, TCreateUnloadDirectiveRequest>, res: Response<TResponse<TUnloadDirective>> ) {
+         const body = req.body
+        body.createTime = Number.parseInt((new Date().getTime() / 1000).toFixed(0))
+        body.code = getRandomString(6);
+        body.total = 0
+        body.data = JSON.stringify(body.data)
+        body.totalPrice = 0
+        body.config = ''
+        console.log(body)
+        const unloadDirective = await unloadDirectiveDao.saveUnloadDirective(body)
+        return res.json({
+            data:unloadDirective,
+            status: 0
+        })
+    })
 
 router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogRequest}>, res:Response<TResponse<TTaskLog>>) {
     // const taskNo = req.body.taskNo
@@ -136,9 +187,10 @@ export type TClinetStartTaskRequest = {
         const {gameId, work, status} = req.body
         const gameRole = await gameRoleDao.getGameRoleByQuery({gameId})
         if(!gameRole) {
-            return res.json( {status: -1})
+            return res.json( {status: -2})
         }
         const groupId = gameRole.groupId
+        console.log(groupId, work, status)
         const targetGameRole = await gameRoleDao.getGameRoleByQuery({groupId, work, status})
         if(targetGameRole) {
             if(work == '挖图') {

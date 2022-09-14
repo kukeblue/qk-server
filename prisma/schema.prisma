@@ -138,3 +138,16 @@ model GameRole {
   level Int
 }
 
+model UnloadDirective {
+  @@map("unload_directive")
+  id         Int     @id @default(autoincrement())
+  code    String
+  gameId  String
+  status  String
+  data    String
+  config  String
+  total   Int
+  totalPrice Int
+  createTime Int
+}
+

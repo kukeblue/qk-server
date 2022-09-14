@@ -16,6 +16,8 @@ import configRouter from "./routers/configRouter/index";
 import uploadRouter from "./routers/uploadRouter";
 import clientRouter from "./routers/clientRouter";
 
+const path = require('path')
+app.use('/static', express.static(path.join(__dirname, 'public')))
 
 
 const jwt = require('jsonwebtoken');
@@ -91,6 +93,9 @@ app.use('/api/config', configRouter)
 app.use('/api/upload', uploadRouter)
 app.use('/api/client', clientRouter)
 app.use('/api/game_role', gameRoleRouter)
+// app.use('/api/unload_directive', unloadDirectiveRouter)
+
+
 
 
 
