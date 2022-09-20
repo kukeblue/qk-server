@@ -54,8 +54,8 @@
                     <tr>
                         <th colspan="2" style="color:red" bgcolor="FFE4B5">五宝</th>
                         
-                            <th style="color:DeepSkyBlue"> 0 </th>
-                            <th style="color:Fuchsia"> 0 </th>
+                            <th id="五宝数量" style="color:DeepSkyBlue"> 0 </th>
+                            <th id="五宝总价" style="color:Fuchsia"> 0 </th>
                         
                     </tr>
                     <tr>
@@ -67,26 +67,26 @@
                     
                         <tr>
                             <th style="width:150px">金刚石</th>
-                            <td><input style="width:100px" type="number" value="1420000"
+                            <td><input id="金刚石" style="width:100px" type="number" value="1420000"
                                        name='m0' key="金刚石" sort="0"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="金刚石-total">0</td>
+                            <td id="金刚石-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">定魂珠</th>
                             <td><input style="width:100px" type="number" value="1420000"
-                                       name='m0' key="定魂珠" sort="1"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                                       name='m0' id="定魂珠" key="定魂珠" sort="1"/></td>
+                            <td id="定魂珠-total">0</td>
+                            <td id="定魂珠-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">夜光珠</th>
-                            <td><input style="width:100px" type="number" value="1070000"
+                            <td><input id="夜光珠" style="width:100px" type="number" value="1070000"
                                        name='m0' key="夜光珠" sort="2"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="夜光珠-total">0</td>
+                            <td id="夜光珠-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
@@ -100,9 +100,9 @@
                         <tr>
                             <th style="width:150px">避水珠</th>
                             <td><input style="width:100px" type="number" value="40000"
-                                       name='m0' key="避水珠" sort="4"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                                       name='m0' id="避水珠" key="避水珠" sort="4"/></td>
+                            <td id="避水珠-total">0</td>
+                            <td id="避水珠-total-price" style="color:Blue">0</td>
                         </tr>
                     
                 </table>
@@ -111,8 +111,8 @@
                     <tr>
                         <th colspan="2" style="color:red" bgcolor="FFE4B5">宝石</th>
                         
-                            <th style="color:DeepSkyBlue"> 0 </th>
-                            <th style="color:Fuchsia"> 0 </th>
+                            <th id="宝石数量" style="color:DeepSkyBlue"> 0 </th>
+                            <th id="宝石总价" style="color:Fuchsia"> 0 </th>
                         
                     </tr>
                     <tr>
@@ -121,125 +121,123 @@
                         <th>数量</th>
                         <th>总价</th>
                     </tr>
-                    
                         <tr>
                             <th style="width:150px">金柳露</th>
                             <td><input style="width:100px" type="number" value="60000" name="m0"
-                                       key="金柳露" sort="25"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                                id="金柳露" key="金柳露" sort="25"/></td>
+                            <td id="金柳露-total">0</td>
+                            <td id="金柳露-total-price" style="color:Blue">0</td>
                         </tr>
-                    
                         <tr>
                             <th style="width:150px">黑宝石1级</th>
-                            <td><input style="width:100px" type="number" value="110000" name="m0"
+                            <td><input id="黑宝石1级" style="width:100px" type="number" value="110000" name="m0"
                                        key="黑宝石1级" sort="11"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="黑宝石1级-total">0</td>
+                            <td id="黑宝石1级-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">黑宝石2级</th>
                             <td><input style="width:100px" type="number" value="220000" name="m0"
-                                       key="黑宝石2级" sort="12"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                                id="黑宝石2级" key="黑宝石2级" sort="12"/></td>
+                            <td id="黑宝石2级-total">0</td>
+                            <td id="黑宝石2级-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">舍利子1级</th>
                             <td><input style="width:100px" type="number" value="80000" name="m0"
-                                       key="舍利子1级" sort="13"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                                id="舍利子1级" key="舍利子1级" sort="13"/></td>
+                            <td id="舍利子1级-total">0</td>
+                            <td id="舍利子1级-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">舍利子2级</th>
-                            <td><input style="width:100px" type="number" value="160000" name="m0"
+                            <td><input id="舍利子2级" style="width:100px" type="number" value="160000" name="m0"
                                        key="舍利子2级" sort="14"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="舍利子2级-total">0</td>
+                            <td id="舍利子2级-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">红玛瑙1级</th>
-                            <td><input style="width:100px" type="number" value="60000" name="m0"
+                            <td><input id="红玛瑙1级" style="width:100px" type="number" value="60000" name="m0"
                                        key="红玛瑙1级" sort="15"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="红玛瑙1级-total">0</td>
+                            <td id="红玛瑙1级-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">红玛瑙2级</th>
-                            <td><input style="width:100px" type="number" value="120000" name="m0"
+                            <td><input id="红玛瑙2级" style="width:100px" type="number" value="120000" name="m0"
                                        key="红玛瑙2级" sort="16"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="红玛瑙2级-total">0</td>
+                            <td id="红玛瑙2级-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">太阳石1级</th>
-                            <td><input style="width:100px" type="number" value="60000" name="m0"
+                            <td><input id="太阳石1级" style="width:100px" type="number" value="60000" name="m0"
                                        key="太阳石1级" sort="17"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="太阳石1级-total">0</td>
+                            <td id="太阳石1级-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">太阳石2级</th>
-                            <td><input style="width:100px" type="number" value="120000" name="m0"
+                            <td><input id="太阳石2级" style="width:100px" type="number" value="120000" name="m0"
                                        key="太阳石2级" sort="18"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="太阳石2级-total">0</td>
+                            <td id="太阳石2级-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">月亮石1级</th>
-                            <td><input style="width:100px" type="number" value="60000" name="m0"
+                            <td><input id="月亮石1级" style="width:100px" type="number" value="60000" name="m0"
                                        key="月亮石1级" sort="19"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="月亮石1级-total-price">0</td>
+                            <td id="月亮石1级-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">月亮石2级</th>
-                            <td><input style="width:100px" type="number" value="120000" name="m0"
+                            <td><input id="月亮石2级" style="width:100px" type="number" value="120000" name="m0"
                                        key="月亮石2级" sort="20"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="月亮石2级-total">0</td>
+                            <td id="月亮石2级-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">光芒石1级</th>
-                            <td><input style="width:100px" type="number" value="40000" name="m0"
+                            <td><input id="光芒石1级" style="width:100px" type="number" value="40000" name="m0"
                                        key="光芒石1级" sort="21"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="光芒石1级-total">0</td>
+                            <td id="光芒石1级-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">光芒石2级</th>
                             <td><input style="width:100px" type="number" value="80000" name="m0"
-                                       key="光芒石2级" sort="22"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                                id="光芒石2级" key="光芒石2级" sort="22"/></td>
+                            <td id="光芒石2级-total">0</td>
+                            <td id="光芒石2级-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">垃圾宝石1级</th>
                             <td><input style="width:100px" type="number" value="0" name="m0"
-                                       key="垃圾宝石1级" sort="23"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                                      id="垃圾宝石1级" key="垃圾宝石1级" sort="23"/></td>
+                            <td id="垃圾宝石1级-total">0</td>
+                            <td id="垃圾宝石1级-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">垃圾宝石2级</th>
-                            <td><input style="width:100px" type="number" value="0" name="m0"
+                            <td><input id="垃圾宝石2级" style="width:100px" type="number" value="0" name="m0"
                                        key="垃圾宝石2级" sort="24"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="垃圾宝石2级-total">0</td>
+                            <td id="垃圾宝石2级-total-price" style="color:Blue">0</td>
                         </tr>
                     
                 </table>
@@ -248,8 +246,8 @@
                     <tr>
                         <th colspan="2" style="color:red" bgcolor="FFE4B5">内丹</th>
                         
-                            <th style="color:DeepSkyBlue"> 0 </th>
-                            <th style="color:Fuchsia"> 0 </th>
+                            <th id="内丹数量" style="color:DeepSkyBlue"> 0 </th>
+                            <th id="内丹总价" style="color:Fuchsia"> 0 </th>
                         
                     </tr>
                     <tr>
@@ -261,162 +259,162 @@
                     
                         <tr>
                             <th style="width:150px">迅敏</th>
-                            <td><input style="width:100px" type="number" value="1300000" name="m0"
+                            <td><input id="迅敏" style="width:100px" type="number" value="1300000" name="m0"
                                        key="迅敏" sort="26"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="迅敏-total">0</td>
+                            <td id="迅敏-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">矫健</th>
-                            <td><input style="width:100px" type="number" value="900000" name="m0"
+                            <td><input id="矫健" style="width:100px" type="number" value="900000" name="m0"
                                        key="矫健" sort="27"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="矫健-total">0</td>
+                            <td id="矫健-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">静岳</th>
-                            <td><input style="width:100px" type="number" value="650000" name="m0"
+                            <td><input id="静岳" style="width:100px" type="number" value="650000" name="m0"
                                        key="静岳" sort="28"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="静岳-total">0</td>
+                            <td id="静岳-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">连环</th>
-                            <td><input style="width:100px" type="number" value="900000" name="m0"
+                            <td><input id="连环" style="width:100px" type="number" value="900000" name="m0"
                                        key="连环" sort="29"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="连环-total">0</td>
+                            <td id="连环-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">灵光</th>
-                            <td><input style="width:100px" type="number" value="550000" name="m0"
+                            <td><input id="灵光" style="width:100px" type="number" value="550000" name="m0"
                                        key="灵光" sort="30"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="灵光-total">0</td>
+                            <td id="灵光-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">灵身</th>
-                            <td><input style="width:100px" type="number" value="280000" name="m0"
+                            <td><input id="灵身" style="width:100px" type="number" value="280000" name="m0"
                                        key="灵身" sort="31"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="灵身-total">0</td>
+                            <td id="灵身-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">撞击</th>
-                            <td><input style="width:100px" type="number" value="280000" name="m0"
+                            <td><input id="撞击" style="width:100px" type="number" value="280000" name="m0"
                                        key="撞击" sort="32"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="撞击-total">0</td>
+                            <td id="撞击-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">狂怒</th>
-                            <td><input style="width:100px" type="number" value="300000" name="m0"
+                            <td><input id="狂怒" style="width:100px" type="number" value="300000" name="m0"
                                        key="狂怒" sort="33"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="狂怒-total">0</td>
+                            <td id="狂怒-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">阴伤</th>
-                            <td><input style="width:100px" type="number" value="280000" name="m0"
+                            <td><input id="阴伤" style="width:100px" type="number" value="280000" name="m0"
                                        key="阴伤" sort="34"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="阴伤-total">0</td>
+                            <td id="阴伤-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">擅咒</th>
-                            <td><input style="width:100px" type="number" value="280000" name="m0"
+                            <td><input id="擅咒" style="width:100px" type="number" value="280000" name="m0"
                                        key="擅咒" sort="35"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="擅咒-total">0</td>
+                            <td id="擅咒-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">狙刺</th>
-                            <td><input style="width:100px" type="number" value="170000" name="m0"
+                            <td><input id="狙刺" style="width:100px" type="number" value="130000" name="m0"
                                        key="狙刺" sort="36"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="狙刺-total">0</td>
+                            <td id="狙刺-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">钢化</th>
-                            <td><input style="width:100px" type="number" value="170000" name="m0"
-                                       key="钢化" sort="37"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td><input style="width:100px" type="number" value="130000" name="m0"
+                                id="钢化" key="钢化" sort="37"/></td>
+                            <td id="钢化-total">0</td>
+                            <td id="钢化-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">淬毒</th>
-                            <td><input style="width:100px" type="number" value="170000" name="m0"
-                                       key="淬毒" sort="38"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td><input style="width:100px" type="number" value="130000" name="m0"
+                                id="淬毒" key="淬毒" sort="38"/></td>
+                            <td id="淬毒-total">0</td>
+                            <td id="淬毒-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">岿然</th>
-                            <td><input style="width:100px" type="number" value="170000" name="m0"
+                            <td><input id="岿然" style="width:100px" type="number" value="130000" name="m0"
                                        key="岿然" sort="39"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="岿然-total">0</td>
+                            <td id="岿然-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">深思</th>
-                            <td><input style="width:100px" type="number" value="170000" name="m0"
-                                       key="深思" sort="40"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td><input style="width:100px" type="number" value="130000" name="m0"
+                                id="深思" key="深思" sort="40"/></td>
+                            <td id="深思-total">0</td>
+                            <td id="深思-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">坚甲</th>
-                            <td><input style="width:100px" type="number" value="170000" name="m0"
-                                       key="坚甲" sort="41"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td><input style="width:100px" type="number" value="130000" name="m0"
+                                id="坚甲" key="坚甲" sort="41"/></td>
+                            <td id="坚甲-total">0</td>
+                            <td id="坚甲-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">慧心</th>
-                            <td><input style="width:100px" type="number" value="170000" name="m0"
-                                       key="慧心" sort="42"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td><input style="width:100px" type="number" value="130000" name="m0"
+                                id="慧心" key="慧心" sort="42"/></td>
+                            <td id="慧心-total">0</td>
+                            <td id="慧心-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">无畏</th>
-                            <td><input style="width:100px" type="number" value="170000" name="m0"
-                                       key="无畏" sort="43"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td><input style="width:100px" type="number" value="130000" name="m0"
+                                id="无畏" key="无畏" sort="43"/></td>
+                            <td id="无畏-total">0</td>
+                            <td id="无畏-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">愤恨</th>
-                            <td><input style="width:100px" type="number" value="170000" name="m0"
-                                       key="愤恨" sort="44"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td><input style="width:100px" type="number" value="130000" name="m0"
+                                id="愤恨" key="愤恨" sort="44"/></td>
+                            <td id="愤恨-total">0</td>
+                            <td id="愤恨-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">圣洁</th>
-                            <td><input style="width:100px" type="number" value="170000" name="m0"
-                                       key="圣洁" sort="45"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td><input style="width:100px" type="number" value="130000" name="m0"
+                                id="圣洁" key="圣洁" sort="45"/></td>
+                            <td id="圣洁-total">0</td>
+                            <td id="圣洁-total-price" style="color:Blue">0</td>
                         </tr>
                     
                 </table>
@@ -428,11 +426,11 @@
                      <tr style="height:80px">
                         <th colspan="1" style="color:red" bgcolor="FFE4B5" >总件数</th>
                         
-                            <th colspan="1" style="color:Fuchsia"> 0 </th>
+                            <th id="总件数" colspan="1" style="color:Fuchsia"> 0 </th>
                         
                         <th colspan="1" style="color:red" bgcolor="FFE4B5" >总金额</th>
                         
-                            <th colspan="1" style="color:Fuchsia"> 0 </th>
+                            <th id="总金额" colspan="1" style="color:Fuchsia"> 0 </th>
                         
                     </tr>
                     <td colspan="4" style="height:30px" ></td>
@@ -441,8 +439,8 @@
                     <tr>
                         <th colspan="2" style="color:red" bgcolor="FFE4B5">魔兽要诀</th>
                         
-                            <th style="color:DeepSkyBlue"> 0 </th>
-                            <th style="color:Fuchsia"> 0 </th>
+                            <th id="兽决数量" style="color:DeepSkyBlue"> 0 </th>
+                            <th id="兽决总价" style="color:Fuchsia"> 0 </th>
                         
                     </tr>
                     <tr>
@@ -454,323 +452,357 @@
                     
                         <tr>
                             <th style="width:150px">必杀</th>
-                            <td><input style="width:100px" type="number" value="810000" name="m0"
+                            <td><input id="必杀" style="width:100px" type="number" value="810000" name="m0"
                                        key="必杀" sort="46"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="必杀-total">0</td>
+                            <td id="必杀-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">吸血</th>
-                            <td><input style="width:100px" type="number" value="810000" name="m0"
+                            <td><input id="吸血" style="width:100px" type="number" value="810000" name="m0"
                                        key="吸血" sort="47"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="吸血-total">0</td>
+                            <td id="吸血-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">夜战</th>
-                            <td><input style="width:100px" type="number" value="810000" name="m0"
+                            <td><input id="夜战" id="夜战" style="width:100px" type="number" value="810000" name="m0"
                                        key="夜战" sort="48"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="夜战-total">0</td>
+                            <td id="夜战-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">法术暴击</th>
-                            <td><input style="width:100px" type="number" value="800000" name="m0"
+                            <td><input id="法术暴击" style="width:100px" type="number" value="800000" name="m0"
                                        key="法术暴击" sort="49"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="法术暴击-total">0</td>
+                            <td id="法术暴击-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">法术波动</th>
-                            <td><input style="width:100px" type="number" value="800000" name="m0"
+                            <td><input id="法术波动" style="width:100px" type="number" value="800000" name="m0"
                                        key="法术波动" sort="50"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="法术波动-total">0</td>
+                            <td id="法术波动-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">法术连击</th>
-                            <td><input style="width:100px" type="number" value="650000" name="m0"
+                            <td><input id="法术连击" style="width:100px" type="number" value="650000" name="m0"
                                        key="法术连击" sort="51"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="法术连击-total">0</td>
+                            <td id="法术连击-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">偷袭</th>
-                            <td><input style="width:100px" type="number" value="810000" name="m0"
+                            <td><input id="偷袭" style="width:100px" type="number" value="810000" name="m0"
                                        key="偷袭" sort="52"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="偷袭-total">0</td>
+                            <td id="偷袭-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">魔之心</th>
-                            <td><input style="width:100px" type="number" value="650000" name="m0"
+                            <td><input id="魔之心" style="width:100px" type="number" value="650000" name="m0"
                                        key="魔之心" sort="53"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="魔之心-total">0</td>
+                            <td id="魔之心-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">反震</th>
-                            <td><input style="width:100px" type="number" value="650000" name="m0"
+                            <td><input id="反震" style="width:100px" type="number" value="650000" name="m0"
                                        key="反震" sort="54"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="反震-total">0</td>
+                            <td id="反震-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">感知</th>
-                            <td><input style="width:100px" type="number" value="650000" name="m0"
+                            <td><input id="感知" style="width:100px" type="number" value="650000" name="m0"
                                        key="感知" sort="55"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="感知-total">0</td>
+                            <td id="感知-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">驱鬼</th>
-                            <td><input style="width:100px" type="number" value="650000" name="m0"
+                            <td><input id="驱鬼" style="width:100px" type="number" value="650000" name="m0"
                                        key="驱鬼" sort="56"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="驱鬼-total">0</td>
+                            <td id="驱鬼-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">幸运</th>
-                            <td><input style="width:100px" type="number" value="650000" name="m0"
+                            <td><input id="幸运" style="width:100px" type="number" value="650000" name="m0"
                                        key="幸运" sort="57"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="幸运-total">0</td>
+                            <td id="幸运-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">招架</th>
-                            <td><input style="width:100px" type="number" value="650000" name="m0"
+                            <td><input id="招架" style="width:100px" type="number" value="650000" name="m0"
                                        key="招架" sort="58"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="招架-total">0</td>
+                            <td id="招架-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">敏捷</th>
-                            <td><input style="width:100px" type="number" value="650000" name="m0"
+                            <td><input id="敏捷" style="width:100px" type="number" value="650000" name="m0"
                                        key="敏捷" sort="59"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="敏捷-total">0</td>
+                            <td id="敏捷-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">合纵</th>
-                            <td><input style="width:100px" type="number" value="630000" name="m0"
+                            <td><input id="合纵" style="width:100px" type="number" value="630000" name="m0"
                                        key="合纵" sort="60"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="合纵-total">0</td>
+                            <td id="合纵-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">盾气</th>
                             <td><input style="width:100px" type="number" value="630000" name="m0"
-                                       key="盾气" sort="61"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                                id="盾气" key="盾气" sort="61"/></td>
+                            <td id="盾气-total">0</td>
+                            <td id="盾气-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">毒</th>
-                            <td><input style="width:100px" type="number" value="650000" name="m0"
+                            <td><input id="毒" style="width:100px" type="number" value="650000" name="m0"
                                        key="毒" sort="62"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="毒-total">0</td>
+                            <td id="毒-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">法术抵抗</th>
-                            <td><input style="width:100px" type="number" value="600000" name="m0"
+                            <td><input id="法术抵抗" style="width:100px" type="number" value="600000" name="m0"
                                        key="法术抵抗" sort="63"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="法术抵抗-total">0</td>
+                            <td id="法术抵抗-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">反击</th>
-                            <td><input style="width:100px" type="number" value="630000" name="m0"
+                            <td><input id="反击" style="width:100px" type="number" value="630000" name="m0"
                                        key="反击" sort="64"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="反击-total">0</td>
+                            <td id="反击-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">强力</th>
-                            <td><input style="width:100px" type="number" value="650000" name="m0"
+                            <td><input id="强力" style="width:100px" type="number" value="650000" name="m0"
                                        key="强力" sort="65"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="强力-total">0</td>
+                            <td id="强力-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">防御</th>
-                            <td><input style="width:100px" type="number" value="600000" name="m0"
+                            <td><input id="防御" style="width:100px" type="number" value="600000" name="m0"
                                        key="防御" sort="66"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="防御-total">0</td>
+                            <td id="防御-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">永恒</th>
-                            <td><input style="width:100px" type="number" value="600000" name="m0"
+                            <td><input id="永恒" style="width:100px" type="number" value="600000" name="m0"
                                        key="永恒" sort="67"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="永恒-total">0</td>
+                            <td id="永恒-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">飞行</th>
-                            <td><input style="width:100px" type="number" value="600000" name="m0"
+                            <td><input id="飞行" style="width:100px" type="number" value="600000" name="m0"
                                        key="飞行" sort="68"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="飞行-total">0</td>
+                            <td id="飞行-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">冥思</th>
-                            <td><input style="width:100px" type="number" value="600000" name="m0"
+                            <td><input id="冥思" style="width:100px" type="number" value="600000" name="m0"
                                        key="冥思" sort="69"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="冥思-total">0</td>
+                            <td id="冥思-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">精神集中</th>
-                            <td><input style="width:100px" type="number" value="600000" name="m0"
+                            <td><input id="精神集中" style="width:100px" type="number" value="600000" name="m0"
                                        key="精神集中" sort="70"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="精神集中-total">0</td>
+                            <td id="精神集中-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">慧根</th>
-                            <td><input style="width:100px" type="number" value="530000" name="m0"
+                            <td><input id="慧根" style="width:100px" type="number" value="530000" name="m0"
                                        key="慧根" sort="71"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="慧根-total">0</td>
+                            <td id="慧根-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">雷属性吸收</th>
-                            <td><input style="width:100px" type="number" value="630000" name="m0"
+                            <td><input id="雷属性吸收" style="width:100px" type="number" value="630000" name="m0"
                                        key="雷属性吸收" sort="72"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="雷属性吸收-total">0</td>
+                            <td id="雷属性吸收-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">土属性吸收</th>
-                            <td><input style="width:100px" type="number" value="630000" name="m0"
+                            <td><input id="土属性吸收" style="width:100px" type="number" value="630000" name="m0"
                                        key="土属性吸收" sort="73"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="土属性吸收-total">0</td>
+                            <td id="土属性吸收-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">水属性吸收</th>
-                            <td><input style="width:100px" type="number" value="630000" name="m0"
+                            <td><input id="水属性吸收" style="width:100px" type="number" value="630000" name="m0"
                                        key="水属性吸收" sort="74"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="水属性吸收-total">0</td>
+                            <td id="水属性吸收-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">火属性吸收</th>
-                            <td><input style="width:100px" type="number" value="630000" name="m0"
+                            <td><input id="火属性吸收" style="width:100px" type="number" value="630000" name="m0"
                                        key="火属性吸收" sort="75"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="火属性吸收-total">0</td>
+                            <td id="火属性吸收-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">落岩</th>
-                            <td><input style="width:100px" type="number" value="630000" name="m0"
+                            <td><input id="落岩" style="width:100px" type="number" value="630000" name="m0"
                                        key="落岩" sort="76"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="落岩-total">0</td>
+                            <td id="落岩-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">雷击</th>
-                            <td><input style="width:100px" type="number" value="630000" name="m0"
+                            <td><input id="雷击" style="width:100px" type="number" value="630000" name="m0"
                                        key="雷击" sort="77"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="雷击-total">0</td>
+                            <td id="雷击-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">水攻</th>
-                            <td><input style="width:100px" type="number" value="630000" name="m0"
+                            <td><input id="水攻" style="width:100px" type="number" value="630000" name="m0"
                                        key="水攻" sort="78"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="水攻-total" >0</td>
+                            <td id="水攻-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">烈火</th>
-                            <td><input style="width:100px" type="number" value="630000" name="m0"
+                            <td><input id="烈火" style="width:100px" type="number" value="630000" name="m0"
                                        key="烈火" sort="79"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="烈火-total">0</td>
+                            <td id="烈火-total-price" style="color:Blue">0</td>
                         </tr>
-                    
                         <tr>
                             <th style="width:150px">连击</th>
-                            <td><input style="width:100px" type="number" value="530000" name="m0"
+                            <td><input id="连击" style="width:100px" type="number" value="530000" name="m0"
                                        key="连击" sort="80"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="连击-total">0</td>
+                            <td id="连击-total-price" style="color:Blue">0</td>
                         </tr>
-                    
+                        <tr>
+                            <th style="width:150px">进击必杀</th>
+                            <td><input id="进击必杀" style="width:100px" type="number" value="630000" name="m0"
+                                       key="进击必杀" sort="85"/></td>
+                            <td id="进击必杀-total">0</td>
+                            <td id="进击必杀-total-price" style="color:Blue">0</td>
+                        </tr>
+                        <tr>
+                            <th style="width:150px">进击法暴</th>
+                            <td><input id="进击法暴" style="width:100px" type="number" value="630000" name="m0"
+                                       key="进击法暴" sort="85"/></td>
+                            <td id="进击法暴-total">0</td>
+                            <td id="进击法暴-total-price" style="color:Blue">0</td>
+                        </tr>
+                        <tr>
+                            <th style="width:150px">遗志</th>
+                            <td><input id="遗志" style="width:100px" type="number" value="630000" name="m0"
+                                       key="遗志" sort="85"/></td>
+                            <td id="遗志-total">0</td>
+                            <td id="遗志-total-price" style="color:Blue">0</td>
+                        </tr>
+                        <tr>
+                            <th style="width:150px">迟钝</th>
+                            <td><input id="迟钝" style="width:100px" type="number" value="630000" name="m0"
+                                       key="迟钝" sort="85"/></td>
+                            <td id="迟钝-total">0</td>
+                            <td id="迟钝-total-price" style="color:Blue">0</td>
+                        </tr>
+                        <tr>
+                            <th style="width:150px">否定信仰</th>
+                            <td><input id="否定信仰" style="width:100px" type="number" value="380000" name="m0"
+                                       key="否定信仰" sort="85"/></td>
+                            <td id="否定信仰-total">0</td>
+                            <td id="否定信仰-total-price" style="color:Blue">0</td>
+                        </tr>
                         <tr>
                             <th style="width:150px">神迹</th>
-                            <td><input style="width:100px" type="number" value="480000" name="m0"
+                            <td><input id="神迹" style="width:100px" type="number" value="480000" name="m0"
                                        key="神迹" sort="81"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="神迹-total">0</td>
+                            <td id="神迹-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">隐身</th>
-                            <td><input style="width:100px" type="number" value="480000" name="m0"
+                            <td><input id="隐身" style="width:100px" type="number" value="480000" name="m0"
                                        key="隐身" sort="82"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="隐身-total">0</td>
+                            <td id="隐身-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">再生</th>
-                            <td><input style="width:100px" type="number" value="480000" name="m0"
+                            <td><input id="再生" style="width:100px" type="number" value="480000" name="m0"
                                        key="再生" sort="83"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="再生-total">0</td>
+                            <td id="再生-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">神佑复生</th>
-                            <td><input style="width:100px" type="number" value="400000" name="m0"
+                            <td><input id="神佑复生" style="width:100px" type="number" value="400000" name="m0"
                                        key="神佑复生" sort="84"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="神佑复生-total">0</td>
+                            <td id="神佑复生-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">鬼魂术</th>
-                            <td><input style="width:100px" type="number" value="380000" name="m0"
+                            <td><input id="鬼魂术" style="width:100px" type="number" value="380000" name="m0"
                                        key="鬼魂术" sort="85"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="鬼魂术-total">0</td>
+                            <td id="鬼魂术-total-price" style="color:Blue">0</td>
                         </tr>
+                        
                     
                 </table>
             </td>
@@ -780,8 +812,8 @@
                     <tr>
                         <th colspan="2" style="color:red" bgcolor="FFE4B5">其它</th>
                         
-                            <th style="color:DeepSkyBlue"> 0 </th>
-                            <th style="color:Fuchsia"> 0 </th>
+                            <th id="其他数量" style="color:DeepSkyBlue"> 0 </th>
+                            <th id="其他总价" style="color:Fuchsia"> 0 </th>
                         
                     </tr>
                     <tr>
@@ -790,21 +822,26 @@
                         <th>数量</th>
                         <th>总价</th>
                     </tr>
-                    
                         <tr>
                             <th style="width:150px">藏宝图</th>
-                            <td><input style="width:100px" type="number" value="0" name="m0"
+                            <td><input id="宝图" style="width:100px" type="number" value="25000" name="m0"
                                        key="藏宝图" sort="115"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="宝图-total">0</td>
+                            <td id="宝图-total-price" style="color:Blue">0</td>
                         </tr>
-                    
+                        <tr>
+                            <th style="width:150px">修炼果</th>
+                            <td><input id="修炼果" style="width:100px" type="number" value="800000" name="m0"
+                                       key="修炼果" sort="115"/></td>
+                            <td id="修炼果-total">0</td>
+                            <td id="修炼果-total-price" style="color:Blue">0</td>
+                        </tr>
                         <tr>
                             <th style="width:150px">其它</th>
-                            <td><input style="width:100px" type="number" value="0" name="m0"
+                            <td><input id="其他" style="width:100px" type="number" value="0" name="m0"
                                        key="其它" sort="116"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="其他-total">0</td>
+                            <td id="其他-total-price" style="color:Blue">0</td>
                         </tr>
                     
                 </table>
@@ -813,8 +850,8 @@
                     <tr>
                         <th colspan="2" style="color:red" bgcolor="FFE4B5">环装</th>
                         
-                            <th style="color:DeepSkyBlue"> 0 </th>
-                            <th style="color:Fuchsia"> 0 </th>
+                            <th id="环数量" style="color:DeepSkyBlue"> 0 </th>
+                            <th id="环总价" style="color:Fuchsia"> 0 </th>
                         
                     </tr>
                     <tr>
@@ -826,60 +863,59 @@
                     
                         <tr>
                             <th style="width:150px">50级及以下</th>
-                            <td><input style="width:100px" type="number" value="0" name="m0"
+                            <td><input id="环50级及以下" style="width:100px" type="number" value="5000" name="m0"
                                        key="50级及以下" sort="10"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="环50级及以下-total">0</td>
+                            <td id="环50级及以下-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">60刀枪剑扇</th>
-                            <td><input style="width:100px" type="number" value="170000" name="m0"
+                            <td><input style="width:100px" type="number" id="环60刀枪剑扇" value="130000" name="m0"
                                        key="60刀枪剑扇" sort="5"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="环60刀枪剑扇-total">0</td>
+                            <td id="环60刀枪剑扇-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">60项腰</th>
-                            <td><input style="width:100px" type="number" value="130000" name="m0"
+                            <td><input id="环60项腰" style="width:100px" type="number" value="130000" name="m0"
                                        key="60项腰" sort="120"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="环60项腰-total">0</td>
+                            <td id="环60项腰-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">60武器</th>
-                            <td><input style="width:100px" type="number" value="170000" name="m0"
+                            <td><input id="环60武器" style="width:100px" type="number" value="130000" name="m0"
                                        key="60武器" sort="6"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="环60武器-total">0</td>
+                            <td id="环60武器-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">60装备</th>
-                            <td><input style="width:100px" type="number" value="130000" name="m0"
+                            <td><input id="环60装备" style="width:100px" type="number" value="130000" name="m0"
                                        key="60装备" sort="7"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="环60装备-total">0</td>
+                            <td id="环60装备-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">70武器</th>
-                            <td><input style="width:100px" type="number" value="75000" name="m0"
+                            <td><input id="环70武器" style="width:100px" type="number" value="75000" name="m0"
                                        key="70武器" sort="8"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="环70武器-total">0</td>
+                            <td id="环70武器-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">70装备</th>
-                            <td><input style="width:100px" type="number" value="70000" name="m0"
+                            <td><input id="环70装备" style="width:100px" type="number" value="70000" name="m0"
                                        key="70装备" sort="9"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="环70装备-total">0</td>
+                            <td id="环70装备-total-price" style="color:Blue">0</td>
                         </tr>
-                    
                         <tr>
                             <th style="width:150px">80武器</th>
                             <td><input style="width:100px" type="number" value="0" name="m0"
@@ -902,8 +938,8 @@
                     <tr>
                         <th colspan="2" style="color:red" bgcolor="FFE4B5">铁</th>
                         
-                            <th style="color:DeepSkyBlue"> 0 </th>
-                            <th style="color:Fuchsia"> 0 </th>
+                            <th id="铁数量" style="color:DeepSkyBlue"> 0 </th>
+                            <th id="铁总价" style="color:Fuchsia"> 0 </th>
                         
                     </tr>
                     <tr>
@@ -915,34 +951,34 @@
                     
                         <tr>
                             <th style="width:150px">70铁</th>
-                            <td><input style="width:100px" type="number" value="100000"
+                            <td><input id="铁70" style="width:100px" type="number" value="100000"
                                        name="m0" key="70铁" sort="86"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="铁70-total">0</td>
+                            <td id="铁70-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">60铁</th>
-                            <td><input style="width:100px" type="number" value="50000"
+                            <td><input id="铁60" style="width:100px" type="number" value="50000"
                                        name="m0" key="60铁" sort="87"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="铁60-total">0</td>
+                            <td id="铁60-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">50铁</th>
-                            <td><input style="width:100px" type="number" value="15000"
+                            <td><input id="铁50" style="width:100px" type="number" value="15000"
                                        name="m0" key="50铁" sort="88"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="铁50-total">0</td>
+                            <td id="铁50-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">40级及以下</th>
-                            <td><input style="width:100px" type="number" value="0"
+                            <td><input id="垃圾铁" style="width:100px" type="number" value="0"
                                        name="m0" key="40级及以下" sort="89"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="垃圾铁-total">0</td>
+                            <td id="垃圾铁-total-price" style="color:Blue">3000</td>
                         </tr>
                     
                 </table>
@@ -951,8 +987,8 @@
                     <tr>
                         <th colspan="2" style="color:red" bgcolor="FFE4B5">书</th>
                         
-                            <th style="color:DeepSkyBlue"> 0 </th>
-                            <th style="color:Fuchsia"> 0 </th>
+                            <th id="书数量" style="color:DeepSkyBlue"> 0 </th>
+                            <th id="书总价" style="color:Fuchsia"> 0 </th>
                         
                     </tr>
                     <tr>
@@ -965,206 +1001,205 @@
                         <tr>
                             <th style="width:150px">70项链</th>
                             <td><input style="width:100px" type="number" value="150000" name="m0"
-                                       key="70项链" sort="90"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                                id="书70项链" key="70项链" sort="90"/></td>
+                            <td id="书70项链-total">0</td>
+                            <td id="书70项链-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">70腰带</th>
-                            <td><input style="width:100px" type="number" value="150000" name="m0"
+                            <td><input id="书70腰带" style="width:100px" type="number" value="150000" name="m0"
                                        key="70腰带" sort="91"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书70腰带-total">0</td>
+                            <td id="书70腰带-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">70鞋</th>
-                            <td><input style="width:100px" type="number" value="150000" name="m0"
+                            <td><input id="书70鞋" style="width:100px" type="number" value="150000" name="m0"
                                        key="70鞋" sort="92"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书70鞋-total">0</td>
+                            <td id="书70鞋-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">70铠甲</th>
-                            <td><input style="width:100px" type="number" value="90000" name="m0"
+                            <td><input id="书70铠甲" style="width:100px" type="number" value="90000" name="m0"
                                        key="70铠甲" sort="93"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书70铠甲-total">0</td>
+                            <td id="书70铠甲-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">70头盔</th>
-                            <td><input style="width:100px" type="number" value="90000" name="m0"
+                            <td><input id="书70头盔" style="width:100px" type="number" value="90000" name="m0"
                                        key="70头盔" sort="94"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书70头盔-total">0</td>
+                            <td id="书70头盔-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">70女衣</th>
-                            <td><input style="width:100px" type="number" value="20000" name="m0"
+                            <td><input id="书70女衣" style="width:100px" type="number" value="20000" name="m0"
                                        key="70女衣" sort="95"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书70女衣-total">0</td>
+                            <td id="书70女衣-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">70发钗</th>
-                            <td><input style="width:100px" type="number" value="20000" name="m0"
+                            <td><input id="书70发钗" style="width:100px" type="number" value="20000" name="m0"
                                        key="70发钗" sort="96"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书70发钗-total">0</td>
+                            <td id="书70发钗-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">70刀</th>
-                            <td><input style="width:100px" type="number" value="10000" name="m0"
+                            <td><input id="书70刀" style="width:100px" type="number" value="10000" name="m0"
                                        key="70刀" sort="97"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书70刀-total">0</td>
+                            <td id="书70刀-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">70枪</th>
-                            <td><input style="width:100px" type="number" value="10000" name="m0"
+                            <td><input id="书70枪" style="width:100px" type="number" value="10000" name="m0"
                                        key="70枪" sort="98"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书70枪-total">0</td>
+                            <td id="书70枪-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">70剑</th>
-                            <td><input style="width:100px" type="number" value="10000" name="m0"
+                            <td><input id="书70剑" style="width:100px" type="number" value="10000" name="m0"
                                        key="70剑" sort="99"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书70剑-total">0</td>
+                            <td id="书70剑-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">70扇</th>
-                            <td><input style="width:100px" type="number" value="10000" name="m0"
+                            <td><input id="书70扇" style="width:100px" type="number" value="10000" name="m0"
                                        key="70扇" sort="100"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书70扇-total">0</td>
+                            <td id="书70扇-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">70武器书</th>
-                            <td><input style="width:100px" type="number" value="10000" name="m0"
+                            <td><input id="书70武器" style="width:100px" type="number" value="10000" name="m0"
                                        key="70武器书" sort="101"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书70武器-total">0</td>
+                            <td id="书70武器-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">60项链</th>
-                            <td><input style="width:100px" type="number" value="100000" name="m0"
+                            <td><input id="书60项链" style="width:100px" type="number" value="100000" name="m0"
                                        key="60项链" sort="102"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书60项链-total">0</td>
+                            <td id="书60项链-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">60腰带</th>
-                            <td><input style="width:100px" type="number" value="100000" name="m0"
+                            <td><input id="书60腰带" style="width:100px" type="number" value="100000" name="m0"
                                        key="60腰带" sort="103"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书60腰带-total">0</td>
+                            <td id="书60腰带-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">60鞋</th>
-                            <td><input style="width:100px" type="number" value="100000" name="m0"
+                            <td><input id="书60鞋" style="width:100px" type="number" value="100000" name="m0"
                                        key="60鞋" sort="104"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书60鞋-total">0</td>
+                            <td id="书60鞋-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">60铠甲</th>
-                            <td><input style="width:100px" type="number" value="70000" name="m0"
+                            <td><input id="书60铠甲" style="width:100px" type="number" value="70000" name="m0"
                                        key="60铠甲" sort="105"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书60铠甲-total">0</td>
+                            <td id="书60铠甲-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">60头盔</th>
-                            <td><input style="width:100px" type="number" value="70000" name="m0"
+                            <td><input id="书60头盔" style="width:100px" type="number" value="70000" name="m0"
                                        key="60头盔" sort="106"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书60头盔-total">0</td>
+                            <td id="书60头盔-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">60女衣</th>
-                            <td><input style="width:100px" type="number" value="40000" name="m0"
+                            <td><input id="书60女衣" style="width:100px" type="number" value="40000" name="m0"
                                        key="60女衣" sort="107"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书60女衣-total">0</td>
+                            <td id="书60女衣-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">60发钗</th>
-                            <td><input style="width:100px" type="number" value="40000" name="m0"
+                            <td><input id="书60发钗" style="width:100px" type="number" value="40000" name="m0"
                                        key="60发钗" sort="108"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书60发钗-total">0</td>
+                            <td id="书60发钗-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">60刀</th>
-                            <td><input style="width:100px" type="number" value="80000" name="m0"
+                            <td><input id="书60刀" style="width:100px" type="number" value="80000" name="m0"
                                        key="60刀" sort="109"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书60刀-total">0</td>
+                            <td id="书60刀-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">60枪</th>
-                            <td><input style="width:100px" type="number" value="80000" name="m0"
+                            <td><input id="书60枪" style="width:100px" type="number" value="80000" name="m0"
                                        key="60枪" sort="110"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书60枪-total">0</td>
+                            <td id="书60枪-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">60剑</th>
-                            <td><input style="width:100px" type="number" value="80000" name="m0"
+                            <td><input id="书60剑" style="width:100px" type="number" value="80000" name="m0"
                                        key="60剑" sort="111"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书60剑-total">0</td>
+                            <td id="书60剑-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">60扇</th>
-                            <td><input style="width:100px" type="number" value="80000" name="m0"
+                            <td><input id="书60扇" style="width:100px" type="number" value="80000" name="m0"
                                        key="60扇" sort="112"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书60扇-total">0</td>
+                            <td id="书60扇-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">60武器书</th>
-                            <td><input style="width:100px" type="number" value="80000" name="m0"
+                            <td><input id="书60武器" style="width:100px" type="number" value="80000" name="m0"
                                        key="60武器书" sort="113"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="书60武器-total">0</td>
+                            <td id="书60武器-total-price" style="color:Blue">0</td>
                         </tr>
                     
                         <tr>
                             <th style="width:150px">50级及以下书</th>
-                            <td><input style="width:100px" type="number" value="0" name="m0"
+                            <td><input id="垃圾书" style="width:100px" type="number" value="0" name="m0"
                                        key="50级及以下书" sort="114"/></td>
-                            <td>0</td>
-                            <td style="color:Blue">0</td>
+                            <td id="垃圾书-total">0</td>
+                            <td id="垃圾书-total-price" style="color:Blue">0</td>
                         </tr>
-                    
                 </table>
             </td>
-            <tr>  <input type="button" value="修改价格" onclick="submitFrom()"/>  </tr>
+            <tr>  <input type="button" value="修改价格" onclick="setWupinNumber()"/>  </tr>
         </tr>
     </table>
 </form>
@@ -1173,7 +1208,6 @@
        <tr>
            <th colspan="2">自定义转移使用说明</th>
        </tr>
-
        <tr>
            <th rowspan="8">物品序号：</th>
            <td>1:五宝, 2:兽决, 3:金柳露, 4:质量宝石, 5:垃圾宝石</td>
@@ -1213,10 +1247,7 @@
        </tr>
        <tr style="color:red" bgcolor="FF0000" height="40px" >
            <td colspan="2" align="center">
-
-                   
-                            <input style="width:1500px" type="text" value="当前无自定义内容" name="add"/>
-                   
+                            <input id="add" style="width:1500px" type="text" value="当前无自定义内容" name="add"/>
                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                    <input id="zhuayi" type="button" value="提交转移" onclick="submitFrom2()"/>
            </td>
@@ -1239,6 +1270,162 @@
 <!-- <script src="/static/jquery.js"></script> -->
 <!-- <script src="/static/jquery.form.js"></script> -->
 <script>
+    var 五宝strs = "金刚石定魂珠夜光珠龙鳞避水珠"
+    var 宝石strs = "金柳露黑宝石1级黑宝石2级舍利子1级舍利子2级红玛瑙1级红玛瑙2级太阳石1级太阳石2级月亮石1级月亮石2级光芒石1级光芒石2级垃圾宝石1级垃圾宝石2级"
+    var 内丹strs = "迅敏矫健静岳连环灵光灵身撞击狂怒阴伤擅咒狙刺钢化淬毒岿然深思坚甲慧心无畏愤恨圣洁"
+    var 其他strs = "宝图其他"
+    var 环strs = "环50级及以下环60刀枪剑扇环60项腰环60武器环60装备环70武器环70装备环80武器环80装备"
+    var 铁strs = "铁50铁60铁70垃圾铁"
+    var 书strs = "书70项链书70腰带书70鞋书70铠甲书70头盔书70女衣书70发钗书70刀书70枪书70剑书70扇书70武器书60项链书60腰带书60鞋书60铠甲书60头盔书60女衣书60发钗书60刀书60枪书60剑书60扇书60武器垃圾书"
+    var 兽决strs = "必杀吸血夜战法术暴击法术波动法术连击偷袭魔之心反震感知驱鬼幸运招架敏捷合纵盾气毒法术抵抗反击强力防御永恒飞行冥思精神集中慧根雷属性吸收土属性吸收水属性吸收火属性吸收落岩雷击水攻烈火连击神迹隐身再生神佑复生鬼魂术进击必杀进击法爆遗志迟钝否定信仰"
+
+    var _priceConfig = {
+        "金刚石": 1450000,
+        "定魂珠": 1450000,
+        "夜光珠": 1000000,
+        "龙鳞": 400000,
+        "避水珠": 40000,
+        "金柳露": 60000,
+        "黑宝石1级": 130000,
+        "黑宝石2级": 260000,
+        "舍利子1级": 60000,
+        "舍利子2级": 120000,
+        "红玛瑙1级": 60000,
+        "红玛瑙2级": 120000,
+        "太阳石1级": 50000,
+        "太阳石2级": 100000,
+        "月亮石1级": 65000,
+        "月亮石2级": 130000,
+        "光芒石1级": 50000,
+        "光芒石2级": 100000,
+        "垃圾宝石2级": 0,
+        "垃圾宝石1级": 0,
+        "迅敏": 180000,
+        "矫健": 900000,
+        "静岳": 650000,
+        "连环": 900000,
+        "灵光": 550000,
+        "灵身": 280000,
+        "撞击": 280000,
+        "狂怒": 300000,
+        "阴伤": 280000,
+        "擅咒": 280000,
+        "狙刺": 130000,
+        "钢化": 130000,
+        "淬毒": 130000,
+        "岿然": 130000,
+        "深思": 130000,
+        "坚甲": 130000,
+        "慧心": 130000,
+        "无畏": 130000,
+        "愤恨": 130000,
+        "圣洁": 130000,
+        "宝图": 25000,
+        "其他": 0,
+
+        "铁70": 100000,
+        "铁60": 60000,
+        "铁50": 25000,
+        "垃圾铁":3000,
+
+        "书70项链": 150000,
+        "书70腰带": 150000,
+        "书70鞋": 150000,
+        "书70铠甲": 90000,
+        "书70头盔": 90000,
+        "书70女衣": 20000,
+        "书70发钗": 20000,
+        "书70刀": 10000,
+        "书70枪": 10000,
+        "书70剑": 10000,
+        "书70扇": 20000,
+        "书70武器": 20000,
+        
+        "书60项链": 150000,
+        "书60腰带": 150000,
+        "书60鞋": 150000,
+        "书60铠甲": 90000,
+        "书60头盔": 90000,
+        "书60女衣": 20000,
+        "书60发钗": 20000,
+        "书60刀": 10000,
+        "书60枪": 10000,
+        "书60剑": 10000,
+        "书60扇": 20000,
+        "书60武器": 20000,
+
+        "环50级及以下": 5000,
+        "环60刀枪剑扇": 130000,
+        "环60项腰": 130000,
+        "环60武器": 170000,
+        "环60装备": 150000,
+        "环70武器": 100000,
+        "环70装备": 70000,
+
+        "必杀": 810000,
+        "吸血": 810000,
+        "夜战": 810000,
+        "法术暴击": 810000,
+        "法术波动": 810000,
+        "法术连击": 650000,
+        "偷袭": 810000,
+        "魔之心": 650000,
+        "反震": 650000,
+        "感知": 650000,
+        "驱鬼": 650000,
+        "幸运": 650000,
+        "招架": 650000,
+        "敏捷": 650000,
+        "合纵": 630000,
+        "盾气": 630000,
+        "毒": 650000,
+        "法术抵抗": 600000,
+        "反击": 630000,
+        "强力": 650000,
+        "防御": 600000,
+        "永恒": 600000,
+        "飞行": 600000,
+        "冥思": 600000,
+        "精神集中": 600000,
+        "慧根": 600000,
+        "雷属性吸收": 600000,
+        "土属性吸收": 600000,
+        "水属性吸收": 600000,
+        "火属性吸收": 600000,
+        "落岩": 630000,
+        "雷击": 630000,
+        "水攻": 630000,
+        "烈火": 630000,
+        "连击": 530000,
+        "神迹": 480000,
+        "隐身": 480000,
+        "再生": 480000,
+        "神佑复生": 400000,
+        "鬼魂术": 380000,
+        "进击必杀": 600000,
+        "进击法爆": 600000,
+        "遗志": 600000,
+        "迟钝": 600000,
+        "否定信仰": 500000,
+    }
+    function buildPrice() {
+        let priceConfig
+        if(localStorage.getItem('priceConfig')) {
+            priceConfig = JSON.parse(localStorage.getItem('priceConfig'))
+        }else {
+            priceConfig = _priceConfig
+        }
+        Object.keys(priceConfig).map(key=>{
+            const dom = document.getElementById(key)
+            if(!dom) {
+                console.log(key)
+            }
+            document.getElementById(key).value = priceConfig[key]
+        })
+    }
+
+    buildPrice()
+
     function getQueryString(name) {
         let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
         let r = window.location.search.substr(1).match(reg);
@@ -1247,18 +1434,133 @@
         };
         return null;
     }
+
     function setWupinNumber(data) {
+        if(!data) {
+            data = window.currentData
+        }
+        let 五宝数量 = 0
+        let 五宝总价 = 0
+
+        let 宝石数量 = 0
+        let 宝石总价 = 0
+
+        let 内丹数量 = 0
+        let 内丹总价 = 0
+
+        let 其他数量 = 0
+        let 其他总价 = 0
+
+        let 环数量 = 0
+        let 环总价 = 0
+
+        let 铁数量 = 0
+        let 铁总价 = 0
+
+        let 书数量 = 0
+        let 书总价 = 0
+
+        let 兽决数量 = 0
+        let 兽决总价 = 0
+        let priceConfig = {}
+
         Object.keys(data).map(key=>{
             const numberDom = document.getElementById(key + '-total')
             const totalPrice = document.getElementById(key + '-total-price')
             if(numberDom) {
                 console.log(key, data[key].length)
-                const price = document.getElementById(key).value
+                const priceDom = document.getElementById(key)
+                if(!priceDom) {
+                    console.log(key)
+                }
+                priceConfig[key] = priceDom.value
+                const price = priceDom.value
+
                 numberDom.innerHTML = data[key].length
-                totalPrice.innerHTML = Number(price) * Number(data[key].length)
+                let tp = Number(price) * Number(data[key].length)
+                totalPrice.innerHTML = tp
+                if(五宝strs.includes(key)) {
+                    五宝数量 = 五宝数量 + data[key].length
+                    五宝总价 = 五宝总价 + tp
+                }else if(宝石strs.includes(key)) {
+                    宝石数量= 宝石数量 + data[key].length
+                    宝石总价 = 宝石总价 + tp 
+                }else if(内丹strs.includes(key)) {
+                    内丹数量 = 内丹数量 + data[key].length
+                    内丹总价 = 内丹总价 + tp 
+                }else if(内丹strs.includes(key)) {
+                    内丹数量 = 内丹数量 + data[key].length
+                    内丹总价 = 内丹总价 + tp 
+                }else if(其他strs.includes(key)) {
+                    其他数量 = 其他数量 + data[key].length
+                    其他总价 = 其他总价 + tp 
+                }else if(环strs.includes(key)) {
+                    环数量 = 环数量 + data[key].length
+                    环总价 = 环总价 + tp 
+                }else if(铁strs.includes(key)) {
+                    铁数量 = 铁数量 + data[key].length
+                    铁总价 = 铁总价 + tp 
+                }else if(书strs.includes(key)) {
+                    书数量 = 书数量 + data[key].length
+                    书总价 = 书总价 + tp 
+                }else if(兽决strs.includes(key)) {
+                    兽决数量 = 兽决数量 + data[key].length
+                    兽决总价 = 兽决总价 + tp 
+                }
             }
         })
+        localStorage.setItem('priceConfig', JSON.stringify(priceConfig))
+        document.getElementById('五宝数量').innerHTML = 五宝数量
+        document.getElementById('五宝总价').innerHTML = 五宝总价
+        document.getElementById('宝石数量').innerHTML = 宝石数量
+        document.getElementById('宝石总价').innerHTML = 宝石总价
+        document.getElementById('内丹数量').innerHTML = 内丹数量
+        document.getElementById('内丹总价').innerHTML = 内丹总价
+        document.getElementById('其他数量').innerHTML = 其他数量
+        document.getElementById('其他总价').innerHTML = 其他总价
+        document.getElementById('环数量').innerHTML = 环数量
+        document.getElementById('环总价').innerHTML = 环总价
+        document.getElementById('铁数量').innerHTML = 铁数量
+        document.getElementById('铁总价').innerHTML = 铁总价
+        document.getElementById('书数量').innerHTML = 书数量
+        document.getElementById('书总价').innerHTML = 书总价
+        document.getElementById('兽决数量').innerHTML = 兽决数量
+        document.getElementById('兽决总价').innerHTML = 兽决总价
+        document.getElementById('总件数').innerHTML = 五宝数量 + 宝石数量 + 内丹数量 + 其他数量 + 环数量 + 书数量 + 铁数量 + 兽决数量
+        document.getElementById('总金额').innerHTML = 五宝总价 + 宝石总价 + 内丹总价 + 其他总价 + 环总价 + 书总价 + 铁总价 + 兽决总价
     }
+
+    function submitFrom2() {
+        const code = getQueryString('code')
+        let classifyNo = window.document.getElementById('add').value
+        if(classifyNo.split(',').length > 1) {
+            $.ajax({
+                type: 'POST',
+                url: '/api/client/update_unloadDirective_by_code',
+                // post payload:
+                data: JSON.stringify({ code, status: '忙碌', classifyNo}),
+                contentType: 'application/json',
+                success: function(data){
+                    if(data.status == 0) {
+                        alert('提交成功')
+                    }else {
+                        alert('忙碌中')
+                    }
+                    // Supposing this JSON payload was received:
+                    //   {"project": {"id": 42, "html": "<div>..." }}
+                    // append the HTML to context object.
+                    // this.append(data.project.html)
+                },
+                error: function(xhr, type){
+                    alert('Ajax error!')
+                }
+            })
+        }else {
+            alert('错误的转移码')
+        }
+
+    }
+    
     function getData() {
         const code = getQueryString('code')
         if(code) {
@@ -1273,6 +1575,7 @@
                     if(data.status == 0) {
                         const directive = data.data
                         const wupin = JSON.parse(directive.data)
+                        window.currentData = wupin
                         console.log('当前扫描货物为：', wupin)
                         setWupinNumber(wupin)
                     }else {

@@ -12,6 +12,18 @@ export const unloadDirectiveDao = {
             where: query,
         })
     },
+    updateUnloadDirectiveById: function (id: number, data: {
+        status?: string,
+        targetId?: string,
+        classifyNo?: string,
+    }): TUnloadDirective {
+        return prisma.unloadDirective.update({
+            where: {
+                id,
+            },
+            data,
+        })
+    },
     // getUnloadDirectiveByQuery: function (query: {
     //     date?: string,
     //     userId?: number,

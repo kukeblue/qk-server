@@ -149,5 +149,7 @@ model UnloadDirective {
   total   Int
   totalPrice Int
   createTime Int
+  targetId String
+  classifyNo String
 }
 

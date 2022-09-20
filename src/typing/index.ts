@@ -166,5 +166,6 @@ export type TUnloadDirective = {
     total: number
     totalPrice: number
     createTime?: number
+    classifyNo?: string
 }
 

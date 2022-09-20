@@ -9,4 +9,6 @@ export interface TCreateUnloadDirectiveRequest {
     total: number
     totalPrice: number
     createTime?: number
+    targetId?: string
+    classifyNo?: string
 }

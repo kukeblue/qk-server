@@ -23,7 +23,7 @@ const router = express.Router()
 function getRandomString(length: number) {
     length = length || 32;
     //设置随机数范围
-    var $chars = 'qwertyuiopasdfghjklzxcvbnm1234567890';
+    var $chars = '1234567890123456789876521234';
     var maxPos = $chars.length;
     var result = '';
     for(let i = 0; i < length; i++) {
@@ -34,7 +34,7 @@ function getRandomString(length: number) {
 }
 
 router.post('/get_unloadDirective_by_code',
-    async function (req:Request<any, any, {code: string}>, res: Response<TResponse<TUnloadDirective>> ) {
+    async function (req:Request<any, any, {code: string, status?: string}>, res: Response<TResponse<TUnloadDirective>> ) {
         const query = {
             code: req.body.code
         }
@@ -51,6 +51,30 @@ router.post('/get_unloadDirective_by_code',
         }
     })
 
+router.post('/update_unloadDirective_by_code',
+    async function (req:Request<any, any, {code: string}>, res: Response<TResponse<TUnloadDirective>> ) {
+        const {code, ...query} = req.body
+        console.log(req.body)
+        const old = await unloadDirectiveDao.getUnloadDirectiveByQuery({code})
+        // @ts-ignore
+        if(!old || (old.status == "忙碌" && query.classifyNo)) {
+            return res.json({
+                status: -1
+            })
+        }
+        const unloadDirective = await unloadDirectiveDao.updateUnloadDirectiveById(old.id!, query)
+        if(unloadDirective) {
+            return res.json({
+                data:unloadDirective,
+                status: 0
+            })
+        }else {
+            return res.json({
+                status: -1
+            })
+        }
+})
+
 router.post('/save_unloadDirective',
     async function (req:Request<any, any, TCreateUnloadDirectiveRequest>, res: Response<TResponse<TUnloadDirective>> ) {
          const body = req.body
@@ -60,6 +84,8 @@ router.post('/save_unloadDirective',
         body.data = JSON.stringify(body.data)
         body.totalPrice = 0
         body.config = ''
+        body.targetId = ''
+        body.classifyNo = '',
         console.log(body)
         const unloadDirective = await unloadDirectiveDao.saveUnloadDirective(body)
         return res.json({
