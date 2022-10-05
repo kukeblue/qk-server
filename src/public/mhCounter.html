@@ -225,21 +225,12 @@
                         </tr>
                     
                         <tr>
-                            <th style="width:150px">垃圾宝石1级</th>
+                            <th style="width:150px">垃圾宝石</th>
                             <td><input style="width:100px" type="number" value="0" name="m0"
-                                      id="垃圾宝石1级" key="垃圾宝石1级" sort="23"/></td>
-                            <td id="垃圾宝石1级-total">0</td>
-                            <td id="垃圾宝石1级-total-price" style="color:Blue">0</td>
+                                      id="垃圾宝石" key="垃圾宝石" sort="23"/></td>
+                            <td id="垃圾宝石-total">0</td>
+                            <td id="垃圾宝石-total-price" style="color:Blue">0</td>
                         </tr>
-                    
-                        <tr>
-                            <th style="width:150px">垃圾宝石2级</th>
-                            <td><input id="垃圾宝石2级" style="width:100px" type="number" value="0" name="m0"
-                                       key="垃圾宝石2级" sort="24"/></td>
-                            <td id="垃圾宝石2级-total">0</td>
-                            <td id="垃圾宝石2级-total-price" style="color:Blue">0</td>
-                        </tr>
-                    
                 </table>
                 <table>  <!--内丹-->
                     <td colspan="4" style="height:5px" bgcolor="C0C0C0"></td>
@@ -416,7 +407,13 @@
                             <td id="圣洁-total">0</td>
                             <td id="圣洁-total-price" style="color:Blue">0</td>
                         </tr>
-                    
+                        <tr>
+                            <th style="width:150px">未知内丹</th>
+                            <td><input style="width:100px" type="number" value="200000" name="m0"
+                                id="未知内丹" key="未知内丹" sort="45"/></td>
+                            <td id="未知内丹-total">0</td>
+                            <td id="未知内丹-total-price" style="color:Blue">0</td>
+                        </tr>
                 </table>
             </td>
 
@@ -801,6 +798,13 @@
                                        key="鬼魂术" sort="85"/></td>
                             <td id="鬼魂术-total">0</td>
                             <td id="鬼魂术-total-price" style="color:Blue">0</td>
+                        </tr>
+                        <tr>
+                            <th style="width:150px">未知兽决</th>
+                            <td><input id="未知兽决" style="width:100px" type="number" value="600000" name="m0"
+                                       key="未知兽决" sort="85"/></td>
+                            <td id="未知兽决-total">0</td>
+                            <td id="未知兽决-total-price" style="color:Blue">0</td>
                         </tr>
                         
                     
@@ -1269,13 +1273,13 @@
 <!-- <script src="/static/jquery.form.js"></script> -->
 <script>
     var 五宝strs = "金刚石定魂珠夜光珠龙鳞避水珠"
-    var 宝石strs = "金柳露黑宝石1级黑宝石2级舍利子1级舍利子2级红玛瑙1级红玛瑙2级太阳石1级太阳石2级月亮石1级月亮石2级光芒石1级光芒石2级垃圾宝石1级垃圾宝石2级"
-    var 内丹strs = "迅敏矫健静岳连环灵光灵身撞击狂怒阴伤擅咒狙刺钢化淬毒岿然深思坚甲慧心无畏愤恨圣洁"
+    var 宝石strs = "金柳露黑宝石1级黑宝石2级舍利子1级舍利子2级红玛瑙1级红玛瑙2级太阳石1级太阳石2级月亮石1级月亮石2级光芒石1级光芒石2级垃圾宝石"
+    var 内丹strs = "迅敏矫健静岳连环灵光灵身撞击狂怒阴伤擅咒狙刺钢化淬毒岿然深思坚甲慧心无畏愤恨圣洁未知内丹"
     var 其他strs = "宝图其他"
     var 环strs = "环50级及以下环60刀枪剑扇环60项腰环60武器环60装备环70武器环70装备环80武器环80装备"
     var 铁strs = "铁50铁60铁70垃圾铁"
     var 书strs = "书70项链书70腰带书70鞋书70铠甲书70头盔书70女衣书70发钗书70刀书70枪书70剑书70扇书70武器书60项链书60腰带书60鞋书60铠甲书60头盔书60女衣书60发钗书60刀书60枪书60剑书60扇书60武器垃圾书"
-    var 兽决strs = "必杀吸血夜战法术暴击法术波动法术连击偷袭魔之心反震感知驱鬼幸运招架敏捷合纵盾气毒法术抵抗反击强力防御永恒飞行冥思精神集中慧根雷属性吸收土属性吸收水属性吸收火属性吸收落岩雷击水攻烈火连击神迹隐身再生神佑复生鬼魂术进击必杀进击法暴遗志迟钝否定信仰"
+    var 兽决strs = "必杀吸血夜战法术暴击法术波动法术连击偷袭魔之心反震感知驱鬼幸运招架敏捷合纵盾气毒法术抵抗反击强力防御永恒飞行冥思精神集中慧根雷属性吸收土属性吸收水属性吸收火属性吸收落岩雷击水攻烈火连击神迹隐身再生神佑复生鬼魂术进击必杀进击法暴遗志迟钝否定信仰未知兽决"
 
     var _priceConfig = {
         "金刚石": 1450000,
@@ -1296,8 +1300,7 @@
         "月亮石2级": 130000,
         "光芒石1级": 50000,
         "光芒石2级": 100000,
-        "垃圾宝石2级": 0,
-        "垃圾宝石1级": 0,
+        "垃圾宝石": 0,
         "迅敏": 180000,
         "矫健": 900000,
         "静岳": 650000,
@@ -1318,6 +1321,7 @@
         "无畏": 130000,
         "愤恨": 130000,
         "圣洁": 130000,
+        "未知内丹": 200000,
         "宝图": 25000,
         "其他": 0,
 
@@ -1408,6 +1412,7 @@
         "遗志": 600000,
         "迟钝": 600000,
         "否定信仰": 500000,
+        "未知兽决": 600000,
     }
     function buildPrice() {
         let priceConfig

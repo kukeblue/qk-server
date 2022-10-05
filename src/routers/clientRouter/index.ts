@@ -101,9 +101,9 @@ router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogR
     req.body.taskCount = Number(req.body.taskCount)
     if(req.body.type == 'profit') {
         const gameRole = await gameRoleDao.getGameRoleByQuery({gameId: req.body.nickName})
-        req.body.userId = gameRole.userId
+        req.body.userId = gameRole!.userId
         const watuScanLog = await taskLogDao.getRecentlyWatuCountLog(req.body.nickName)
-        const group = await gameGroupDao.getGameGroupByQuery({id: gameRole.groupId})
+        const group = await gameGroupDao.getGameGroupByQuery({id: gameRole!.groupId})
         const priceConfigs:any = {}
         group.priceConfig?.split(',').forEach(item=>{
            const huo = item.split('=')[0]
@@ -132,17 +132,17 @@ router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogR
             // @ts-ignore
             expend: (watuScanLog.taskCount || 0 ) * priceConfigs["宝图"],
             taskCount: watuScanLog.taskCount,
-            gameId: gameRole.gameId,
-            groupId: gameRole.groupId,
+            gameId: gameRole!.gameId,
+            groupId: gameRole!.groupId,
             note: req.body.note,
-            userId: gameRole.userId,
+            userId: gameRole!.userId,
         }
         repost.profit = (repost.income || 0) - (repost.expend || 0)
         await reportDao.saveReport(repost)
     }
     if(req.body.type == 'watuScan') {
         const gameRole = await gameRoleDao.getGameRoleByQuery({gameId: req.body.nickName})
-        req.body.userId = gameRole.userId
+        req.body.userId = gameRole!.userId
     }
     const taskLog: TTaskLog = await taskLogDao.createTaskLog({...req.body})
     if(taskLog) {

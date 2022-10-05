@@ -59,7 +59,7 @@ export const gameRoleDao = {
             where: query,
         })
     },
-    getGameRoleByQuery: function (query: {
+    getGameRoleByQuery: async function (query: {
         gameId?: string, 
         name?: string,
         userId?: number,
@@ -67,10 +67,18 @@ export const gameRoleDao = {
         groupId?: number
         work?: string,
         status?: string,
-    }): TGameRole {
-        return prisma.gameRole.findFirst({
+    }): Promise<TGameRole | undefined> {
+        const gameRoles:TGameRole[] = await prisma.gameRole.findMany({
             where: query,
         })
+        if(gameRoles.length > 0) {
+            if(gameRoles.length == 1) {
+                return gameRoles[0]
+            }else {
+                const index = Math.floor(Math.random()*Math.floor(gameRoles.length));
+                return gameRoles[index]
+            }
+        }
     },
     deleteById: async function (id:number) {
         return await prisma.gameRole.delete({
