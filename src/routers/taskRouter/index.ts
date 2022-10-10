@@ -92,6 +92,13 @@ router.post('/get_start_task',
         }
     }))
 
+router.post('/do_task_auth',
+    async function (req:Request<any, any, TStartTaskRequest>, res: Response<TResponse<TTask>> ) {
+        res.json({
+            status: 0,
+        })
+    })
+
 router.post('/start_task',
     async function (req:Request<any, any, TStartTaskRequest>, res: Response<TResponse<TTask>> ) {
             const data = req.body
