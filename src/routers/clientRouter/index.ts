@@ -239,6 +239,11 @@ export type TClinetStartTaskRequest = {
         }
     }))
 
+    router.post('/auth_vip_status',
+    asyncHandler(async function (req:Request<any, any, {gameId: string}>, res: Response<any> ) {
+        res.json( {status: 0})
+    }))
+
 
 
 export default router
