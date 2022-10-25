@@ -1491,12 +1491,6 @@
                 }else if(宝石strs.includes(key)) {
                     宝石数量= 宝石数量 + data[key].length
                     宝石总价 = 宝石总价 + tp 
-                }else if(内丹strs.includes(key)) {
-                    内丹数量 = 内丹数量 + data[key].length
-                    内丹总价 = 内丹总价 + tp 
-                }else if(内丹strs.includes(key)) {
-                    内丹数量 = 内丹数量 + data[key].length
-                    内丹总价 = 内丹总价 + tp 
                 }else if(其他strs.includes(key)) {
                     其他数量 = 其他数量 + data[key].length
                     其他总价 = 其他总价 + tp 
@@ -1512,6 +1506,9 @@
                 }else if(兽决strs.includes(key)) {
                     兽决数量 = 兽决数量 + data[key].length
                     兽决总价 = 兽决总价 + tp 
+                }else if(内丹strs.includes(key)) {
+                    内丹数量 = 内丹数量 + data[key].length
+                    内丹总价 = 内丹总价 + tp 
                 }
             }
         })
