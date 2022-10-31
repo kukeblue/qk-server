@@ -153,3 +153,10 @@ model UnloadDirective {
   classifyNo String
 }
 
+model UnloadDirectiveConfig {
+  @@map("unload_directive_config")
+  id         Int     @id @default(autoincrement())
+  code    String
+  config  String
+  createTime Int
+}

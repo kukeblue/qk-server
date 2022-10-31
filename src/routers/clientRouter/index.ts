@@ -1,5 +1,5 @@
 
-import {TReport, TResponse, TTask, TTaskLog, TTaskStatus} from "../../typing";
+import {TReport, TResponse, TTask, TTaskLog, TTaskStatus, TUnloadDirectiveConfig} from "../../typing";
 // @ts-ignore
 import express, {Request, Response} from "express";
 import { TAddTaskLogRequest } from "../taskLogRouter/typing";
@@ -16,6 +16,7 @@ import { gameRoleDao } from "../../dao/gameRoleDao";
 import { reportDao } from "../../dao/reportDao";
 import {TCreateUnloadDirectiveRequest} from "./typing";
 import {unloadDirectiveDao} from "../../dao/unloadDirectiveDao";
+import {unloadDirectiveConfigDao} from "../../dao/unloadDirectiveConfigDao";
 import {TUnloadDirective} from "../../typing";
 
 const router = express.Router()
@@ -47,6 +48,51 @@ router.post('/get_unloadDirective_by_code',
         }else {
             return res.json({
                 status: -1
+            })
+        }
+    })
+
+router.post('/get_unloadDirective_config_by_code',
+    async function (req:Request<any, any, {code: string}>, res: Response<TResponse<TUnloadDirectiveConfig>> ) {
+        const query = {
+            code: req.body.code
+        }
+        const unloadDirectiveConfig = await unloadDirectiveConfigDao.getUnloadDirectiveByQuery(query)
+        if(unloadDirectiveConfig) {
+            return res.json({
+                data:unloadDirectiveConfig,
+                status: 0
+            })
+        }else {
+            return res.json({
+                status: -1
+            })
+        }
+    })
+
+router.post('/update_unloadDirective_config_by_code',
+    async function (req:Request<any, any, {config: string,  code: string, id: number}>, res: Response<TResponse<TUnloadDirectiveConfig>> ) {
+        const query = {
+            code: req.body.code
+        }
+        const unloadDirectiveConfig = await unloadDirectiveConfigDao.getUnloadDirectiveByQuery(query)
+        if(unloadDirectiveConfig) {
+            const data = await unloadDirectiveConfigDao.updateUnloadDirectiveConfigById(unloadDirectiveConfig.id!, {
+                config: req.body.config,
+            })
+            return res.json({
+                data,
+                status: 0
+            })
+        }else {
+            const data = await unloadDirectiveConfigDao.saveUnloadDirectiveConfig({
+                code: query.code,  
+                config: req.body.config,
+                createTime: Number.parseInt((new Date().getTime() / 1000).toFixed(0))
+            })
+            return res.json({
+                data,
+                status: 0
             })
         }
     })

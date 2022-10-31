@@ -1247,25 +1247,25 @@
            <th>例子2：</th>
            <td> 20,ID|2,ID|15,ID|9,ID|22,ID|1,ID       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;       (转移顺序 70武器书=>兽决=>70铁=>70武器=>60武器书=>五宝)  </td>
        </tr>
-       <tr style="color:red" bgcolor="FF0000" height="40px" >
+       <!-- <tr style="color:red" bgcolor="FF0000" height="40px" >
            <td colspan="2" align="center">
                             <input id="add" style="width:1500px" type="text" value="当前无自定义内容" name="add"/>
                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                    <input id="zhuayi" type="button" value="提交转移" onclick="submitFrom2()"/>
            </td>
-       </tr>
+       </tr> -->
 </table>
 </form>
-<!-- <form name="namethree" id="idthree">
+<form name="namethree" id="idthree">
    <table frame=void rules=none>
          <tr style="color:red"  bgcolor="FFE4B5" height="40px" >
            <td colspan="2" align="center">
                <input style="width:1500px" type="text" placeholder="此处用来将别的vip价格同步到本vip，方便多个vip账号清货价格管理！填写正确的被同步vip账号！！！"  name="addd"/>
-               <input id="tbjg" type="button" value="同步价格" onclick="tbqhjg()"/>
+               <input id="tbjg" type="button" value="提交同步价格码" onclick="uploadConfig()"/>
            </td>
        </tr>
 </table>
-</form> -->
+</form>
 </body>
 
 <script src="https://cdn.bootcdn.net/ajax/libs/zepto/1.2.0/zepto.js"></script>
@@ -1417,7 +1417,7 @@
     function buildPrice(priceConfig1) {
         let priceConfig
         if(priceConfig1) {
-             priceConfig = priceConfig1
+            priceConfig = priceConfig1
             _priceConfig = priceConfig1
         }else {
             if(localStorage.getItem('priceConfig')) {
@@ -1476,67 +1476,67 @@
         let 兽决总价 = 0
         let priceConfig = {}
 
-        Object.keys(data).map(key=>{
+        Object.keys(_priceConfig).map(key=>{
             const numberDom = document.getElementById(key + '-total')
             const totalPrice = document.getElementById(key + '-total-price')
             if(numberDom) {
-                console.log(key, data[key].length)
                 const priceDom = document.getElementById(key)
                 if(!priceDom) {
                     console.log(key)
                 }
-                priceConfig[key] = priceDom.value
-                const price = priceDom.value
+                _priceConfig[key] = priceDom.value
+                // const price = priceDom.value
 
-                numberDom.innerHTML = data[key].length
-                let tp = Number(price) * Number(data[key].length)
-                totalPrice.innerHTML = tp
-                if(五宝strs.includes(key)) {
-                    五宝数量 = 五宝数量 + data[key].length
-                    五宝总价 = 五宝总价 + tp
-                }else if(宝石strs.includes(key)) {
-                    宝石数量= 宝石数量 + data[key].length
-                    宝石总价 = 宝石总价 + tp 
-                }else if(其他strs.includes(key)) {
-                    其他数量 = 其他数量 + data[key].length
-                    其他总价 = 其他总价 + tp 
-                }else if(环strs.includes(key)) {
-                    环数量 = 环数量 + data[key].length
-                    环总价 = 环总价 + tp 
-                }else if(铁strs.includes(key)) {
-                    铁数量 = 铁数量 + data[key].length
-                    铁总价 = 铁总价 + tp 
-                }else if(书strs.includes(key)) {
-                    书数量 = 书数量 + data[key].length
-                    书总价 = 书总价 + tp 
-                }else if(兽决strs.includes(key)) {
-                    兽决数量 = 兽决数量 + data[key].length
-                    兽决总价 = 兽决总价 + tp 
-                }else if(内丹strs.includes(key)) {
-                    内丹数量 = 内丹数量 + data[key].length
-                    内丹总价 = 内丹总价 + tp 
-                }
+                // numberDom.innerHTML = data[key].length
+                // let tp = Number(price) * Number(data[key].length)
+                // totalPrice.innerHTML = tp
+                // if(五宝strs.includes(key)) {
+                //     五宝数量 = 五宝数量 + data[key].length
+                //     五宝总价 = 五宝总价 + tp
+                // }else if(宝石strs.includes(key)) {
+                //     宝石数量= 宝石数量 + data[key].length
+                //     宝石总价 = 宝石总价 + tp 
+                // }else if(其他strs.includes(key)) {
+                //     其他数量 = 其他数量 + data[key].length
+                //     其他总价 = 其他总价 + tp 
+                // }else if(环strs.includes(key)) {
+                //     环数量 = 环数量 + data[key].length
+                //     环总价 = 环总价 + tp 
+                // }else if(铁strs.includes(key)) {
+                //     铁数量 = 铁数量 + data[key].length
+                //     铁总价 = 铁总价 + tp 
+                // }else if(书strs.includes(key)) {
+                //     书数量 = 书数量 + data[key].length
+                //     书总价 = 书总价 + tp 
+                // }else if(兽决strs.includes(key)) {
+                //     兽决数量 = 兽决数量 + data[key].length
+                //     兽决总价 = 兽决总价 + tp 
+                // }else if(内丹strs.includes(key)) {
+                //     内丹数量 = 内丹数量 + data[key].length
+                //     内丹总价 = 内丹总价 + tp 
+                // }
             }
         })
-        localStorage.setItem('priceConfig', JSON.stringify(priceConfig))
-        document.getElementById('五宝数量').innerHTML = 五宝数量
-        document.getElementById('五宝总价').innerHTML = 五宝总价
-        document.getElementById('宝石数量').innerHTML = 宝石数量
-        document.getElementById('宝石总价').innerHTML = 宝石总价
-        document.getElementById('内丹数量').innerHTML = 内丹数量
-        document.getElementById('内丹总价').innerHTML = 内丹总价
-        document.getElementById('其他数量').innerHTML = 其他数量
-        document.getElementById('其他总价').innerHTML = 其他总价
-        document.getElementById('环数量').innerHTML = 环数量
-        document.getElementById('环总价').innerHTML = 环总价
-        document.getElementById('铁数量').innerHTML = 铁数量
-        document.getElementById('铁总价').innerHTML = 铁总价
-        document.getElementById('书数量').innerHTML = 书数量
-        document.getElementById('书总价').innerHTML = 书总价
-        document.getElementById('兽决数量').innerHTML = 兽决数量
-        document.getElementById('兽决总价').innerHTML = 兽决总价
-        document.getElementById('总件数').innerHTML = 五宝数量 + 宝石数量 + 内丹数量 + 其他数量 + 环数量 + 书数量 + 铁数量 + 兽决数量
-        document.getElementById('总金额').innerHTML = 五宝总价 + 宝石总价 + 内丹总价 + 其他总价 + 环总价 + 书总价 + 铁总价 + 兽决总价
+        // localStorage.setItem('priceConfig', JSON.stringify(priceConfig))
+        // _priceConfig = priceConfig
+        // document.getElementById('五宝数量').innerHTML = 五宝数量
+        // document.getElementById('五宝总价').innerHTML = 五宝总价
+        // document.getElementById('宝石数量').innerHTML = 宝石数量
+        // document.getElementById('宝石总价').innerHTML = 宝石总价
+        // document.getElementById('内丹数量').innerHTML = 内丹数量
+        // document.getElementById('内丹总价').innerHTML = 内丹总价
+        // document.getElementById('其他数量').innerHTML = 其他数量
+        // document.getElementById('其他总价').innerHTML = 其他总价
+        // document.getElementById('环数量').innerHTML = 环数量
+        // document.getElementById('环总价').innerHTML = 环总价
+        // document.getElementById('铁数量').innerHTML = 铁数量
+        // document.getElementById('铁总价').innerHTML = 铁总价
+        // document.getElementById('书数量').innerHTML = 书数量
+        // document.getElementById('书总价').innerHTML = 书总价
+        // document.getElementById('兽决数量').innerHTML = 兽决数量
+        // document.getElementById('兽决总价').innerHTML = 兽决总价
+        // document.getElementById('总件数').innerHTML = 五宝数量 + 宝石数量 + 内丹数量 + 其他数量 + 环数量 + 书数量 + 铁数量 + 兽决数量
+        // document.getElementById('总金额').innerHTML = 五宝总价 + 宝石总价 + 内丹总价 + 其他总价 + 环总价 + 书总价 + 铁总价 + 兽决总价
     }
 
     function submitFrom2() {
@@ -1555,10 +1555,6 @@
                     }else {
                         alert('忙碌中')
                     }
-                    // Supposing this JSON payload was received:
-                    //   {"project": {"id": 42, "html": "<div>..." }}
-                    // append the HTML to context object.
-                    // this.append(data.project.html)
                 },
                 error: function(xhr, type){
                     alert('Ajax error!')
@@ -1569,10 +1565,54 @@
         }
 
     }
-    
+    function uploadConfig() {
+        const configCode = getQueryString('configCode')
+        $.ajax({
+            type: 'POST',
+            url: '/api/client/update_unloadDirective_config_by_code',
+            // post payload:
+            data: JSON.stringify({ code: configCode, config: JSON.stringify(_priceConfig)}),
+            contentType: 'application/json',
+            success: function(data){
+                if(data.status == 0) {
+                    alert('提交成功')
+                }else {
+                    alert('保存失败')
+                }
+            },
+            error: function(xhr, type){
+                alert('Ajax error!')
+            }
+        })
+    }
     function getData() {
         const configCode = getQueryString('configCode')
         const code = getQueryString('code')
+        if(configCode) {
+            $.ajax({
+                type: 'POST',
+                url: '/api/client/get_unloadDirective_config_by_code',
+                // post payload:
+                data: JSON.stringify({ configCode }),
+                contentType: 'application/json',
+                success: function(data){
+                    console.log(data)
+                    if(data.status == 0) {
+                        alert('获取成功')
+                        buildPrice(JSON.parse(data.data.config))
+                    }else {
+                        alert('使用默认配置')
+                    }
+                    // Supposing this JSON payload was received:
+                    //   {"project": {"id": 42, "html": "<div>..." }}
+                    // append the HTML to context object.
+                    // this.append(data.project.html)
+                },
+                error: function(xhr, type){
+                    alert('Ajax error!')
+                }
+            }, )
+        }
         if(code) {
             $.ajax({
                 type: 'POST',
@@ -1587,33 +1627,7 @@
                         const wupin = JSON.parse(directive.data)
                         window.currentData = wupin
                         console.log('当前扫描货物为：', wupin)
-                        if(configCode) {
-                            $.ajax({
-                                type: 'POST',
-                                url: '/api/client/get_unloadDirective_config_by_code',
-                                data: JSON.stringify({ configCode }),
-                                contentType: 'application/json',
-                                success: function(data){
-                                    console.log(data)
-                                    if(data.status == 0) {
-                                        buildPrice(JSON.parse(data.data.config))
-                                        setWupinNumber(wupin)
-                                    }else {
-                                        alert('使用默认配置')
-                                        setWupinNumber(wupin)
-                                    }
-                                    // Supposing this JSON payload was received:
-                                    //   {"project": {"id": 42, "html": "<div>..." }}
-                                    // append the HTML to context object.
-                                    // this.append(data.project.html)
-                                },
-                                error: function(xhr, type){
-                                    alert('Ajax error!')
-                                }
-                            }, )
-                        }else {
-                            setWupinNumber(wupin)
-                        }
+                        setWupinNumber(wupin)
                     }else {
                         alert('无效的code')
                     }
@@ -1627,7 +1641,7 @@
                 }
             }, )
         }else {
-            alert('分货参数错误')
+            // alert('分货参数错误')
         }
     }
     getData()

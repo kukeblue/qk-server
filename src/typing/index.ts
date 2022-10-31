@@ -169,3 +169,10 @@ export type TUnloadDirective = {
     classifyNo?: string
 }
 
+export type TUnloadDirectiveConfig = {
+    id?: number
+    code?: string   
+    config?: string
+    createTime?: number
+}
+
