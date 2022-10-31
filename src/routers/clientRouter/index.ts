@@ -190,6 +190,12 @@ router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogR
     }
     if(req.body.type == 'watuScan') {
         const gameRole = await gameRoleDao.getGameRoleByQuery({gameId: req.body.nickName})
+        if(!gameRole) {
+            return res.status(401).json({
+                status: -1,
+                message: '会员卡过期'
+            });
+        }
         const userId = gameRole?.userId
         const user  = await userDao.getUserById(userId!)
         const vipCard = await vipCardDao.getVipCardByQuery({id: user.vipCardId!})
