@@ -18,6 +18,8 @@ import {TCreateUnloadDirectiveRequest} from "./typing";
 import {unloadDirectiveDao} from "../../dao/unloadDirectiveDao";
 import {unloadDirectiveConfigDao} from "../../dao/unloadDirectiveConfigDao";
 import {TUnloadDirective} from "../../typing";
+import { userDao } from "../../dao/userDao.js";
+import { vipCardDao } from "../../dao/vipCardDao";
 
 const router = express.Router()
 
@@ -188,6 +190,15 @@ router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogR
     }
     if(req.body.type == 'watuScan') {
         const gameRole = await gameRoleDao.getGameRoleByQuery({gameId: req.body.nickName})
+        const userId = gameRole?.userId
+        const user  = await userDao.getUserById(userId!)
+        const vipCard = await vipCardDao.getVipCardByQuery({id: user.vipCardId!})
+        if(user.vipCardId == 0 || !vipCard ||  vipCard.endTime < (new Date().getTime() / 1000)) {
+            return res.status(401).json({
+                status: -1,
+                message: '会员卡过期'
+            });
+        }
         req.body.userId = gameRole!.userId
     }
     const taskLog: TTaskLog = await taskLogDao.createTaskLog({...req.body})

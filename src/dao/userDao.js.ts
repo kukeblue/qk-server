@@ -29,6 +29,11 @@ export const userDao = {
             where: query,
         })
     },
+    getUserById: function (id: number): Promise<TUser> {
+        return prisma.user.findFirst({
+            where: {id},
+        })
+    },
     getAllUser: function (): Promise<TUser[]> {
         return prisma.user.findMany({
             where: {},
