@@ -248,8 +248,30 @@ export type TClinetStartTaskRequest = {
     router.post('/update_game_role_status',
     asyncHandler(async function (req:Request<any, any, {gameId: string, status: string}>, res: Response<any> ) {
         const {gameId, status} = req.body
-        await gameRoleDao.updateGameRoleStatus(gameId, status)
-        res.json( {status: 0})
+        try {
+            if(status == '抓鬼') {
+               const role = await gameRoleDao.getGameRoleByQuery({gameId})
+               if(!role || role?.work != "挖图") {
+                    res.json( {status: -1})
+               }else {
+                    const userId = role?.userId
+                    const user  = await userDao.getUserById(userId!)
+                    const vipCard = await vipCardDao.getVipCardByQuery({id: user.vipCardId!})
+                    if(user.vipCardId == 0 || !vipCard ||  vipCard.endTime < (new Date().getTime() / 1000)) {
+                        return res.status(401).json({
+                            status: -1,
+                            message: '会员卡过期'
+                        });
+                    }
+                    res.json( {status: 0})
+               }
+            }else {
+                const data = await gameRoleDao.updateGameRoleStatus(gameId, status)
+                res.json( {status: 0})
+            }
+        }catch(err) {
+            res.json( {status: -1})
+        }
     }))
 
     router.post('/get_one_free_game_role',
