@@ -160,3 +160,22 @@ model UnloadDirectiveConfig {
   config  String
   createTime Int
 }
+
+model GameRoleMonitor {
+    @@map("game_role_monitor")
+    id         Int     @id @default(autoincrement())
+    userId     Int
+	date 	     String
+	roleId 		 Int
+	work  		 String
+	status  	 String
+	name  String
+	gameServer String
+	gameId  String
+	groupId Int
+	baotuCount Int
+	cangkuCount Int
+	amount Int
+	lastIncome Int
+	lastTime Int
+}

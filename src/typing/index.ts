@@ -176,3 +176,20 @@ export type TUnloadDirectiveConfig = {
     createTime?: number
 }
 
+export type TGameRoleMonitor = {
+    id?: number,
+    userId: number
+    date?: string,
+    roleId?: number,
+    work?: string,
+    status?: string,
+    name?: string,
+    gameServer?: string,
+    gameId?: string,
+    groupId?: number,
+    baotuCount?: number,
+    cangkuCount?: number,
+    amount?: number,
+    lastIncome?: number,
+    lastTime?: number,
+}

@@ -1,5 +1,5 @@
 
-import {TReport, TResponse, TTask, TTaskLog, TTaskStatus, TUnloadDirectiveConfig} from "../../typing";
+import {TReport, TResponse, TTask, TTaskLog, TTaskStatus, TUnloadDirectiveConfig, TGameRoleMonitor} from "../../typing";
 // @ts-ignore
 import express, {Request, Response} from "express";
 import { TAddTaskLogRequest } from "../taskLogRouter/typing";
@@ -20,7 +20,7 @@ import {unloadDirectiveConfigDao} from "../../dao/unloadDirectiveConfigDao";
 import {TUnloadDirective} from "../../typing";
 import { userDao } from "../../dao/userDao.js";
 import { vipCardDao } from "../../dao/vipCardDao";
-
+import { gameRoleMonitorDao } from "../../dao/gameRoleMonitorDao"
 const router = express.Router()
 
 function getRandomString(length: number) {
@@ -324,4 +324,29 @@ export type TClinetStartTaskRequest = {
         }
     }))
 
+    router.post('/save_role_baotu_monitor',
+    asyncHandler(async function (req:Request<any, any, {gameId: string, count:number}>, res: Response<any> ) {
+        const {gameId, count} = req.body
+        const gameRole = await gameRoleDao.getGameRoleByQuery({gameId})
+        const gameRoleMonitor: TGameRoleMonitor = {
+            date: moment().format('YYYY-MM-DD'),
+            userId: gameRole!.userId,
+            roleId: gameRole!.id,
+            work: gameRole!.work,
+            status: gameRole!.status,
+            name: gameRole!.name,
+            gameServer: gameRole!.gameServer,
+            gameId,
+            groupId: gameRole?.groupId,
+            baotuCount: count,
+            amount: count,
+            cangkuCount: count,
+            lastIncome: count,
+            lastTime: Number.parseInt((new Date().getTime() / 1000).toFixed(0))
+        }
+        await gameRoleMonitorDao.saveGameRoleMonitor(gameRoleMonitor)
+        res.json( {status: 0})
+    }))
+
+    
 export default router

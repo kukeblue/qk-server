@@ -1,8 +1,9 @@
 import {Request, Response} from "express";
-import {TReport, TResponse, TTask, TTaskLog, TTaskStatus, TUser} from "../../typing";
+import {TGameRoleMonitor, TReport, TResponse, TTask, TTaskLog, TTaskStatus, TUser} from "../../typing";
 // @ts-ignore
 import moment from "moment"
 import {reportDao} from "../../dao/reportDao";
+import {gameRoleMonitorDao} from "../../dao/gameRoleMonitorDao"
 import {TCreateReportRequest} from "./typing";
 import {taskLogDao} from "../../dao/taskLogDao";
 const express = require('express')
@@ -26,6 +27,17 @@ router.post('/get_report_page', async function (req:Request & {loginUser: TUser}
         page: pagination
     })
 })
+
+router.post('/get_role_baotu_monitor', async function (req:Request<any, any, {gameId: string, count:number}> & {loginUser: TUser}, res: Response<TResponse<TGameRoleMonitor>> ) {
+        const gameRoleMonitorList = await gameRoleMonitorDao.getGameRoleMonitorsByQuery({
+            date: moment().format('YYYY-MM-DD'),
+            userId: req.loginUser.id!,
+        })
+        res.json( {status: 0, list: gameRoleMonitorList})
+})
+
+
+
 
 router.post('/build_report_day_summary', async function (req:Request & {loginUser: TUser}, res: Response<TResponse<TReport>> ) {
     let {date} = req.body
@@ -73,6 +85,7 @@ router.post('/build_report_day_summary', async function (req:Request & {loginUse
     return res.json({
         status: 0,
     })
+
 })
 
 
