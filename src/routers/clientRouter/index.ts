@@ -189,6 +189,7 @@ router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogR
         await reportDao.saveReport(repost)
     }
     if(req.body.type == 'watuScan') {
+
         const gameRole = await gameRoleDao.getGameRoleByQuery({gameId: req.body.nickName})
         if(!gameRole) {
             return res.status(401).json({
@@ -206,6 +207,31 @@ router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogR
             });
         }
         req.body.userId = gameRole!.userId
+
+        const gameId = req.body.nickName
+        const count = req.body.taskCount
+        console.log('get_role_baotu_monitor', gameId, count);
+        const gameRoleMonitor: TGameRoleMonitor = {
+            date: moment().format('YYYY-MM-DD'),
+            userId: gameRole!.userId,
+            roleId: gameRole!.id,
+            work: gameRole!.work,
+            status: gameRole!.status,
+            name: gameRole!.name,
+            gameServer: gameRole!.gameServer,
+            gameId,
+            groupId: gameRole?.groupId,
+            baotuCount: count,
+            amount: count,
+            cangkuCount: count,
+            lastIncome: count,
+            lastTime: Number.parseInt((new Date().getTime() / 1000).toFixed(0))
+        }
+        await gameRoleMonitorDao.saveGameRoleMonitor(gameRoleMonitor)
+
+
+
+
     }
     const taskLog: TTaskLog = await taskLogDao.createTaskLog({...req.body})
     if(taskLog) {
