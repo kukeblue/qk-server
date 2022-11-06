@@ -327,6 +327,7 @@ export type TClinetStartTaskRequest = {
     router.post('/save_role_baotu_monitor',
     asyncHandler(async function (req:Request<any, any, {gameId: string, count:number}>, res: Response<any> ) {
         const {gameId, count} = req.body
+        console.log('get_role_baotu_monitor', gameId, count);
         const gameRole = await gameRoleDao.getGameRoleByQuery({gameId})
         const gameRoleMonitor: TGameRoleMonitor = {
             date: moment().format('YYYY-MM-DD'),

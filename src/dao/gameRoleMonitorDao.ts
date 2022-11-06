@@ -23,19 +23,16 @@ export const gameRoleMonitorDao = {
             return await prisma.gameRoleMonitor.create({data: gameRoleMonitor})
         }else {
             const {id, ...updateData} = gameRoleMonitor
-            updateData.lastIncome = updateData.lastIncome + oldGameRoleMonitor.lastIncome
+            // updateData.lastIncome = updateData.lastIncome + oldGameRoleMonitor.lastIncome
             if(updateData.work == "挖图") {
-                updateData.baotuCount = updateData.baotuCount + oldGameRoleMonitor.lastIncome
+                updateData.baotuCount = updateData.baotuCount + oldGameRoleMonitor.baotuCount
             }
-            if(id) {
-                return await prisma.gameRoleMonitor.updateMany({
-                    where: {
-                        id,
-                    },
-                   data: updateData,
-                })
-            }
-            
+            return await prisma.gameRoleMonitor.updateMany({
+                where: {
+                    id: oldGameRoleMonitor.id,
+                },
+                data: updateData,
+            })
         }
     },
 
