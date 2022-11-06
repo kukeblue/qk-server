@@ -26,6 +26,7 @@ export const gameRoleMonitorDao = {
             // updateData.lastIncome = updateData.lastIncome + oldGameRoleMonitor.lastIncome
             if(updateData.work == "挖图") {
                 updateData.baotuCount = updateData.baotuCount + oldGameRoleMonitor.baotuCount
+                updateData.lastIncome = updateData.lastIncome + oldGameRoleMonitor.lastIncome
             }
             return await prisma.gameRoleMonitor.updateMany({
                 where: {
