@@ -187,23 +187,6 @@ router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogR
         }
         repost.profit = (repost.income || 0) - (repost.expend || 0)
         await reportDao.saveReport(repost)
-        const gameRoleMonitor: TGameRoleMonitor = {
-            date: moment().format('YYYY-MM-DD'),
-            userId: gameRole!.userId,
-            roleId: gameRole!.id,
-            work: gameRole!.work,
-            status: gameRole!.status,
-            name: gameRole!.name,
-            gameServer: gameRole!.gameServer,
-            gameId: gameRole!.gameId,
-            groupId: gameRole?.groupId,
-            baotuCount: 0,
-            amount: 0,
-            cangkuCount: 0,
-            lastIncome: income || 0,
-            lastTime: Number.parseInt((new Date().getTime() / 1000).toFixed(0))
-        }
-        await gameRoleMonitorDao.saveGameRoleMonitor(gameRoleMonitor)
     }
     if(req.body.type == 'watuScan') {
 
