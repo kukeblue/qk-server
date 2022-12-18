@@ -82,7 +82,6 @@ app.use(async function(req: Request & {loginUser: TUser},res:Response,next:NextF
     }
 })
 app.use('/api/game_account', gameAccountRouter)
-app.use('/api/client', clientRouter)
 app.use('/api/device', deviceRouter)
 app.use('/api/task', taskRouter)
 app.use('/api/gameGroup', gameGroup)

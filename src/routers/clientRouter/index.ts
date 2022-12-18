@@ -1,5 +1,5 @@
 
-import {TReport, TResponse, TTask, TTaskLog, TTaskStatus, TUnloadDirectiveConfig, TGameRoleMonitor} from "../../typing";
+import {TReport, TResponse, TTask, TTaskLog, TTaskStatus, TUnloadDirectiveConfig, TGameRoleMonitor, TGameRole, TGameGroup, TGameAccount} from "../../typing";
 // @ts-ignore
 import express, {Request, Response} from "express";
 import { TAddTaskLogRequest } from "../taskLogRouter/typing";
@@ -35,6 +35,129 @@ function getRandomString(length: number) {
     }
     return result;
 }
+
+// 检查当前角色是否存在
+router.post('/check_account_and_role', async function (req:Request<any, any, {
+    gameId: string, 
+    work: string, 
+    groupId: number, level: number}
+>, res: Response<TResponse<any>> ) {
+    const {gameId, work, groupId}= req.body;  
+    let level = Number(req.body.level)
+    const role =  await gameRoleDao.getGameRoleByQuery({gameId})
+    if(role) {
+        if(role.work != work) {
+            role.work = work
+            await gameRoleDao.saveGameRole(role)
+        }
+        return res.json({
+            data:role,
+            status: 0
+        })
+    }else {
+        // 当前角色没有录进系统
+        // 先检查账号是否有创建
+        let gameGroup:TGameGroup = await gameGroupDao.getGameGroupByQuery({id: groupId})
+        let account = await gameAccountDao.getGameAccountByNickname(gameId)
+        if(!account){
+            const newAccount: TGameAccount = {
+                name: gameId,
+                nickName: gameId,
+                username: gameId,
+                password: '0',
+                gameServer: gameGroup.gameServer,
+                online: '在线',
+                userId: gameGroup.userId,
+                level,
+            } 
+            account = await gameAccountDao.saveGameAccount(newAccount)
+        }
+        const newRole: TGameRole = {
+            accoutId: account.id!,
+            userId: account.userId!,
+            gameServer: gameGroup.gameServer,
+            name: account.name,
+            gameId: account.nickName,
+            groupId: gameGroup.id!,
+            work,
+            status: '离线',
+            level,
+        }
+        const role = await gameRoleDao.saveGameRole(newRole)
+        return res.json({
+            data:role,
+            status: 0
+        })
+    }
+})
+
+// 检查当前挖图角色是否存在
+router.post('/check_account_and_role2', async function (req:Request<any, any, {
+    gameId: string, 
+    userId: number, 
+    level: number,
+    name: string,
+    gameServer: string,
+}
+>, res: Response<TResponse<any>> ) {
+    const work = "挖图"
+    let {gameId, userId, name, gameServer}= req.body; 
+    userId = Number(userId)
+    let level = Number(req.body.level)
+    const role =  await gameRoleDao.getGameRoleByQuery({gameId})
+    if(role) {
+        if(role.work != work) {
+            role.work = work
+            await gameRoleDao.saveGameRole(role)
+        }
+        return res.json({
+            data:role,
+            status: 0
+        })
+    }else {
+        // 当前角色没有录进系统
+        // 先检查账号是否有创建
+        let gameGroup:TGameGroup = await gameGroupDao.getGameGroupByQuery({gameServer, userId})
+        let account = await gameAccountDao.getGameAccountByNickname(gameId)
+        if(!account){
+            const newAccount: TGameAccount = {
+                name,
+                nickName: gameId,
+                username: gameId,
+                password: '0',
+                gameServer: gameGroup.gameServer,
+                online: '在线',
+                userId: gameGroup.userId,
+                level,
+            } 
+            account = await gameAccountDao.saveGameAccount(newAccount)
+        }
+        const newRole: TGameRole = {
+            accoutId: account.id!,
+            userId: account.userId!,
+            gameServer: gameGroup.gameServer,
+            name: account.name,
+            gameId: account.nickName,
+            groupId: gameGroup.id!,
+            work,
+            status: '离线',
+            level,
+        }
+        const user = await userDao.getUserById(userId)
+        const list = await gameRoleDao.getGameRoleByQueryCount({work: '挖图' ,userId: user.id})
+        const count = list.length
+        const vipCard = await vipCardDao.getVipCardByQuery({id: user.vipCardId!})
+        if((count == vipCard.level || count > vipCard.level)) {
+            res.json( {status: 1, message: '请联系管理员升级会员等级'})
+        }else {
+            const role = await gameRoleDao.saveGameRole(newRole)
+            return res.json({
+                data:role,
+                status: 0
+            })
+        }
+    }
+})
 
 router.post('/get_unloadDirective_by_code',
     async function (req:Request<any, any, {code: string, status?: string}>, res: Response<TResponse<TUnloadDirective>> ) {
@@ -187,6 +310,23 @@ router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogR
         }
         repost.profit = (repost.income || 0) - (repost.expend || 0)
         await reportDao.saveReport(repost)
+        const gameRoleMonitor: TGameRoleMonitor = {
+            date: moment().format('YYYY-MM-DD'),
+            userId: gameRole!.userId,
+            roleId: gameRole!.id,
+            work: gameRole!.work,
+            status: gameRole!.status,
+            name: gameRole!.name,
+            gameServer: gameRole!.gameServer,
+            gameId: gameRole!.gameId,
+            groupId: gameRole?.groupId,
+            baotuCount: 0,
+            amount: 0,
+            cangkuCount: 0,
+            lastIncome: income || 0,
+            lastTime: Number.parseInt((new Date().getTime() / 1000).toFixed(0))
+        }
+        await gameRoleMonitorDao.saveGameRoleMonitor(gameRoleMonitor)
     }
     if(req.body.type == 'watuScan') {
 
