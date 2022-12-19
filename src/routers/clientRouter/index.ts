@@ -323,7 +323,7 @@ router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogR
             baotuCount: 0,
             amount: 0,
             cangkuCount: 0,
-            lastIncome: income || 0,
+            lastIncome: Number.parseInt((income || 0) + ""),
             lastTime: Number.parseInt((new Date().getTime() / 1000).toFixed(0))
         }
         await gameRoleMonitorDao.saveGameRoleMonitor(gameRoleMonitor)
