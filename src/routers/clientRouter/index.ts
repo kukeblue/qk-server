@@ -42,7 +42,8 @@ router.post('/check_account_and_role', async function (req:Request<any, any, {
     work: string, 
     groupId: number, level: number}
 >, res: Response<TResponse<any>> ) {
-    const {gameId, work, groupId}= req.body;  
+    let {gameId, work, groupId}= req.body;  
+    groupId = Number(groupId)
     let level = Number(req.body.level)
     const role =  await gameRoleDao.getGameRoleByQuery({gameId})
     if(role) {
