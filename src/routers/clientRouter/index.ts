@@ -42,9 +42,7 @@ router.post('/check_account_and_role', async function (req:Request<any, any, {
     work: string, 
     groupId: number, level: number}
 >, res: Response<TResponse<any>> ) {
-    let {gameId, work, groupId}= req.body;  
-    groupId = Number(groupId)
-    let level = Number(req.body.level)
+    let {gameId, work}= req.body;  
     const role =  await gameRoleDao.getGameRoleByQuery({gameId})
     if(role) {
         if(role.work != work) {
@@ -58,6 +56,8 @@ router.post('/check_account_and_role', async function (req:Request<any, any, {
     }else {
         // 当前角色没有录进系统
         // 先检查账号是否有创建
+        let level = Number(req.body.level)
+        let groupId = Number(req.body.groupId)
         let gameGroup:TGameGroup = await gameGroupDao.getGameGroupByQuery({id: groupId})
         let account = await gameAccountDao.getGameAccountByNickname(gameId)
         if(!account){
