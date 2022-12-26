@@ -437,7 +437,7 @@ export type TClinetStartTaskRequest = {
         }
     }))
 
-    function sleep(time){
+    function sleep(time:number){
         var timeStamp = new Date().getTime();
         var endTime = timeStamp + time;
         while(true){
