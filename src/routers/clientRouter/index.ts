@@ -437,27 +437,9 @@ export type TClinetStartTaskRequest = {
         }
     }))
 
-    function sleep(time:number){
-        var timeStamp = new Date().getTime();
-        var endTime = timeStamp + time;
-        while(true){
-        if (new Date().getTime() > endTime){
-         return;
-        } 
-        }
-       }
-     
-
-    let sysncLock = false
     router.post('/get_one_free_game_role',
     asyncHandler(async function (req:Request<any, any, {gameId: string, work: string}>, res: Response<any> ) {
         const {gameId, work} = req.body
-        if(work == '挖图') {
-            while(sysncLock == false) {
-                sleep(500) 
-            }
-            sysncLock = true
-        }
         const gameRole = await gameRoleDao.getGameRoleByQuery({gameId})
         if(!gameRole) {
             return res.json( {status: -1})
@@ -468,13 +450,10 @@ export type TClinetStartTaskRequest = {
             if(work == '挖图') {
                 await gameRoleDao.updateGameRoleStatus(targetGameRole.gameId, '忙碌')
             }
-            sysncLock = false
             res.json( {status: 0, data: targetGameRole, gameId: targetGameRole.gameId})
         }else {
-            sysncLock = false
             res.json( {status: -1})
         }
-
     }))
     router.post('/get_one_by_status',
     asyncHandler(async function (req:Request<any, any, {gameId: string, work: string, status: string}>, res: Response<any> ) {
