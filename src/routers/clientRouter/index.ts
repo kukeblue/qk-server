@@ -21,6 +21,8 @@ import {TUnloadDirective} from "../../typing";
 import { userDao } from "../../dao/userDao.js";
 import { vipCardDao } from "../../dao/vipCardDao";
 import { gameRoleMonitorDao } from "../../dao/gameRoleMonitorDao"
+import { encodeToGb2312, decodeFromGb2312 } from "../../utils/codeChange"
+
 const router = express.Router()
 
 function getRandomString(length: number) {
@@ -105,6 +107,8 @@ router.all('/check_account_and_role3', async function (req:Request<any, any, any
     let {gameId, groupId, name, gameServer}= req.query; 
     groupId = Number(groupId)
     let level = Number(req.query.level)
+    console.log('check_account_and_role3 name:' + name)
+    console.log('check_account_and_role3 gameServer:' + gameServer)
     const role =  await gameRoleDao.getGameRoleByQuery({gameId})
     if(role) {
         if(role.work != work) {
@@ -118,9 +122,11 @@ router.all('/check_account_and_role3', async function (req:Request<any, any, any
     }else {
         // 当前角色没有录进系统
         // 先检查账号是否有创建
-        let gameGroup:TGameGroup = await gameGroupDao.getGameGroupByQuery({gameServer, id: groupId})
+        console.log('先检查账号是否有创建')
+        let gameGroup:TGameGroup = await gameGroupDao.getGameGroupByQuery({id: groupId})
         let account = await gameAccountDao.getGameAccountByNickname(gameId)
         if(!account){
+            console.log('account')
             const newAccount: TGameAccount = {
                 name,
                 nickName: gameId,

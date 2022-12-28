@@ -23,7 +23,7 @@ export const gameRoleDao = {
         let count = await prisma.gameRole.count(
             {
                 where: {
-                    name: gameRole.name
+                    gameId: gameRole.gameId
                 }
             }
         )
@@ -31,6 +31,7 @@ export const gameRoleDao = {
             gameRole.order = 0
             return await prisma.gameRole.create({data: gameRole})
         }else {
+            console.log(gameRole)
             const {id, ...updateData} = gameRole
             if(id) {
                 return await prisma.gameRole.updateMany({
