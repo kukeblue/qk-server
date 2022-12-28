@@ -142,6 +142,7 @@ export type TGameRole = {
     work: string
     status: string
     level?: number
+    order?: number
 }
 
 // *********************** 图片配置 ******************************

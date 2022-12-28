@@ -2,7 +2,16 @@ import prisma from "../../prisma";
 import {TTask, TGameRole, TUser} from "../typing";
 
 export const gameRoleDao = {
-    updateGameRoleStatus: async function (gameId: string, status: string) {
+    updateGameRoleStatus: async function (gameId: string, status: string, order?: number) {
+        const update: any = {
+            status
+        }
+        if(order === 0) {
+            update.order = 0
+        }
+        if(order && order > 0) {
+            update.order = order
+        }
         return await prisma.gameRole.updateMany({
             where: {
                 gameId,

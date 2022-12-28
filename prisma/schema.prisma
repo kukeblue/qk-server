@@ -136,6 +136,7 @@ model GameRole {
   status String
   groupId Int
   level Int
+  order Int
 }
 
 model UnloadDirective {
