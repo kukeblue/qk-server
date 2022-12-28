@@ -93,7 +93,7 @@ router.post('/check_account_and_role', async function (req:Request<any, any, {
 })
 
 // 检查当前挖图角色是否存在
-router.all('/check_account_and_role3', async function (req:Request<any, any, {
+router.all('/check_account_and_role3', async function (req:Request<any, any, any, {
     gameId: string, 
     groupId: number, 
     level: number,
@@ -102,7 +102,7 @@ router.all('/check_account_and_role3', async function (req:Request<any, any, {
 }
 >, res: Response<TResponse<any>> ) {
     const work = "挖图"
-    let {gameId, groupId, name, gameServer}= req.body; 
+    let {gameId, groupId, name, gameServer}= req.query; 
     groupId = Number(groupId)
     let level = Number(req.body.level)
     const role =  await gameRoleDao.getGameRoleByQuery({gameId})
