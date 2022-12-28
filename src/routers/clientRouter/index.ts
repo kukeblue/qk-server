@@ -477,8 +477,8 @@ export type TClinetStartTaskRequest = {
 
 // 更新挖图角色的状态·
 router.all('/update_game_watu_role_status',
-    asyncHandler(async function (req:Request<any, any, {gameId: string, status: string, order?: number}>, res: Response<any> ) {
-        const {gameId, status, order} = req.body
+    asyncHandler(async function (req:Request<any, any, any, {gameId: string, status: string, order?: number}>, res: Response<any> ) {
+        const {gameId, status, order} = req.query
         try {
             await gameRoleDao.updateGameRoleStatus(gameId, status, order)
             res.json( {status: 0})
