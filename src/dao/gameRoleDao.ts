@@ -28,6 +28,7 @@ export const gameRoleDao = {
             }
         )
         if(count === 0) {
+            gameRole.order = 0
             return await prisma.gameRole.create({data: gameRole})
         }else {
             const {id, ...updateData} = gameRole
