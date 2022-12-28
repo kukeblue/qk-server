@@ -104,7 +104,7 @@ router.all('/check_account_and_role3', async function (req:Request<any, any, any
     const work = "挖图"
     let {gameId, groupId, name, gameServer}= req.query; 
     groupId = Number(groupId)
-    let level = Number(req.body.level)
+    let level = Number(req.query.level)
     const role =  await gameRoleDao.getGameRoleByQuery({gameId})
     if(role) {
         if(role.work != work) {
