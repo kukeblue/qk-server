@@ -534,6 +534,23 @@ router.all('/update_game_watu_role_status',
       });
     }
 
+    router.all('/get_one_free_cangku_role',
+    asyncHandler(async function (req:Request<any, any, any, {gameId: string}>, res: Response<any> ) {
+        const {gameId} = req.query
+        let work = '接货'
+        const gameRole = await gameRoleDao.getGameRoleByQuery({gameId})
+        if(!gameRole) {
+            return res.json( {status: -1})
+        }
+        const groupId = gameRole.groupId
+        const targetGameRole = await gameRoleDao.getGameRoleByQuery({groupId, work, status: '空闲'})
+        if(targetGameRole) {
+            res.json( {status: 0, gameId: targetGameRole.gameId})
+        }else {
+            res.json( {status: -1})
+        }
+    }))
+
     router.post('/get_one_free_game_role',
     asyncHandler(async function (req:Request<any, any, {gameId: string, work: string}>, res: Response<any> ) {
         const {gameId, work} = req.body
@@ -566,6 +583,10 @@ router.all('/update_game_watu_role_status',
             res.json( {status: -1})
         }
     }))
+
+
+
+
     router.post('/get_one_by_status',
     asyncHandler(async function (req:Request<any, any, {gameId: string, work: string, status: string}>, res: Response<any> ) {
         const {gameId, work, status} = req.body

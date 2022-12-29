@@ -133,7 +133,7 @@ export type TGameGroup = {
 
 export type TGameRole = {
     id?: number
-    accoutId: number
+    accoutId?: number
     userId: number
     gameServer: string
     name: string
