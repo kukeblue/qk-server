@@ -21,7 +21,8 @@ import {TUnloadDirective} from "../../typing";
 import { userDao } from "../../dao/userDao.js";
 import { vipCardDao } from "../../dao/vipCardDao";
 import { gameRoleMonitorDao } from "../../dao/gameRoleMonitorDao"
-import { encodeToGb2312, decodeFromGb2312 } from "../../utils/codeChange"
+const urlencode = require('urlencode');
+
 
 const router = express.Router()
 
@@ -107,6 +108,8 @@ router.all('/check_account_and_role3', async function (req:Request<any, any, any
     let {gameId, groupId, name, gameServer}= req.query; 
     groupId = Number(groupId)
     let level = Number(req.query.level)
+    name = urlencode.decode(name, 'gbk');
+    gameServer = urlencode.decode(gameServer, 'gbk');
     console.log('check_account_and_role3 name:' + name)
     console.log('check_account_and_role3 gameServer:' + gameServer)
     const role =  await gameRoleDao.getGameRoleByQuery({gameId})
@@ -485,7 +488,7 @@ router.all('/update_game_watu_role_status',
     asyncHandler(async function (req:Request<any, any, any, {gameId: string, status: string, order?: number}>, res: Response<any> ) {
         const {gameId, status, order} = req.query
         try {
-            await gameRoleDao.updateGameRoleStatus(gameId, status, order)
+            await gameRoleDao.updateGameRoleStatus(gameId, '空闲', order)
             res.json( {status: 0})
         }catch(err) {
             res.json( {status: -1})
