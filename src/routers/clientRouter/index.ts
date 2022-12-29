@@ -425,7 +425,6 @@ router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogR
 
         const gameId = req.body.nickName
         const count = req.body.taskCount
-        console.log('get_role_baotu_monitor', gameId, count);
         const gameRoleMonitor: TGameRoleMonitor = {
             date: moment().format('YYYY-MM-DD'),
             userId: gameRole!.userId,
@@ -572,7 +571,6 @@ router.all('/update_game_watu_role_status',
             return res.json( {status: -2})
         }
         const groupId = gameRole.groupId
-        console.log(groupId, work, status)
         const targetGameRole = await gameRoleDao.getGameRoleByQuery({groupId, work, status})
         if(targetGameRole) {
             if(work == '挖图') {
@@ -598,7 +596,6 @@ router.all('/update_game_watu_role_status',
     router.post('/save_role_baotu_monitor',
     asyncHandler(async function (req:Request<any, any, {gameId: string, count:number}>, res: Response<any> ) {
         const {gameId, count} = req.body
-        console.log('get_role_baotu_monitor', gameId, count);
         const gameRole = await gameRoleDao.getGameRoleByQuery({gameId})
         const gameRoleMonitor: TGameRoleMonitor = {
             date: moment().format('YYYY-MM-DD'),
