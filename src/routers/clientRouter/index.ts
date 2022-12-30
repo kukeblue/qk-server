@@ -63,6 +63,12 @@ router.post('/check_account_and_role', async function (req:Request<any, any, {
         let groupId = Number(req.body.groupId)
         let gameGroup:TGameGroup = await gameGroupDao.getGameGroupByQuery({id: groupId})
         let account = await gameAccountDao.getGameAccountByNickname(gameId)
+        if(!gameGroup) {
+            return res.json({
+                data: '分组不存在',
+                status: 1
+            })
+        }
         if(!account){
             const newAccount: TGameAccount = {
                 name: gameId,
@@ -486,9 +492,10 @@ export type TClinetStartTaskRequest = {
 // 更新挖图角色的状态·
 router.all('/update_game_watu_role_status',
     asyncHandler(async function (req:Request<any, any, any, {gameId: string, status: string, order?: number}>, res: Response<any> ) {
-        const {gameId, status, order} = req.query
+        let {gameId, status, order} = req.query
+        status = urlencode.decode(status, 'gbk');
         try {
-            await gameRoleDao.updateGameRoleStatus(gameId, '空闲', order)
+            await gameRoleDao.updateGameRoleStatus(gameId, status, order)
             res.json( {status: 0})
         }catch(err) {
             res.json( {status: -1})
@@ -539,11 +546,13 @@ router.all('/update_game_watu_role_status',
         const {gameId} = req.query
         let work = '接货'
         const gameRole = await gameRoleDao.getGameRoleByQuery({gameId})
+        console.log(gameRole)
         if(!gameRole) {
             return res.json( {status: -1})
         }
         const groupId = gameRole.groupId
         const targetGameRole = await gameRoleDao.getGameRoleByQuery({groupId, work, status: '空闲'})
+        console.log(targetGameRole)
         if(targetGameRole) {
             res.json( {status: 0, gameId: targetGameRole.gameId})
         }else {

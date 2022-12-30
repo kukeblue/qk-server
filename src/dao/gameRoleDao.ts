@@ -82,6 +82,7 @@ export const gameRoleDao = {
         const gameRoles:TGameRole[] = await prisma.gameRole.findMany({
             where: query,
         })
+        console.log(gameRoles)
         if(gameRoles.length > 0) {
             if(gameRoles.length == 1) {
                 return gameRoles[0]

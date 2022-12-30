@@ -3,23 +3,8 @@ import {TTask, TGameGroup, TUser} from "../typing";
 
 export const gameGroupDao = {
     saveGameGroup:  async function (gameGroup: TGameGroup) {
-        let count = await prisma.gameGroup.count(
-            {
-                where: {
-                    name: gameGroup.name
-                }
-            }
-        )
-        if(count === 0) {
-            return await prisma.gameGroup.create({data: gameGroup})
-        }else {
-            return await prisma.gameGroup.updateMany({
-                where: {
-                    id: gameGroup.id,
-                },
-               data: { name: gameGroup.name,  priceConfig: gameGroup.priceConfig},
-            })
-        }
+        return await prisma.gameGroup.create({data: gameGroup})
+        
     },
     getGameGroupPage: async function (pageNo:number, pageSize:number, query={}) {
         const count = await prisma.gameGroup.count({where: query})
