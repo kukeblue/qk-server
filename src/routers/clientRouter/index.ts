@@ -134,6 +134,12 @@ router.all('/check_account_and_role3', async function (req:Request<any, any, any
         console.log('先检查账号是否有创建')
         let gameGroup:TGameGroup = await gameGroupDao.getGameGroupByQuery({id: groupId})
         let account = await gameAccountDao.getGameAccountByNickname(gameId)
+        if(!gameGroup) {
+            return res.json({
+                data: '分组不存在',
+                status: 1
+            })
+        }
         if(!account){
             console.log('account')
             const newAccount: TGameAccount = {
@@ -203,6 +209,12 @@ router.post('/check_account_and_role2', async function (req:Request<any, any, {
         // 先检查账号是否有创建
         let gameGroup:TGameGroup = await gameGroupDao.getGameGroupByQuery({gameServer, userId})
         let account = await gameAccountDao.getGameAccountByNickname(gameId)
+        if(!gameGroup) {
+            return res.json({
+                data: '分组不存在',
+                status: 1
+            })
+        }
         if(!account){
             const newAccount: TGameAccount = {
                 name,
@@ -309,7 +321,6 @@ router.post('/update_unloadDirective_config_by_code',
 router.post('/update_unloadDirective_by_code',
     async function (req:Request<any, any, {code: string}>, res: Response<TResponse<TUnloadDirective>> ) {
         const {code, ...query} = req.body
-        console.log(req.body)
         const old = await unloadDirectiveDao.getUnloadDirectiveByQuery({code})
         // @ts-ignore
         if(!old || (old.status == "忙碌" && query.classifyNo)) {
@@ -546,13 +557,11 @@ router.all('/update_game_watu_role_status',
         const {gameId} = req.query
         let work = '接货'
         const gameRole = await gameRoleDao.getGameRoleByQuery({gameId})
-        console.log(gameRole)
         if(!gameRole) {
             return res.json( {status: -1})
         }
         const groupId = gameRole.groupId
         const targetGameRole = await gameRoleDao.getGameRoleByQuery({groupId, work, status: '空闲'})
-        console.log(targetGameRole)
         if(targetGameRole) {
             res.json( {status: 0, gameId: targetGameRole.gameId})
         }else {

@@ -31,7 +31,6 @@ export const gameRoleDao = {
             gameRole.order = 0
             return await prisma.gameRole.create({data: gameRole})
         }else {
-            console.log(gameRole)
             const {id, ...updateData} = gameRole
             if(id) {
                 return await prisma.gameRole.updateMany({
@@ -82,7 +81,6 @@ export const gameRoleDao = {
         const gameRoles:TGameRole[] = await prisma.gameRole.findMany({
             where: query,
         })
-        console.log(gameRoles)
         if(gameRoles.length > 0) {
             if(gameRoles.length == 1) {
                 return gameRoles[0]
