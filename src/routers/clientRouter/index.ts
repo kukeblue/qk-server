@@ -504,11 +504,12 @@ export type TClinetStartTaskRequest = {
 router.all('/update_game_watu_role_status',
     asyncHandler(async function (req:Request<any, any, any, {gameId: string, status: string, order?: number}>, res: Response<any> ) {
         let {gameId, status, order} = req.query
-        status = urlencode.decode(status, 'gbk');
+        // status = urlencode.decode(status, 'gbk');
         try {
             await gameRoleDao.updateGameRoleStatus(gameId, status, order)
             res.json( {status: 0})
         }catch(err) {
+            console.log(err)
             res.json( {status: -1})
         }
     }))

@@ -10,13 +10,13 @@ export const gameRoleDao = {
             update.order = 0
         }
         if(order && order > 0) {
-            update.order = order
+            update.order = Number(order)
         }
         return await prisma.gameRole.updateMany({
             where: {
                 gameId,
             },
-            data: {status},
+            data: update,
         })
     },
     saveGameRole: async function (gameRole: TGameRole) {
