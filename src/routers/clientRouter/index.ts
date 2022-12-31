@@ -45,8 +45,15 @@ router.post('/check_account_and_role', async function (req:Request<any, any, {
     work: string, 
     groupId: number, level: number}
 >, res: Response<TResponse<any>> ) {
-    let {gameId, work}= req.body;  
-    const role =  await gameRoleDao.getGameRoleByQuery({gameId})
+    let {gameId, work, groupId}= req.body; 
+    let role =  await gameRoleDao.getGameRoleByQuery({gameId})
+    if(role && groupId) {
+        groupId = Number(groupId)
+        if(role.groupId  != groupId){
+            await gameRoleDao.deleteById(role.id!)
+            role = undefined
+        }
+    }
     if(role) {
         if(role.work != work) {
             role.work = work
@@ -118,7 +125,13 @@ router.all('/check_account_and_role3', async function (req:Request<any, any, any
     gameServer = urlencode.decode(gameServer, 'gbk');
     console.log('check_account_and_role3 name:' + name)
     console.log('check_account_and_role3 gameServer:' + gameServer)
-    const role =  await gameRoleDao.getGameRoleByQuery({gameId})
+    let role =  await gameRoleDao.getGameRoleByQuery({gameId})
+    if(role && groupId) {
+        if(role.groupId  != groupId){
+            await gameRoleDao.deleteById(role.id!)
+            role = undefined
+        }
+    }
     if(role) {
         if(role.work != work) {
             role.work = work
