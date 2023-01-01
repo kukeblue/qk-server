@@ -583,9 +583,9 @@ router.all('/update_game_watu_role_status',
         }
     }))
 
-    router.post('/get_one_free_game_role',
-    asyncHandler(async function (req:Request<any, any, {gameId: string, work: string}>, res: Response<any> ) {
+    router.post('/get_one_free_game_role', async function (req:Request<any, any, {gameId: string, work: string}>, res: Response<any> ) {
         const {gameId, work} = req.body
+        try {
         if(work == '挖图') {
             if(roleLock == false) {
                 roleLock = true 
@@ -598,6 +598,9 @@ router.all('/update_game_watu_role_status',
         }
         const gameRole = await gameRoleDao.getGameRoleByQuery({gameId})
         if(!gameRole) {
+            if(work == '挖图') { 
+                roleLock = false 
+            }
             return res.json( {status: -1})
         }
         const groupId = gameRole.groupId
@@ -613,11 +616,14 @@ router.all('/update_game_watu_role_status',
                 roleLock = false 
             }
             res.json( {status: -1})
+        }}catch(err) {
+            console.error(err)
+            if(work == '挖图') { 
+                roleLock = false 
+            }
+            res.json( {status: -2})
         }
-    }))
-
-
-
+    })
 
     router.post('/get_one_by_status',
     asyncHandler(async function (req:Request<any, any, {gameId: string, work: string, status: string}>, res: Response<any> ) {
