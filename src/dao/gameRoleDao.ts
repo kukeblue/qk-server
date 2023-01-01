@@ -3,11 +3,12 @@ import {TTask, TGameRole, TUser} from "../typing";
 
 export const gameRoleDao = {
     updateGameRoleStatus: async function (gameId: string, status: string, order?: number) {
+        console.log(order)
         const update: any = {
             status
         }
-        if(order === 0) {
-            update.order = 0
+        if(order == 0) {
+            update.order = Number(order)
         }
         if(order && order > 0) {
             update.order = Number(order)
