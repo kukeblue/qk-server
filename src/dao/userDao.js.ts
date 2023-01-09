@@ -22,6 +22,27 @@ export const userDao = {
             })
         }
     },
+    updateUser: async function (user: TUser) {
+        const {id, ...data} = user
+        return await prisma.user.updateMany({
+            where: {
+                id,
+            },
+            data,
+        })
+    },
+    getUserPage: async function (pageNo:number, pageSize:number, query={}) {
+        const count = await prisma.user.count({where: query})
+        const list:TUser[] = await prisma.gameRole.findMany({
+            skip: (pageNo-1) * pageSize,
+            take: pageSize,
+            where: query,
+        })
+        return  {
+            total: count,
+            list
+        }
+    },
     getUserByQuery: function (query: {
         username?: string,
     }): Promise<TUser> {
