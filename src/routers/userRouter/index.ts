@@ -26,7 +26,7 @@ router.post('/update_user',
         const data = await userDao.updateUser(user)
         res.json({
             status: 0,
-            page: data
+            data: data
         })
     })
 
@@ -44,7 +44,7 @@ router.post('/save_vip_card',
         })
         res.json({
             status: 0,
-            page: data
+            data: data
         })
     })
 

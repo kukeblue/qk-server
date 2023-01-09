@@ -25,7 +25,7 @@ export const vipCardDao = {
         if(!vipCard.id) {
             return await prisma.vipCard.create({data: vipCard})
         }
-        let count = await prisma.user.count(
+        let count = await prisma.vipCard.count(
             {
                 where: {
                     id: vipCard.id
@@ -36,11 +36,11 @@ export const vipCardDao = {
             return await prisma.vipCard.create({data: vipCard})
         }else {
             const {createdTime, endTime} = vipCard
-            return await prisma.user.updateMany({
+            return await prisma.vipCard.updateMany({
                 where: {
                     id: vipCard.id
                 },
-               data: {createdTime, endTime},
+               data: {createdTime, endTime, level: vipCard.level},
             })
         }
     },
