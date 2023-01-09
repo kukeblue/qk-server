@@ -33,7 +33,7 @@ export const userDao = {
     },
     getUserPage: async function (pageNo:number, pageSize:number, query={}) {
         const count = await prisma.user.count({where: query})
-        const list:TUser[] = await prisma.gameRole.findMany({
+        const list:TUser[] = await prisma.user.findMany({
             skip: (pageNo-1) * pageSize,
             take: pageSize,
             where: query,
