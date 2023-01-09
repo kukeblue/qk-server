@@ -32,8 +32,16 @@ router.post('/update_user',
 
 router.post('/save_vip_card',
     async function (req:Request<any, any, any>  & {loginUser: TUser}, res: Response<TResponse<any>> ) {
-        const vipcard = req.body
-        const data = await vipCardDao.saveVipCard(vipcard)
+        let {level, createdTime, endTime} = req.body
+        level = Number(level)
+        createdTime = Number.parseInt(new Date(createdTime).getTime() / 1000 + '')
+        endTime = Number.parseInt(new Date(endTime).getTime() / 1000 + '')
+        const data = await vipCardDao.saveVipCard({
+            id: req.body.id,
+            level,
+            createdTime,
+            endTime
+        })
         res.json({
             status: 0,
             page: data
