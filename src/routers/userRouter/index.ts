@@ -12,7 +12,7 @@ const jwt = require('jsonwebtoken');
 router.post('/get_user_page',
     async function (req:Request<any, any, any>  & {loginUser: TUser}, res: Response<TResponse<any>> ) {
         const {pageSize, pageNo, query} = req.body
-        query.userId = req.loginUser.id
+        // query.userId = req.loginUser.id
         const data = await userDao.getUserPage(pageNo, pageSize, query)
         res.json({
             status: 0,
