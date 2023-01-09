@@ -43,7 +43,7 @@ router.post('/update_vip_card',
 router.post('/get_vip_card_page',
     async function (req:Request<any, any, any>  & {loginUser: TUser}, res: Response<TResponse<any>> ) {
         const {pageSize, pageNo, query} = req.body
-        const data = await userDao.getUserPage(pageNo, pageSize, query)
+        const data = await vipCardDao.getVipCardPage(pageNo, pageSize, query)
         res.json({
             status: 0,
             page: data
