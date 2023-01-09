@@ -13,12 +13,12 @@ export const userDao = {
         if(count === 0) {
             return await prisma.user.create({data: user})
         }else {
-            const {password, username} = user
+            const {password, username, vipCardId} = user
             return await prisma.user.updateMany({
                 where: {
                     username,
                 },
-               data: {password},
+               data: {password, vipCardId},
             })
         }
     },
