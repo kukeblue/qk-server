@@ -53,6 +53,11 @@ router.post('/get_vip_card_page',
 router.post('/create_user',
     async function (req:Request<any, any, TCreateUserQuery>, res: Response<TResponse<any>> ) {
         const body = req.body
+        if(body.vipCardId) {
+            body.vipCardId = Number(body.vipCardId)
+        }else {
+            body.vipCardId = 0
+        }
         const user = await userDao.saveUser(body)
         if(user) {
             return res.json({
