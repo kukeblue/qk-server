@@ -6,7 +6,7 @@ export const userDao = {
         let count = await prisma.user.count(
             {
                 where: {
-                    date: user.username
+                    username: user.username
                 }
             }
         )
