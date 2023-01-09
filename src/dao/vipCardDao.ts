@@ -21,14 +21,28 @@ export const vipCardDao = {
             list
         }
     },
-    updateVipCard: async function (vipCard: TVipCard) {
-        const {id, ...data} = vipCard
-        return await prisma.user.updateMany({
-            where: {
-                id,
-            },
-            data,
-        })
+    saveVipCard: async function (vipCard: TVipCard) {
+        if(!vipCard.id) {
+            return await prisma.vipCard.create({data: vipCard})
+        }
+        let count = await prisma.user.count(
+            {
+                where: {
+                    id: vipCard.id
+                }
+            }
+        )
+        if(count === 0) {
+            return await prisma.vipCard.create({data: vipCard})
+        }else {
+            const {createdTime, endTime} = vipCard
+            return await prisma.user.updateMany({
+                where: {
+                    id: vipCard.id
+                },
+               data: {createdTime, endTime},
+            })
+        }
     },
 }
 

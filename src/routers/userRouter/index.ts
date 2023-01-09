@@ -30,10 +30,10 @@ router.post('/update_user',
         })
     })
 
-router.post('/update_vip_card',
+router.post('/save_vip_card',
     async function (req:Request<any, any, any>  & {loginUser: TUser}, res: Response<TResponse<any>> ) {
         const vipcard = req.body
-        const data = await vipCardDao.updateVipCard(vipcard)
+        const data = await vipCardDao.saveVipCard(vipcard)
         res.json({
             status: 0,
             page: data
