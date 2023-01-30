@@ -45,6 +45,7 @@ export const gameRoleDao = {
     },
     
     getGameRolePage: async function (pageNo:number, pageSize:number, query={}) {
+        console.log(JSON.stringify(query))
         const count = await prisma.gameRole.count({where: query})
         const list:TGameRole[] = await prisma.gameRole.findMany({
             skip: (pageNo-1) * pageSize,
@@ -78,6 +79,7 @@ export const gameRoleDao = {
         work?: string,
         status?: string,
     }): Promise<TGameRole | undefined> {
+        console.loh(`getGameRoleByQuery query`, JSON.stringify(query))
         const gameRoles:TGameRole[] = await prisma.gameRole.findMany({
             where: query,
         })
