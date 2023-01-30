@@ -123,7 +123,7 @@ router.all('/check_account_and_role3', async function (req:Request<any, any, any
     groupId = Number(groupId)
     let level = Number(req.query.level)
     name = urlencode.decode(name, 'gbk');
-    console.log('check_account_and_role3 name:' + name)
+    console.log('check_account_and_role3 name:' + name + '-' + gameId)
     let role =  await gameRoleDao.getGameRoleByQuery({gameId})
     if(role && groupId) {
         if(role.groupId  != groupId){
