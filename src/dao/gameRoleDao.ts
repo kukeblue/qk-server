@@ -79,7 +79,7 @@ export const gameRoleDao = {
         work?: string,
         status?: string,
     }): Promise<TGameRole | undefined> {
-        console.loh(`getGameRoleByQuery query`, JSON.stringify(query))
+        console.log(`getGameRoleByQuery query`, JSON.stringify(query))
         const gameRoles:TGameRole[] = await prisma.gameRole.findMany({
             where: query,
         })
