@@ -54,11 +54,33 @@ router.post('/build_report_day_summary', async function (req:Request & {loginUse
     let totalTaskCount = 0
     let totalExpend = 0
     let totalProfit = 0
+    const gameIdMap = {
+
+    }
     reports.forEach(item=>{
         totalIncome = totalIncome +  (item.income || 0)
         totalExpend = totalExpend + (item.expend || 0)
         totalTaskCount = totalTaskCount + (item.taskCount || 0)
         totalProfit = totalProfit + (item.profit || 0)
+        // @ts-ignore
+        if(gameIdMap[item.gameId!]) {
+            // @ts-ignore
+            const gameReport = gameIdMap[item.gameId!] 
+            gameReport.totalIncome = gameReport.totalIncome +  (item.income || 0)
+            gameReport.totalExpend = gameReport.totalExpend + (item.expend || 0)
+            gameReport.totalTaskCount = gameReport.totalTaskCount + (item.taskCount || 0)
+            gameReport.totalProfit = gameReport.totalProfit + (item.profit || 0)
+
+        }else {
+            // @ts-ignore
+            gameIdMap[item.gameId!] = {
+                totalIncome: item.income || 0,
+                totalExpend: item.expend || 0,
+                totalTaskCount: item.taskCount || 0,
+                totalProfit: item.profit || 0
+            }
+        }
+
     })
     let heji = await reportDao.getReportByQuery({
         date,
@@ -68,6 +90,35 @@ router.post('/build_report_day_summary', async function (req:Request & {loginUse
     if(heji) {
         await reportDao.deleteById(heji.id!)
     }
+
+    Object.keys(gameIdMap).map(async gameId=>{
+        let heji = await reportDao.getReportByQuery({
+            date,
+            userId: req.loginUser.id,
+            note: '合计-' + gameId
+        })
+        if(heji) {
+            await reportDao.deleteById(heji.id!)
+        }
+    })
+
+    Object.keys(gameIdMap).map(async (gameId)=>{
+        // @ts-ignore
+        const gameReport = gameIdMap[gameId];
+        await reportDao.saveReport({
+            type: 'day',
+            time: Number.parseInt((new Date(today).getTime() / 1000).toFixed(0)) - 1,
+            date,
+            income: gameReport.totalIncome,
+            expend: gameReport.totalExpend,
+            taskCount: gameReport.totalTaskCount,
+            gameId,
+            groupId: -1,
+            note: '合计-' + gameId,
+            userId: req.loginUser.id,
+            profit: gameReport.totalProfit,
+        })
+    })
     
     await reportDao.saveReport({
         type: 'day',
