@@ -585,44 +585,45 @@ router.all('/update_game_watu_role_status',
     router.post('/get_one_free_game_role', async function (req:Request<any, any, {gameId: string, work: string}>, res: Response<any> ) {
         const {gameId, work} = req.body
         try {
-        if(work == '挖图') {
-            if(roleLock == false) {
-                roleLock = true 
-            }else {
-                while(roleLock) {
-                    await sleep(50)
+            if(work == '挖图') {
+                if(roleLock == false) {
+                    roleLock = true 
+                }else {
+                    while(roleLock) {
+                        await sleep(50)
+                    }
+                    roleLock = true 
                 }
-                roleLock = true 
             }
-        }
-        const gameRole = await gameRoleDao.getGameRoleByQuery({gameId})
-        if(!gameRole) {
-            if(work == '挖图') { 
-                roleLock = false 
+            const gameRole = await gameRoleDao.getGameRoleByQuery({gameId})
+            if(!gameRole) {
+                if(work == '挖图') { 
+                    roleLock = false 
+                }
+                return res.json( {status: -1})
             }
-            return res.json( {status: -1})
-        }
-        const groupId = gameRole.groupId
-        const targetGameRole = await gameRoleDao.getGameRoleByQuery({groupId, work, status: '空闲'})
-        if(targetGameRole) {
-            if(work == '挖图') {
-                await gameRoleDao.updateGameRoleStatus(targetGameRole.gameId, '忙碌')
-                roleLock = false 
+            const groupId = gameRole.groupId
+            const targetGameRole = await gameRoleDao.getGameRoleByQuery({groupId, work, status: '空闲'})
+            if(targetGameRole) {
+                if(work == '挖图') {
+                    await gameRoleDao.updateGameRoleStatus(targetGameRole.gameId, '忙碌')
+                    roleLock = false 
+                }
+                res.json( {status: 0, data: targetGameRole, gameId: targetGameRole.gameId, order: targetGameRole.order})
+            }else {
+                if(work == '挖图') {
+                    roleLock = false 
+                }
+                res.json( {status: -1})
             }
-            res.json( {status: 0, data: targetGameRole, gameId: targetGameRole.gameId, order: targetGameRole.order})
-        }else {
-            if(work == '挖图') {
-                roleLock = false 
+        }catch(err) {
+                console.error(err)
+                if(work == '挖图') { 
+                    roleLock = false 
+                }
+                res.json( {status: -2})
             }
-            res.json( {status: -1})
-        }}catch(err) {
-            console.error(err)
-            if(work == '挖图') { 
-                roleLock = false 
-            }
-            res.json( {status: -2})
-        }
-    })
+        })
 
     router.post('/get_one_by_status',
     asyncHandler(async function (req:Request<any, any, {gameId: string, work: string, status: string}>, res: Response<any> ) {
