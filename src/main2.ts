@@ -109,7 +109,7 @@ app.use(function(err:any, req:Request, res:Response, next: any) {
     });
 });
 
-app.listen(3000, '0.0.0.1', async () => {
+app.listen(3001, '0.0.0.0', async () => {
     initTouchService()
     initTimer()
     console.log(`Example app listening at http://localhost:${3001}`)
