@@ -9,6 +9,7 @@
         "dev": "ts-node src/main.ts",
         "test": "echo \"Error: no test specified\" && exit 1",
         "server": "sudo pm2 start ts-node src/main.ts --interpreter ./node_modules/.bin/ts-node",
+        "server2": "sudo pm2 start ts-node src/main2.ts --interpreter ./node_modules/.bin/ts-node",
         "deploy": "sh deploy.sh"
     },
     "keywords": [],
