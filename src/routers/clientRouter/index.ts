@@ -603,7 +603,9 @@ router.all('/update_game_watu_role_status',
                 return res.json( {status: -1})
             }
             const groupId = gameRole.groupId
-            const targetGameRole = await gameRoleDao.getGameRoleByQuery({groupId, work, status: '空闲'})
+            const userId = gameRole.userId
+
+            const targetGameRole = await gameRoleDao.getGameRoleByQuery({userId: userId, groupId, work, status: '空闲'})
             if(targetGameRole) {
                 if(work == '挖图') {
                     await gameRoleDao.updateGameRoleStatus(targetGameRole.gameId, '忙碌')
