@@ -65,7 +65,7 @@ router.post('/get_game_role_options', async function (req:Request<{groupId: numb
 router.post('/get_game_role_page', async function (req:Request<{}> & {loginUser: TUser}, res: Response<TResponse<any>> ) {
     const {pageSize, pageNo, query} = req.body
     query.userId = req.loginUser.id
-    const pagination = await gameRoleDao.getGameRolePage(pageNo, 500, query)
+    const pagination = await gameRoleDao.getGameRolePage(pageNo, 2000, query)
     return res.json({
         status: 0,
         page: pagination
