@@ -44,7 +44,7 @@ router.post('/get_game_group_list', async function (req:Request<{type: string}> 
 router.post('/get_game_group_page', async function (req:Request<{id: number}> & {loginUser: TUser}, res: Response<TResponse<TGameGroup>> ) {
     const {pageSize, pageNo, query} = req.body
     query.userId = req.loginUser.id
-    const count = await prisma.device.count({where: query})
+    const count = await prisma.gameGroup.count({where: query})
     const list:TGameGroup[] = await prisma.gameGroup.findMany({
         skip: (pageNo-1) * pageSize,
         take: pageSize,
