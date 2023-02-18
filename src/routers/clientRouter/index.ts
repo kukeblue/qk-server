@@ -372,9 +372,10 @@ router.post('/save_unloadDirective',
         })
     })
 
-router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogRequest}>, res:Response<TResponse<TTaskLog>>) {
+router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogRequest}>, res:Response<TResponse<any>>) {
     // const taskNo = req.body.taskNo
     // const task = await taskDao.getTaskByTaskNo(taskNo)
+    let gameRoleMonitorNew:any = {}
     req.body.time = Number.parseInt((new Date().getTime() / 1000).toFixed(0))
     req.body.taskCount = Number(req.body.taskCount)
     if(req.body.type == 'profit') {
@@ -433,10 +434,9 @@ router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogR
             lastIncome: Number.parseInt((income || 0) + ""),
             lastTime: Number.parseInt((new Date().getTime() / 1000).toFixed(0))
         }
-        await gameRoleMonitorDao.saveGameRoleMonitor(gameRoleMonitor)
+        gameRoleMonitorNew = await gameRoleMonitorDao.saveGameRoleMonitor(gameRoleMonitor)
     }
     if(req.body.type == 'watuScan') {
-
         const gameRole = await gameRoleDao.getGameRoleByQuery({gameId: req.body.nickName})
         if(!gameRole) {
             return res.status(401).json({
@@ -495,7 +495,10 @@ router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogR
         
         return res.json({
             status: 0,
-            data: taskLog,
+            data: {
+                taskLog,
+                monitor: gameRoleMonitorNew,
+            } ,
         })
     }
     return res.json({

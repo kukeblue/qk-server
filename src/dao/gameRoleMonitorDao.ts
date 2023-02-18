@@ -28,12 +28,13 @@ export const gameRoleMonitorDao = {
                 updateData.baotuCount = updateData.baotuCount + oldGameRoleMonitor.baotuCount
                 updateData.lastIncome = updateData.lastIncome + oldGameRoleMonitor.lastIncome
             }
-            return await prisma.gameRoleMonitor.updateMany({
+            await prisma.gameRoleMonitor.updateMany({
                 where: {
                     id: oldGameRoleMonitor.id,
                 },
                 data: updateData,
             })
+            return {...updateData, id: oldGameRoleMonitor.id}
         }
     },
 
