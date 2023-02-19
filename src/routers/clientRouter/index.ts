@@ -354,7 +354,7 @@ router.post('/update_unloadDirective_by_code',
 })
 
 router.post('/save_unloadDirective',
-    async function (req:Request<any, any, TCreateUnloadDirectiveRequest>, res: Response<any> ) {
+    async function (req:Request<any, any, TCreateUnloadDirectiveRequest>, res: Response<TResponse<TUnloadDirective>> ) {
          const body = req.body
         body.createTime = Number.parseInt((new Date().getTime() / 1000).toFixed(0))
         body.code = getRandomString(6);
@@ -499,7 +499,6 @@ router.post('/add_task_log', async function (req: Request<{ReqBody: TAddTaskLogR
                 taskLog,
                 monitor: gameRoleMonitorNew,
             },
-            baotuCount: gameRoleMonitorNew.baotuCount
         })
     }
     return res.json({
