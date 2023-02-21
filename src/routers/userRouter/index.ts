@@ -11,8 +11,8 @@ const jwt = require('jsonwebtoken');
 
 router.post('/get_user_page',
     async function (req:Request<any, any, any>  & {loginUser: TUser}, res: Response<TResponse<any>> ) {
-        if(req.loginUser.vipCard?.id != 1) {
-            res.json({
+        if(req.loginUser.vipCardId != 1) {
+            return res.json({
                 status: 1003,
                 message: '没有权限'
             })
@@ -28,8 +28,8 @@ router.post('/get_user_page',
 
 router.post('/update_user',
     async function (req:Request<any, any, any>  & {loginUser: TUser}, res: Response<TResponse<any>> ) {
-        if(req.loginUser.vipCard?.id != 1) {
-            res.json({
+        if(req.loginUser.vipCardId != 1) {
+            return res.json({
                 status: 1003,
                 message: '没有权限'
             })
@@ -44,8 +44,8 @@ router.post('/update_user',
 
 router.post('/save_vip_card',
     async function (req:Request<any, any, any>  & {loginUser: TUser}, res: Response<TResponse<any>> ) {
-        if(req.loginUser.vipCard?.id != 1) {
-            res.json({
+        if(req.loginUser.vipCardId != 1) {
+            return res.json({
                 status: 1003,
                 message: '没有权限'
             })
@@ -69,7 +69,7 @@ router.post('/save_vip_card',
 router.post('/get_vip_card_page',
     async function (req:Request<any, any, any>  & {loginUser: TUser}, res: Response<TResponse<any>> ) {
         if(req.loginUser.vipCard?.id != 1) {
-            res.json({
+            return res.json({
                 status: 0,
                 page: {
                     list:[],
@@ -87,8 +87,8 @@ router.post('/get_vip_card_page',
 
 router.post('/create_user',
     async function (req:Request<any, any, TCreateUserQuery>  & {loginUser: TUser}, res: Response<TResponse<any>> ) {
-        if(req.loginUser.vipCard?.id != 1) {
-            res.json({
+        if(req.loginUser.vipCardId != 1) {
+            return res.json({
                 status: 1003,
                 message: '没有权限'
             })
