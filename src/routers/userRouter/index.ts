@@ -11,6 +11,12 @@ const jwt = require('jsonwebtoken');
 
 router.post('/get_user_page',
     async function (req:Request<any, any, any>  & {loginUser: TUser}, res: Response<TResponse<any>> ) {
+        if(req.loginUser.vipCard?.id != 1) {
+            res.json({
+                status: 1003,
+                message: '没有权限'
+            })
+        }
         const {pageSize, pageNo, query} = req.body
         // query.userId = req.loginUser.id
         const data = await userDao.getUserPage(pageNo, pageSize, query)
@@ -22,6 +28,12 @@ router.post('/get_user_page',
 
 router.post('/update_user',
     async function (req:Request<any, any, any>  & {loginUser: TUser}, res: Response<TResponse<any>> ) {
+        if(req.loginUser.vipCard?.id != 1) {
+            res.json({
+                status: 1003,
+                message: '没有权限'
+            })
+        }
         const user = req.body
         const data = await userDao.updateUser(user)
         res.json({
@@ -32,6 +44,12 @@ router.post('/update_user',
 
 router.post('/save_vip_card',
     async function (req:Request<any, any, any>  & {loginUser: TUser}, res: Response<TResponse<any>> ) {
+        if(req.loginUser.vipCard?.id != 1) {
+            res.json({
+                status: 1003,
+                message: '没有权限'
+            })
+        }
         let {level, createdTime, endTime} = req.body
         level = Number(level)
         createdTime = Number.parseInt(new Date(createdTime).getTime() / 1000 + '')
@@ -50,6 +68,15 @@ router.post('/save_vip_card',
 
 router.post('/get_vip_card_page',
     async function (req:Request<any, any, any>  & {loginUser: TUser}, res: Response<TResponse<any>> ) {
+        if(req.loginUser.vipCard?.id != 1) {
+            res.json({
+                status: 0,
+                page: {
+                    list:[],
+                    total: 0,
+                },
+            })
+        }
         const {pageSize, pageNo, query} = req.body
         const data = await vipCardDao.getVipCardPage(pageNo, pageSize, query)
         res.json({
@@ -59,7 +86,14 @@ router.post('/get_vip_card_page',
     })
 
 router.post('/create_user',
-    async function (req:Request<any, any, TCreateUserQuery>, res: Response<TResponse<any>> ) {
+    async function (req:Request<any, any, TCreateUserQuery>  & {loginUser: TUser}, res: Response<TResponse<any>> ) {
+        if(req.loginUser.vipCard?.id != 1) {
+            res.json({
+                status: 1003,
+                message: '没有权限'
+            })
+        }
+
         const body = req.body
         if(body.vipCardId) {
             body.vipCardId = Number(body.vipCardId)
