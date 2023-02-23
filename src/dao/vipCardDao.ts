@@ -10,7 +10,7 @@ export const vipCardDao = {
         })
     },
     getVipCardPage: async function (pageNo:number, pageSize:number, query={}) {
-        const count = await prisma.user.count({where: query})
+        const count = await prisma.vipCard.count({where: query})
         const list:TVipCard[] = await prisma.vipCard.findMany({
             skip: (pageNo-1) * pageSize,
             take: pageSize,
