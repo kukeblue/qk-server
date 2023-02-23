@@ -68,7 +68,7 @@ router.post('/save_vip_card',
 
 router.post('/get_vip_card_page',
     async function (req:Request<any, any, any>  & {loginUser: TUser}, res: Response<TResponse<any>> ) {
-        if(req.loginUser.vipCard?.id != 1) {
+        if(req.loginUser.vipCardId != 1) {
             return res.json({
                 status: 0,
                 page: {
