@@ -585,10 +585,58 @@ router.all('/update_game_watu_role_status',
         }
     }))
 
+
+    let fatuRoleLock = false
+
+    router.post('/get_one_free_game_fatu_role', async function (req:Request<any, any, {gameId: string, work: string}>, res: Response<any> ) {
+        const {gameId, work} = req.body
+        try {
+            if(work == '发图' ) {
+                if(fatuRoleLock == false) {
+                    fatuRoleLock = true 
+                }else {
+                    while(fatuRoleLock) {
+                        await sleep(50)
+                    }
+                    fatuRoleLock = true 
+                }
+            }
+            const gameRole = await gameRoleDao.getGameRoleByQuery({gameId})
+            if(!gameRole) {
+                if(work == '发图') { 
+                    fatuRoleLock = false 
+                }
+                return res.json( {status: -1})
+            }
+            const groupId = gameRole.groupId
+            const userId = gameRole.userId
+
+            const targetGameRole = await gameRoleDao.getGameRoleByQuery({userId: userId, groupId, work, status: '空闲'})
+            if(targetGameRole) {
+                if(work == '发图') {
+                    await gameRoleDao.updateGameRoleStatus(targetGameRole.gameId, '忙碌')
+                    fatuRoleLock = false 
+                }
+                res.json( {status: 0, data: targetGameRole, gameId: targetGameRole.gameId, order: targetGameRole.order})
+            }else {
+                if(work == '发图') {
+                    fatuRoleLock = false 
+                }
+                res.json( {status: -1})
+            }
+        }catch(err) {
+                console.error(err)
+                if(work == '发图') { 
+                    fatuRoleLock = false 
+                }
+                res.json( {status: -2})
+            }
+        })
+
     router.post('/get_one_free_game_role', async function (req:Request<any, any, {gameId: string, work: string}>, res: Response<any> ) {
         const {gameId, work} = req.body
         try {
-            if(work == '挖图') {
+            if(work == '挖图' ) {
                 if(roleLock == false) {
                     roleLock = true 
                 }else {
