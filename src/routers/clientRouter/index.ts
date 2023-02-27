@@ -617,7 +617,7 @@ router.all('/update_game_watu_role_status',
                     await gameRoleDao.updateGameRoleStatus(targetGameRole.gameId, '忙碌')
                     fatuRoleLock = false 
                 }
-                res.json( {status: 0, data: targetGameRole, gameId: targetGameRole.gameId, order: targetGameRole.order})
+                return res.json( {status: 0, data: targetGameRole, gameId: targetGameRole.gameId, order: targetGameRole.order})
             }else {
                 if(work == '发图') {
                     fatuRoleLock = false 
