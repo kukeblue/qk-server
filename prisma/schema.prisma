@@ -101,6 +101,7 @@ model VipCard {
   level      Int
   createdTime   Int
   endTime  Int
+  type Int
 }
 
 model ConfigImage {

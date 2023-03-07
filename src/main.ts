@@ -29,9 +29,8 @@ import {NextFunction} from "express/ts4.0";
 import {TUser} from "./typing";
 import {jwtSecretKey} from "./config";
 import { vipCardDao } from "./dao/vipCardDao";
-
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(express.urlencoded({limit: '50mb', extended: false }));
+app.use(bodyParser.json({limit: '50mb'}))
 // token验证中间件
 app.use(async function(req: Request & {loginUser: TUser},res:Response,next:NextFunction){
     if(req.url.includes('api') && !req.url.includes('login') && !req.url.includes('client')) {

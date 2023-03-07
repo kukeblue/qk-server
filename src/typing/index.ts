@@ -113,6 +113,7 @@ export type TVipCard = {
     level: number
     createdTime:number
     endTime:  number
+    type?: number
 }
 
 export type TUser = {
