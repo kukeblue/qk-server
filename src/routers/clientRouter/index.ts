@@ -209,7 +209,7 @@ router.post('/check_account_and_role2', async function (req:Request<any, any, {
     const work = "挖图"
     let {gameId, userId, name, gameServer}= req.body; 
     userId = Number(userId)
-    let level = Number(req.body.level)
+    let level = isNaN(Number(req.body.level)) ? 60 : Number(req.body.level)
     const role =  await gameRoleDao.getGameRoleByQuery({gameId})
     if(role) {
         if(role.work != work) {
