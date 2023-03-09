@@ -55,6 +55,7 @@ router.post('/save_vip_card',
         createdTime = Number.parseInt(new Date(createdTime).getTime() / 1000 + '')
         endTime = Number.parseInt(new Date(endTime).getTime() / 1000 + '')
         const data = await vipCardDao.saveVipCard({
+            type: 1,
             id: req.body.id,
             level,
             createdTime,
