@@ -204,15 +204,29 @@ router.post('/check_account_and_role2', async function (req:Request<any, any, {
     level: number,
     name: string,
     gameServer: string,
+    work: string,
 }
 >, res: Response<TResponse<any>> ) {
-    const work = "挖图"
-    let {gameId, userId, name, gameServer}= req.body; 
+    let {gameId, userId, name, gameServer, work}= req.body; 
+    if(!work) {
+        work = "挖图"
+    }
     userId = Number(userId)
     let level = isNaN(Number(req.body.level)) ? 60 : Number(req.body.level)
     const role =  await gameRoleDao.getGameRoleByQuery({gameId})
+    const user = await userDao.getUserById(userId)
     if(role) {
         if(role.work != work) {
+            // 验证挖图位
+            if(work == '挖图') {
+                const list = await gameRoleDao.getGameRoleByQueryCount({work: '挖图' ,userId: user.id})
+                const count = list.length
+                const vipCard = await vipCardDao.getVipCardByQuery({id: user.vipCardId!})
+                if((count == vipCard.level || count > vipCard.level)) {
+                return  res.json( {status: 1, message: '请联系管理员升级会员等级'})
+                }
+            }
+            
             role.work = work
             await gameRoleDao.saveGameRole(role)
         }
@@ -255,12 +269,20 @@ router.post('/check_account_and_role2', async function (req:Request<any, any, {
             status: '离线',
             level,
         }
-        const user = await userDao.getUserById(userId)
-        const list = await gameRoleDao.getGameRoleByQueryCount({work: '挖图' ,userId: user.id})
-        const count = list.length
-        const vipCard = await vipCardDao.getVipCardByQuery({id: user.vipCardId!})
-        if((count == vipCard.level || count > vipCard.level)) {
-            res.json( {status: 1, message: '请联系管理员升级会员等级'})
+       
+        if(role == '挖图') {
+            const list = await gameRoleDao.getGameRoleByQueryCount({work: '挖图' ,userId: user.id})
+            const count = list.length
+            const vipCard = await vipCardDao.getVipCardByQuery({id: user.vipCardId!})
+            if((count == vipCard.level || count > vipCard.level)) {
+                res.json( {status: 1, message: '请联系管理员升级会员等级'})
+            }else {
+                const role = await gameRoleDao.saveGameRole(newRole)
+                return res.json({
+                    data:role,
+                    status: 0
+                })
+            }
         }else {
             const role = await gameRoleDao.saveGameRole(newRole)
             return res.json({
