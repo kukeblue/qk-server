@@ -157,7 +157,6 @@ router.all('/check_account_and_role3', async function (req:Request<any, any, any
             })
         }
         if(!account){
-            console.log('account')
             const newAccount: TGameAccount = {
                 name,
                 nickName: gameId,
@@ -270,7 +269,7 @@ router.post('/check_account_and_role2', async function (req:Request<any, any, {
             level,
         }
        
-        if(role == '挖图') {
+        if(work == '挖图') {
             const list = await gameRoleDao.getGameRoleByQueryCount({work: '挖图' ,userId: user.id})
             const count = list.length
             const vipCard = await vipCardDao.getVipCardByQuery({id: user.vipCardId!})
@@ -389,8 +388,7 @@ router.post('/save_unloadDirective',
         body.totalPrice = 0
         body.config = ''
         body.targetId = ''
-        body.classifyNo = '',
-        console.log(body)
+        body.classifyNo = ''
         const unloadDirective = await unloadDirectiveDao.saveUnloadDirective(body)
         return res.json({
             data:unloadDirective,
@@ -779,7 +777,6 @@ asyncHandler(async function (req:Request<any, any, {img: string}>, res: Response
             options: { filename: 'file.jpg', contentType: 'null' } } } };
         request(options, function (error:any, response:any, body:any) {
             if (error) throw new Error(error);
-            console.log(body)
             try {
                 res.json( JSON.parse(body))
             }catch(error) {
